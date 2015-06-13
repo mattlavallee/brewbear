@@ -1,9 +1,14 @@
-var express = require('express');
-var router = express.Router();
+(function() {
+    'use strict';
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+    var express = require('express');
+    var router = express.Router();
+    var path = require('path');
 
-module.exports = router;
+    /* GET home page. */
+    router.get('/', function(req, res) {
+        res.sendFile(path.join(__dirname, '../views', 'index.html'));
+    });
+
+    module.exports = router;
+})();
