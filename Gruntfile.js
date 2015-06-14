@@ -34,7 +34,8 @@ module.exports = function(grunt) {
                     module: true,
                     document: true,
                     require: true,
-                    __dirname: true
+                    __dirname: true,
+                    process: true
                 },
                 camelcase: true, //use camelCase,
                 eqeqeq: true, //prohibit == and != in favor of !== and ===
