@@ -28,11 +28,6 @@
         }
     ));
 
-    //GET users listing
-    router.get('/', function(req, res) {
-        res.send('respond with a resource');
-    });
-
     //GET Google login entry point
     router.get('/google', passport.authenticate('google',
         { scope: ['https://www.googleapis.com/auth/plus.login'] }));

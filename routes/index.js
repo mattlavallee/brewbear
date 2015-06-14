@@ -4,10 +4,13 @@
     var express = require('express');
     var router = express.Router();
     var path = require('path');
+    var userAuth = require('./helpers/authentication');
 
     /* GET home page. */
     router.get('/', function(req, res) {
-        res.sendFile(path.join(__dirname, '../views', 'index.html'));
+        if (userAuth.userValidated(req, res, false)) {
+            res.sendFile(path.join(__dirname, '../views', 'index.html'));
+        }
     });
 
     module.exports = router;
