@@ -6,7 +6,8 @@
     var router = express.Router();
     //authentication modules
     var passport = require('passport'),
-        GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+        GoogleStrategy = require('passport-google-oauth').OAuth2Strategy,
+        FacebookStrategy = require('passport-facebook').Strategy;
 
     passport.serializeUser(function(user, done) {
         done(null, user);
@@ -28,6 +29,18 @@
         }
     ));
 
+    passport.use(new FacebookStrategy({
+            clientID: configVals.facebook.clientId,
+            clientSecret: configVals.facebook.clientSecret,
+            callbackURL: configVals.facebook.callback
+        },
+        function(accessToken, refreshToken, profile, done) {
+            process.nextTick(function() {
+                return done(null, profile);
+            });
+        }
+    ));
+
     //GET Google login entry point
     router.get('/google', passport.authenticate('google',
         { scope: ['https://www.googleapis.com/auth/plus.login'] }));
@@ -35,9 +48,18 @@
     router.get('/google/return',
         passport.authenticate('google', { failureRedirect: '/' }),
             function(req, res) {
-                // Successful authentication, redirect home.
+                // Successful authentication, redirect to auth home.
                 res.redirect('/my/beers');
             });
+
+    router.get('/facebook', passport.authenticate('facebook'));
+
+    router.get('/facebook/return',
+        passport.authenticate('facebook', {failureRedirect: '/'}),
+        function(req, res) {
+            //Successful authentication, redirect to auth home
+            res.redirect('/my/beers');
+        });
 
     router.get('/logout', function(req, res) {
         req.logout();
