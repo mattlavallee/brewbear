@@ -2,13 +2,21 @@
     'use strict';
     var express = require('express');
     var path = require('path');
+    var passport = require('passport');
     //var favicon = require('serve-favicon');
     var logger = require('morgan');
     var cookieParser = require('cookie-parser');
     var bodyParser = require('body-parser');
+    var expressSession = require('express-session');
+    var uuid = require('uuid');
 
     var routes = require('./routes/index');
     var users = require('./routes/users');
+    var logins = require('./routes/login');
+    var beersHome = require('./routes/private/beers');
+
+    //Load configurations
+    var configVals = require('./config/configuration');
 
     var app = express();
 
@@ -23,9 +31,23 @@
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(cookieParser());
     app.use(express.static(path.join(__dirname, 'public')));
+    app.use(expressSession({
+        genid: function() {
+            return uuid.v4(); // use UUIDs for session ID
+        },
+        secret: configVals.sessionSecret,
+        resave: false,
+        saveUninitialized: false
+    }));
+    //Time to initalize passport!
+    //Using passport.session() for persistent login sessions
+    app.use(passport.initialize());
+    app.use(passport.session());
 
     app.use('/', routes);
     app.use('/users', users);
+    app.use('/login', logins);
+    app.use('/my', beersHome);
 
     // catch 404 and forward to error handler
     app.use(function(req, res, next) {
