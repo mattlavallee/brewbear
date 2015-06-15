@@ -3,13 +3,15 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         concat: {
-            options: {
-                separator: ';'
+            libs: {
+                src: ['bower_components/jquery/dist/jquery.min.js',
+                      'bower_components/angular/angular.min.js'],
+                dest: 'public/js/<%= pkg.name %>-libs.js'
             },
             dist: {
-                src: ['app.js', 'public/**/*.js', 'routes/**/*.js',
+                src: ['app.js', 'public/javascripts/*.js', 'routes/**/*.js',
                     'views/**/*.js'],
-                dest: 'dist/<%= pkg.name %>.js'
+                dest: 'public/js/<%= pkg.name %>.js'
             }
         },
         uglify: {
@@ -19,12 +21,13 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
-                    'dist/<%= pkg.name %>.min.js': ['<%= concat.dist.dest %>']
+                    'public/js/<%= pkg.name %>.min.js':
+                        ['<%= concat.dist.dest %>']
                 }
             }
         },
         jshint: {
-            files: ['Gruntfile.js', 'app.js', 'public/**/*.js',
+            files: ['Gruntfile.js', 'app.js', 'public/javascripts/*.js',
                 'routes/**/*.js', 'views/**/*.js', 'test/**/*.js'],
             options: {
                 // options here to override JSHint defaults
@@ -50,7 +53,7 @@ module.exports = function(grunt) {
             }
         },
         jscs: {
-            files: ['Gruntfile.js', 'app.js', 'public/**/*.js',
+            files: ['Gruntfile.js', 'app.js', 'public/javascripts/*.js',
                 'routes/**/*.js', 'views/**/*.js', 'test/**/*.js'],
             options: {
                 config: '.jscsrc'
