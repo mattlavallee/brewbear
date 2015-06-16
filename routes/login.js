@@ -32,7 +32,8 @@
     passport.use(new FacebookStrategy({
             clientID: configVals.facebook.clientId,
             clientSecret: configVals.facebook.clientSecret,
-            callbackURL: configVals.facebook.callback
+            callbackURL: configVals.facebook.callback,
+            profileFields: ['id', 'displayName', 'about', 'emails']
         },
         function(accessToken, refreshToken, profile, done) {
             process.nextTick(function() {
@@ -43,7 +44,8 @@
 
     //GET Google login entry point
     router.get('/google', passport.authenticate('google',
-        { scope: ['https://www.googleapis.com/auth/plus.login'] }));
+        { scope: ['https://www.googleapis.com/auth/plus.profile.emails.read'] }
+        ));
 
     router.get('/google/return',
         passport.authenticate('google', { failureRedirect: '/' }),
