@@ -2,6 +2,7 @@
     'use strict';
 
     var configVals = require('../config/configuration');
+    var User = require('../models/user');
     var express = require('express');
     var router = express.Router();
     //authentication modules
@@ -10,7 +11,9 @@
         FacebookStrategy = require('passport-facebook').Strategy;
 
     passport.serializeUser(function(user, done) {
-        done(null, user);
+        User.insert(user).then(function() {
+            done(null, user);
+        });
     });
 
     passport.deserializeUser(function(obj, done) {
@@ -24,6 +27,10 @@
         },
         function(token, tokenSecret, profile, done) {
             process.nextTick(function() {
+                /*console.log(profile.id);
+                console.log(profile.displayName);
+                console.log(profile.emails[0].value);
+                console.log(profile.photos[0].value);*/
                 return done(null, profile);
             });
         }
@@ -45,7 +52,7 @@
     //GET Google login entry point
     router.get('/google', passport.authenticate('google',
         { scope: ['https://www.googleapis.com/auth/plus.profile.emails.read'] }
-        ));
+    ));
 
     router.get('/google/return',
         passport.authenticate('google', { failureRedirect: '/' }),
