@@ -4,3 +4,5 @@ dist/
 .settings/
 config/configuration.js
 public/js/
+public/stylesheets
+public/fonts

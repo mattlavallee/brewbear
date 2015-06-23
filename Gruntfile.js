@@ -8,10 +8,36 @@ module.exports = function(grunt) {
                       'bower_components/angular/angular.min.js'],
                 dest: 'public/js/<%= pkg.name %>-libs.js'
             },
+            bootstrap: {
+                src: ['bower_components/bootstrap/dist/css/*.min.css'],
+                dest: 'public/stylesheets/bootstrap.min.css'
+            },
             dist: {
                 src: ['app.js', 'public/javascripts/*.js', 'routes/**/*.js',
                     'views/**/*.js'],
                 dest: 'public/js/<%= pkg.name %>.js'
+            }
+        },
+        bowercopy: {
+            options: {
+                clean: false
+            },
+            test: {
+                options: {
+                    destPrefix: 'public/fonts'
+                },
+                files: {
+                    'glyphicons-halflings-regular.eot':
+                        'bootstrap/dist/fonts/glyphicons-halflings-regular.eot',
+                    'glyphicons-halflings-regular.ttf':
+                        'bootstrap/dist/fonts/glyphicons-halflings-regular.ttf',
+                    'glyphicons-halflings-regular.svg':
+                        'bootstrap/dist/fonts/glyphicons-halflings-regular.svg',
+                    'glyphicons-halflings-regular.woff':
+                    'bootstrap/dist/fonts/glyphicons-halflings-regular.woff',
+                    'glyphicons-halflings-regular.woff2':
+                    'bootstrap/dist/fonts/glyphicons-halflings-regular.woff2'
+                }
             }
         },
         uglify: {
@@ -70,8 +96,10 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-jscs');
+    grunt.loadNpmTasks('grunt-bowercopy');
 
     grunt.registerTask('test', ['jshint', 'jscs']);
 
-    grunt.registerTask('default', ['jshint', 'jscs', 'concat', 'uglify']);
+    grunt.registerTask('default',
+        ['jshint', 'jscs', 'concat', 'uglify', 'bowercopy']);
 };
