@@ -1,18 +1,124 @@
 <html>
     <head>
         <title>BrewBear - The Homebrew Management System</title>
-        <link rel="stylesheet" href="stylesheets/bootstrap.min.css" />
+        <link rel="stylesheet" href="stylesheets/libs-css.min.css" />
+        <link rel="stylesheet" href="stylesheets/style.css" />
         <script src="js/BrewBear-libs.js"></script>
     </head>
     <body>
-        <h3>This is the unauthorized home page</h3>
+        <nav class="bb-navbar navbar navbar-inverse navbar-static-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                  <a class="navbar-brand bb-logo" href="/">
+                      <img src="images/bear.png" alt="" />
+                  </a>
+                  <a class="navbar-brand" href="/">
+                      BrewBear
+                      <small><i>Track what you brew and drink!</i></small>
+                  </a>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle"
+                            data-toggle="dropdown" role="button">
+                            Login <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/login/google">
+                                <i class="fa fa-google googRed"></i> Google
+                            </a></li>
+                            <li><a href="/login/facebook">
+                                <i class="fa fa-facebook faBlue"></i> Facebook
+                            </a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
 
-        <div>
-            <div style="font-weight:bold">Login Options</div>
-            <div>
-                <a href="/login/google">Google OAuth</a>
-                <br/>
-                <a href="/login/facebook">Facebook OAuth</a>
+        <div id="bb-carousel" class=" carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#bb-carousel" data-slide-to="0"
+                   class="active"></li>
+                <li data-target="#bb-carousel" data-slide-to="1"></li>
+                <li data-target="#bb-carousel" data-slide-to="2"></li>
+                <li data-target="#bb-carousel" data-slide-to="3"></li>
+            </ol>
+
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                    <h1>Slide 1</h1>
+                    <div class="carousel-caption">
+                        <h3>This is a caption</h3>
+                    </div>
+                </div>
+                <div class="item">
+                    <h1>Slide 2</h1>
+                    <div class="carousel-caption">
+                        <h3>This is a caption</h3>
+                    </div>
+                </div>
+                <div class="item">
+                    <h1>Slide 3</h1>
+                    <div class="carousel-caption">
+                        <h3>This is a caption</h3>
+                    </div>
+                </div>
+                <div class="item">
+                    <h1>Slide 4</h1>
+                    <div class="carousel-caption">
+                        <h3>This is a caption</h3>
+                    </div>
+                </div>
+            </div>
+
+            <a class="left carousel-control" href="#bb-carousel"
+                data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="right carousel-control" href="#bb-carousel"
+                data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        </div>
+        <div class="container">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <p>I develop this application in my free time.  Maintenance 
+                costs are pretty much zero at the moment, but the caffeine and 
+                beer that powers me through the development is not.</p>  
+                <p>If you like what you see and would like to support me, buy 
+                me a coffee or a beer!</p>
+                <p class="text-center">
+                    <button class="btn btn-default">
+                        <a href="https://venmo.com/?txn=pay&recipients=matthew.t.lavallee%40gmail.com&note=Keep%20up%20the%20good%20work%20with%20BrewBear&audience=public" target="_blank">Buy me a beer or coffee!</a>
+                    </button>
+                </p>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <p>BrewBear is open source.  What am I doing with the 
+                information you share by logging in?  Nothing, it's just to 
+                make your experience a little more personable!  What am I doing 
+                with your email address?  Nothing, well, not true...I'll send 
+                updates about the site...unless you ask me to stop!</p>
+                <p>Don't believe me?  Like I said, it's open source so 
+                head over to GitHub and look at the code if you want to 
+                see for yourself...or contribute, I'd love for code 
+                contributions as well</p>
+                <p class="text-center">
+                    <button class="btn btn-default">
+                        <a href="https://github.com/mattlavallee/brewbear" 
+                        target="_blank">BrewBear on Github</a>
+                    </button>
+                    <button class="btn btn-default">
+                        <a href="mailto:matthew.t.lavallee@gmail.com" 
+                            target="_blank">
+                            Get in touch with me about Contributing!
+                        </a>
+                    </button>
+                </p>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+                <cite>&copy; 2015 - Matt Lavallee</cite>
             </div>
         </div>
     </body>

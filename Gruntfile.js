@@ -5,12 +5,14 @@ module.exports = function(grunt) {
         concat: {
             libs: {
                 src: ['bower_components/jquery/dist/jquery.min.js',
-                      'bower_components/angular/angular.min.js'],
+                      'bower_components/angular/angular.min.js',
+                      'bower_components/bootstrap/dist/js/bootstrap.min.js'],
                 dest: 'public/js/<%= pkg.name %>-libs.js'
             },
-            bootstrap: {
-                src: ['bower_components/bootstrap/dist/css/*.min.css'],
-                dest: 'public/stylesheets/bootstrap.min.css'
+            libsCss: {
+                src: ['bower_components/bootstrap/dist/css/*.min.css',
+                'bower_components/fontawesome/css/font-awesome.min.css'],
+                dest: 'public/stylesheets/libs-css.min.css'
             },
             dist: {
                 src: ['app.js', 'public/javascripts/*.js', 'routes/**/*.js',
@@ -20,7 +22,8 @@ module.exports = function(grunt) {
         },
         bowercopy: {
             options: {
-                clean: false
+                clean: false,
+                report: false
             },
             test: {
                 options: {
@@ -36,7 +39,19 @@ module.exports = function(grunt) {
                     'glyphicons-halflings-regular.woff':
                     'bootstrap/dist/fonts/glyphicons-halflings-regular.woff',
                     'glyphicons-halflings-regular.woff2':
-                    'bootstrap/dist/fonts/glyphicons-halflings-regular.woff2'
+                    'bootstrap/dist/fonts/glyphicons-halflings-regular.woff2',
+                    'fontawesome-webfont.eot':
+                        'fontawesome/fonts/fontawesome-webfont.eot',
+                    'fontawesome-webfont.ttf':
+                        'fontawesome/fonts/fontawesome-webfont.ttf',
+                    'fontawesome-webfont.svg':
+                        'fontawesome/fonts/fontawesome-webfont.svg',
+                    'fontawesome-webfont.woff':
+                        'fontawesome/fonts/fontawesome-webfont.woff',
+                    'fontawesome-webfont.woff2':
+                        'fontawesome/fonts/fontawesome-webfont.woff2',
+                    'fontawesome-webfont.otf':
+                        'fontawesome/fonts/fontawesome-webfont.otf'
                 }
             }
         },
