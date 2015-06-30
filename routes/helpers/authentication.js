@@ -4,7 +4,7 @@
     var UserAuthModule = function() {
         var _this = this;
         var unauthorizedUrl = '/';
-        var authorizedUrl = '/my/beers';
+        var authorizedUrl = '/my/bar';
 
         /**
          * @description redirects to main landing page if user

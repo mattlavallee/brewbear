@@ -58,7 +58,7 @@
         passport.authenticate('google', { failureRedirect: '/' }),
             function(req, res) {
                 // Successful authentication, redirect to auth home.
-                res.redirect('/my/beers');
+                res.redirect('/my/bar');
             });
 
     router.get('/facebook', passport.authenticate('facebook'));
@@ -67,7 +67,7 @@
         passport.authenticate('facebook', {failureRedirect: '/'}),
         function(req, res) {
             //Successful authentication, redirect to auth home
-            res.redirect('/my/beers');
+            res.redirect('/my/bar');
         });
 
     router.get('/logout', function(req, res) {

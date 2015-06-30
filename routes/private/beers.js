@@ -7,7 +7,7 @@
     var userAuth = require('../helpers/authentication');
 
     //GET the authentication home page
-    router.get('/beers', function(req, res) {
+    router.get('/bar', function(req, res) {
         if (userAuth.userValidated(req, res, true)) {
             res.sendFile(
                 path.join(__dirname, '../../views/private/', 'index.html'));

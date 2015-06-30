@@ -51,7 +51,7 @@ module.exports = function(grunt) {
                     'fontawesome-webfont.woff2':
                         'fontawesome/fonts/fontawesome-webfont.woff2',
                     'fontawesome-webfont.otf':
-                        'fontawesome/fonts/fontawesome-webfont.otf'
+                        'fontawesome/fonts/FontAwesome.otf'
                 }
             }
         },
