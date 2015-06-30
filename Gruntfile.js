@@ -103,12 +103,29 @@ module.exports = function(grunt) {
         watch: {
             files: ['<%= jshint.files %>'],
             tasks: ['jshint', 'jscs']
+        },
+        less: {
+            public: {
+                files: {
+                    'public/stylesheets/public.style.css':
+                        ['public/less/shared.less',
+                        'public/less/public.less']
+                }
+            },
+            private: {
+                files: {
+                    'public/stylesheets/private.style.css':
+                        ['public/less/shared.less',
+                        'public/less/private.less']
+                }
+            }
         }
     });
 
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-jscs');
     grunt.loadNpmTasks('grunt-bowercopy');
@@ -116,5 +133,5 @@ module.exports = function(grunt) {
     grunt.registerTask('test', ['jshint', 'jscs']);
 
     grunt.registerTask('default',
-        ['jshint', 'jscs', 'concat', 'uglify', 'bowercopy']);
+        ['jshint', 'jscs', 'less', 'concat', 'uglify', 'bowercopy']);
 };
