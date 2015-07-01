@@ -1,5 +1,6 @@
 @googleRed: #d73d32;
 @facebookBlue: #47639e;
+@lightGray: #dfdfdf;
 
 .fb-link{
     color: @facebookBlue;
@@ -7,6 +8,15 @@
 
 .google-link{
     color: @googleRed;
+}
+
+.bb-oauth{
+    padding: 3 15px !important;
+
+    i{
+        padding-right: 3px;
+        border-right: 1px solid @lightGray;
+    }
 }
 
 #bb-carousel{
@@ -20,10 +30,37 @@
     .item{
         text-align: center;
         height: 300px !important;
-        background-color: #afafaf;    
+
+        &:nth-child(1){
+            background-color: #4F9ED6;
+        }
+
+        &:nth-child(2){
+            background-color: #4C993E;
+        }
+
+        &:nth-child(3){
+            background-color: #8C8BFF;
+        }
+
+        &:nth-child(4){
+            background-color: #996953;
+        }
     }
 
     .left, .right{
         background-image: none !important;
+    }
+}
+
+.bb-container{
+    margin-top: 10px;
+
+    div {
+        margin: 5px 0;
+    }
+
+    div:nth-child(even){
+        border-left: 1px solid @lightGray;
     }
 }
