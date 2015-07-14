@@ -38,4 +38,4 @@ Any line of the commit message cannot be longer 100 characters! This allows the 
 
 ## Actively Contribute to Development
 
-Contact me and we'll discuss it!
+Contact me at ```matt dot lavallee dot dev at gmail dot com``` and we'll discuss it!
