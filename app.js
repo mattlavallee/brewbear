@@ -31,6 +31,7 @@
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(cookieParser());
     app.use(express.static(__dirname + '/public'));
+    app.use(express.static(__dirname + '/bower_components'));
     app.use(expressSession({
         genid: function() {
             return uuid.v4(); // use UUIDs for session ID

@@ -3,7 +3,7 @@ describe("Directive: Header", function () {
 
     var element, scope;
 
-    beforeEach(module('bb-static', 'brewbear'));
+    beforeEach(module('bb-static', 'brewbear-templates'));
 
     beforeEach(inject(function($rootScope, $compile){
         scope = $rootScope.$new();

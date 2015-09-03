@@ -6,7 +6,7 @@ module.exports = function(grunt) {
         closeTag: '<!-- end js-templates tags -->'
     };
     var cssTagConfig = {
-        linkTemplate: '<link href="{{ path }}" />',
+        linkTemplate: '<link rel="stylesheet" href="{{ path }}" />',
         openTag: '<!-- start css-templates tags -->',
         closeTag: '<!-- end css-templates tags -->'
     };
@@ -35,7 +35,8 @@ module.exports = function(grunt) {
             },
             privateCss: {
                 options: cssTagConfig,
-                src: ['public/stylesheets/private.style.css'],
+                src: ['public/stylesheets/private.style.css',
+                      'public/stylesheets/auth-style.css'],
                 dest: 'views/private/index.html'
             },
             tests: {
@@ -64,6 +65,42 @@ module.exports = function(grunt) {
                         ]
                     }
                 }
+            }
+        },
+        'regex-replace': {
+            dev: {
+                src: ['views/index.html'],
+                actions: [
+                    {
+                        name: 'static',
+                        search: '"\.\./public',
+                        replace: '"\.\.',
+                        flags: 'g'
+                    },
+                    {
+                        name: 'bower_static',
+                        search: '"\.\./bower_components',
+                        replace: '"\.\.',
+                        flags: 'g'
+                    }
+                ]
+            },
+            devPrivate: {
+                src: ['views/private/index.html'],
+                actions: [
+                    {
+                        name: 'static',
+                        search: '"\.\./\.\./public',
+                        replace: '"\.\./\.\.',
+                        flags: 'g'
+                    },
+                    {
+                        name: 'bower_static',
+                        search: '"\.\./\.\./bower_components',
+                        replace: '"\.\./\.\.',
+                        flags: 'g'
+                    }
+                ]
             }
         },
         bowercopy: {
@@ -106,8 +143,8 @@ module.exports = function(grunt) {
                 src: ['public/**/*.template.html'],
                 dest: 'public/javascripts/templates.js',
                 options: {
-                    url: function(url) { 
-                        return url.replace('public/', '/'); 
+                    url: function(url) {
+                        return url.replace('public/', '/');
                     }
                 }
             }
@@ -186,11 +223,11 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-bowercopy');
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-wiredep');
-    grunt.loadNpmTasks('grunt-string-replace');
+    grunt.loadNpmTasks('grunt-regex-replace');
 
     grunt.registerTask('test', ['jshint', 'jscs', 'karma']);
 
     grunt.registerTask('default',
         ['jshint', 'jscs', 'less', 'ngtemplates', 'tags', 'wiredep',
-     'karma', 'bowercopy']);
+        'regex-replace', 'karma', 'bowercopy']);
 };

@@ -30,6 +30,7 @@
     "grunt-script-link-tags": "~1.0.2",
     "grunt-wiredep": "~2.0.0",
     "grunt-angular-templates": "~0.5.7",
+    "grunt-regex-replace": "~0.2.6",
     "karma": "~0.12.37",
     "karma-jasmine": "~0.3.6",
     "karma-phantomjs-launcher": "~0.2.0",
