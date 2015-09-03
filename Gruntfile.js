@@ -102,9 +102,14 @@ module.exports = function(grunt) {
             }
         },
         ngtemplates: {
-            brewbear: {
+            'brewbear-templates': {
                 src: ['public/**/*.template.html'],
-                dest: 'public/javascripts/templates.js'
+                dest: 'public/javascripts/templates.js',
+                options: {
+                    url: function(url) { 
+                        return url.replace('public/', '/'); 
+                    }
+                }
             }
         },
         jshint: {
@@ -181,10 +186,11 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-bowercopy');
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-wiredep');
+    grunt.loadNpmTasks('grunt-string-replace');
 
     grunt.registerTask('test', ['jshint', 'jscs', 'karma']);
 
     grunt.registerTask('default',
-        ['jshint', 'jscs', 'less', 'ngtemplates', 'tags', 'wiredep', 'karma',
-            'bowercopy']);
+        ['jshint', 'jscs', 'less', 'ngtemplates', 'tags', 'wiredep',
+     'karma', 'bowercopy']);
 };

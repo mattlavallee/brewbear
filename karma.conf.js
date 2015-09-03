@@ -15,12 +15,11 @@ module.exports = function(config) {
         // endbower 
         'bower_components/angular-mocks/angular-mocks.js',
         // start js-templates tags
-        'public/javascripts/templates.js',
         'public/javascripts/bear.js',
-        'public/javascripts/static/header.directive.js',        
+        'public/javascripts/static/header.directive.js',
+        'public/javascripts/templates.js',
         // end js-templates tags
-        'tests/**/*.spec.js',
-        'public/javascripts/**/*.template.html'
+        'tests/**/*.spec.js'
     ],
     // list of files to exclude
     exclude: [
