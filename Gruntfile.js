@@ -16,36 +16,51 @@ module.exports = function(grunt) {
         tags: {
             publicJs: {
                 options: jsTagConfig,
-                src: [ 'public/js/*.js', 'public/js/public/**/*.js' ],
+                src: ['public/javascripts/*.js',
+                      'public/javascripts/static/**/*.js',
+                      'public/javascripts/public/**/*.js'],
                 dest: 'views/index.html'
             },
             publicCss: {
                 options: cssTagConfig,
-                src: [ 'public/stylesheets/public.style.css' ],
+                src: ['public/stylesheets/public.style.css'],
                 dest: 'views/index.html'
             },
             privateJs: {
                 options: jsTagConfig,
-                src: [ 'public/js/*.js', 'public/js/private/**/*.js' ],
+                src: ['public/javascripts/*.js',
+                      'public/javacripts/statis/**/*.js',
+                      'public/javascripts/private/**/*.js'],
                 dest: 'views/private/index.html'
             },
             privateCss: {
                 options: cssTagConfig,
-                src: [ 'public/stylesheets/private.style.css' ],
+                src: ['public/stylesheets/private.style.css'],
                 dest: 'views/private/index.html'
+            },
+            tests: {
+                options: {
+                    scriptTemplate: '\'{{ path }}\',',
+                    openTag: '// start js-templates tags',
+                    closeTag: '// end js-templates tags'
+                },
+                src: ['public/javascripts/**/*.js'],
+                dest: 'karma.conf.js'
             }
         },
         wiredep: {
             dev: {
                 cwd: '.',
-                src: [ 'views/index.html', 'views/private/index.html' ],
-                exclude: [ 'bower_components/angular-mocks/' ],
+                src: ['views/index.html',
+                      'views/private/index.html',
+                      'karma.conf.js'],
+                exclude: ['bower_components/angular-mocks/'],
                 overrides: {
-                    "bootstrap": {
-                        "main": [ 
+                    bootstrap: {
+                        main: [
                           'dist/js/bootstrap.min.js',
                           'dist/css/bootstrap.min.css',
-                          'dist/css/bootstrap-theme.min.css' 
+                          'dist/css/bootstrap-theme.min.css'
                         ]
                     }
                 }
@@ -86,9 +101,16 @@ module.exports = function(grunt) {
                 }
             }
         },
+        ngtemplates: {
+            brewbear: {
+                src: ['public/**/*.template.html'],
+                dest: 'public/javascripts/templates.js'
+            }
+        },
         jshint: {
-            files: ['Gruntfile.js', 'app.js', 'public/javascripts/*.js',
-                'routes/**/*.js', 'views/**/*.js', 'test/**/*.js'],
+            all: ['Gruntfile.js', 'app.js', 'public/javascripts/*.js',
+                'routes/**/*.js', 'views/**/*.js', 'test/**/*.js',
+                '!public/javascripts/templates.js'],
             options: {
                 // options here to override JSHint defaults
                 globals: {
@@ -114,8 +136,9 @@ module.exports = function(grunt) {
             }
         },
         jscs: {
-            files: ['Gruntfile.js', 'app.js', 'public/javascripts/*.js',
-                'routes/**/*.js', 'views/**/*.js', 'test/**/*.js'],
+            all: ['Gruntfile.js', 'app.js', 'public/javascripts/*.js',
+                'routes/**/*.js', 'views/**/*.js', 'test/**/*.js',
+                '!public/javascripts/templates.js'],
             options: {
                 config: '.jscsrc'
             }
@@ -147,19 +170,21 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.loadNpmTasks( 'grunt-script-link-tags' );
-    grunt.loadNpmTasks( 'grunt-contrib-uglify' );
-    grunt.loadNpmTasks( 'grunt-contrib-jshint' );
-    grunt.loadNpmTasks( 'grunt-contrib-watch' );
-    grunt.loadNpmTasks( 'grunt-contrib-less' );
-    grunt.loadNpmTasks( 'grunt-contrib-concat' );
-    grunt.loadNpmTasks( 'grunt-jscs' );
-    grunt.loadNpmTasks( 'grunt-bowercopy' );
-    grunt.loadNpmTasks( 'grunt-karma' );
-    grunt.loadNpmTasks( 'grunt-wiredep' );
+    grunt.loadNpmTasks('grunt-script-link-tags');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-angular-templates');
+    grunt.loadNpmTasks('grunt-jscs');
+    grunt.loadNpmTasks('grunt-bowercopy');
+    grunt.loadNpmTasks('grunt-karma');
+    grunt.loadNpmTasks('grunt-wiredep');
 
     grunt.registerTask('test', ['jshint', 'jscs', 'karma']);
 
     grunt.registerTask('default',
-        [ 'jshint', 'jscs', 'less', 'tags', 'wiredep', 'karma', 'bowercopy']);
+        ['jshint', 'jscs', 'less', 'ngtemplates', 'tags', 'wiredep', 'karma',
+            'bowercopy']);
 };

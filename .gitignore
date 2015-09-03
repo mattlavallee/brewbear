@@ -4,6 +4,7 @@ dist/
 .settings/
 config/configuration.js
 public/js/
+public/javascripts/templates.js
 public/stylesheets
 public/fonts
 coverage
