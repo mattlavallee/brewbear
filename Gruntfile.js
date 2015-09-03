@@ -29,7 +29,7 @@ module.exports = function(grunt) {
             privateJs: {
                 options: jsTagConfig,
                 src: ['public/javascripts/*.js',
-                      'public/javacripts/statis/**/*.js',
+                      'public/javascripts/static/**/*.js',
                       'public/javascripts/private/**/*.js'],
                 dest: 'views/private/index.html'
             },
