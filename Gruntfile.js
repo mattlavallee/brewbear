@@ -1,23 +1,54 @@
 module.exports = function(grunt) {
     'use strict';
+    var jsTagConfig = {
+        scriptTemplate: '<script src="{{ path }}"></script>',
+        openTag: '<!-- start js-templates tags -->',
+        closeTag: '<!-- end js-templates tags -->'
+    };
+    var cssTagConfig = {
+        linkTemplate: '<link href="{{ path }}" />',
+        openTag: '<!-- start css-templates tags -->',
+        closeTag: '<!-- end css-templates tags -->'
+    };
+
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        concat: {
-            libs: {
-                src: ['bower_components/jquery/dist/jquery.min.js',
-                      'bower_components/angular/angular.min.js',
-                      'bower_components/bootstrap/dist/js/bootstrap.min.js'],
-                dest: 'public/js/<%= pkg.name %>-libs.js'
+        tags: {
+            publicJs: {
+                options: jsTagConfig,
+                src: [ 'public/js/*.js', 'public/js/public/**/*.js' ],
+                dest: 'views/index.html'
             },
-            libsCss: {
-                src: ['bower_components/bootstrap/dist/css/*.min.css',
-                'bower_components/fontawesome/css/font-awesome.min.css'],
-                dest: 'public/stylesheets/libs-css.min.css'
+            publicCss: {
+                options: cssTagConfig,
+                src: [ 'public/stylesheets/public.style.css' ],
+                dest: 'views/index.html'
             },
-            dist: {
-                src: ['app.js', 'public/javascripts/*.js', 'routes/**/*.js',
-                    'views/**/*.js'],
-                dest: 'public/js/<%= pkg.name %>.js'
+            privateJs: {
+                options: jsTagConfig,
+                src: [ 'public/js/*.js', 'public/js/private/**/*.js' ],
+                dest: 'views/private/index.html'
+            },
+            privateCss: {
+                options: cssTagConfig,
+                src: [ 'public/stylesheets/private.style.css' ],
+                dest: 'views/private/index.html'
+            }
+        },
+        wiredep: {
+            dev: {
+                cwd: '.',
+                src: [ 'views/index.html', 'views/private/index.html' ],
+                exclude: [ 'bower_components/angular-mocks/' ],
+                overrides: {
+                    "bootstrap": {
+                        "main": [ 
+                          'dist/js/bootstrap.min.js',
+                          'dist/css/bootstrap.min.css',
+                          'dist/css/bootstrap-theme.min.css' 
+                        ]
+                    }
+                }
             }
         },
         bowercopy: {
@@ -55,18 +86,6 @@ module.exports = function(grunt) {
                 }
             }
         },
-        uglify: {
-            options: {
-                banner: '/*! <%= pkg.name %> ' +
-                '<%= grunt.template.today("dd-mm-yyyy") %> */\n'
-            },
-            dist: {
-                files: {
-                    'public/js/<%= pkg.name %>.min.js':
-                        ['<%= concat.dist.dest %>']
-                }
-            }
-        },
         jshint: {
             files: ['Gruntfile.js', 'app.js', 'public/javascripts/*.js',
                 'routes/**/*.js', 'views/**/*.js', 'test/**/*.js'],
@@ -79,7 +98,8 @@ module.exports = function(grunt) {
                     document: true,
                     require: true,
                     __dirname: true,
-                    process: true
+                    process: true,
+                    angular: true
                 },
                 camelcase: true, //use camelCase,
                 eqeqeq: true, //prohibit == and != in favor of !== and ===
@@ -119,19 +139,27 @@ module.exports = function(grunt) {
                         'public/less/private.less']
                 }
             }
+        },
+        karma: {
+            unit: {
+                configFile: 'karma.conf.js'
+            }
         }
     });
 
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-contrib-less');
-    grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.loadNpmTasks('grunt-jscs');
-    grunt.loadNpmTasks('grunt-bowercopy');
+    grunt.loadNpmTasks( 'grunt-script-link-tags' );
+    grunt.loadNpmTasks( 'grunt-contrib-uglify' );
+    grunt.loadNpmTasks( 'grunt-contrib-jshint' );
+    grunt.loadNpmTasks( 'grunt-contrib-watch' );
+    grunt.loadNpmTasks( 'grunt-contrib-less' );
+    grunt.loadNpmTasks( 'grunt-contrib-concat' );
+    grunt.loadNpmTasks( 'grunt-jscs' );
+    grunt.loadNpmTasks( 'grunt-bowercopy' );
+    grunt.loadNpmTasks( 'grunt-karma' );
+    grunt.loadNpmTasks( 'grunt-wiredep' );
 
-    grunt.registerTask('test', ['jshint', 'jscs']);
+    grunt.registerTask('test', ['jshint', 'jscs', 'karma']);
 
     grunt.registerTask('default',
-        ['jshint', 'jscs', 'less', 'concat', 'uglify', 'bowercopy']);
+        [ 'jshint', 'jscs', 'less', 'tags', 'wiredep', 'karma', 'bowercopy']);
 };
