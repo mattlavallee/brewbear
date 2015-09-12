@@ -150,7 +150,7 @@ module.exports = function(grunt) {
             }
         },
         jshint: {
-            all: ['Gruntfile.js', 'app.js', 'public/javascripts/*.js',
+            all: ['Gruntfile.js', 'app.js', 'public/javascripts/**/*.js',
                 'routes/**/*.js', 'views/**/*.js', 'test/**/*.js',
                 '!public/javascripts/templates.js'],
             options: {
@@ -178,7 +178,7 @@ module.exports = function(grunt) {
             }
         },
         jscs: {
-            all: ['Gruntfile.js', 'app.js', 'public/javascripts/*.js',
+            all: ['Gruntfile.js', 'app.js', 'public/javascripts/**/*.js',
                 'routes/**/*.js', 'views/**/*.js', 'test/**/*.js',
                 '!public/javascripts/templates.js'],
             options: {
