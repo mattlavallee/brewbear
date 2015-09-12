@@ -13,7 +13,8 @@
     var routes = require('./routes/index');
     var users = require('./routes/users');
     var logins = require('./routes/login');
-    var beersHome = require('./routes/private/beers');
+    var beers = require('./routes/private/beer');
+    var barHome = require('./routes/private/bar');
 
     //Load configurations
     var configVals = require('./config/configuration');
@@ -48,7 +49,8 @@
     app.use('/', routes);
     app.use('/users', users);
     app.use('/login', logins);
-    app.use('/my', beersHome);
+    app.use('/my', barHome);
+    app.use('/beer', beers);
 
     // catch 404 and forward to error handler
     app.use(function(req, res, next) {
