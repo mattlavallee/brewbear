@@ -1,4 +1,4 @@
-describe("Directive: Header", function () {
+describe('Directive: Header', function () {
     'use strict';
 
     var element, scope;
