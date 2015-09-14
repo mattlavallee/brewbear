@@ -16,6 +16,9 @@ module.exports = function(config) {
         'bower_components/angular-mocks/angular-mocks.js',
         // start js-templates tags
         'public/javascripts/bear.js',
+        'public/javascripts/private/beer.service.js',
+        'public/javascripts/private/beer/beer.controller.js',
+        'public/javascripts/private/beer/beer.directive.js',
         'public/javascripts/static/header.directive.js',
         'public/javascripts/templates.js',
         // end js-templates tags
