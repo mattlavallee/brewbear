@@ -28,8 +28,19 @@ describe( 'Service: BeerService', function () {
             timeout.flush();
         } );
 
+        it( 'Returns null from the api', function() {
+            httpBackend.whenGET( '/beer/user' ).respond( 200, null );
+
+            factory.getUserBeers().then( function( result ) {
+                expect( result ).toEqual( [] );
+            } );
+            httpBackend.flush();
+            timeout.flush();
+        } );
+
         it( 'Returns an invalid response from the api', function() {
-            httpBackend.whenGET( '/beer/user' ).respond( 200, { data: [] } );
+            httpBackend.whenGET( '/beer/user' ).respond( 200, 
+                { error: true, message: '' } );
 
             factory.getUserBeers().then( function( result ) {
                 expect( result ).toEqual( [] );
