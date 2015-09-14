@@ -2,7 +2,7 @@
     'use strict';
 
     var UserAuthModule = function() {
-        var _this = this;
+        var vm = this;
         var unauthorizedUrl = '/';
         var authorizedUrl = '/my/bar';
 
@@ -39,7 +39,7 @@
          * @param {boolean} isAuthPage - true if checking authorization
          * from an auth page. False if checking from a public page
          */
-        _this.userValidated = function(request, response, isAuthPage) {
+        vm.userValidated = function(request, response, isAuthPage) {
             if (isAuthPage) {
                 return _validateAuthenticatedPage(request, response);
             } else {

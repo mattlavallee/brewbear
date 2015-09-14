@@ -12,7 +12,7 @@
         "beforeOpeningRoundBrace": true
     },
     "disallowEmptyBlocks": true,
-    "disallowSpacesInsideArrayBrackets": true,
+    "disallowSpacesInsideArrayBrackets": "nested",
     "disallowSpacesInsideParentheses": true,
     "disallowQuotedKeysInObjects": true,
     "disallowSpaceAfterObjectKeys": true,
@@ -52,7 +52,7 @@
         "catch",
         "typeof"
     ],
-    "safeContextKeyword": "_this",
+    "safeContextKeyword": "vm",
     "validateLineBreaks": "LF",
     "validateQuoteMarks": "'",
     "validateIndentation": 4
