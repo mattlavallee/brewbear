@@ -1,5 +1,18 @@
-<div>
-    <div class="user-beer" ng-repeat="beer in beerVm.beers">
-        {{ beer.name }}
+<div class="well">
+    <div class="panel user-beer" ng-repeat="beer in beerVm.beers">
+        <div class="user-beer-name">{{ beer.name }}</div>
+        <div class="user-beer-secondary">
+            <i>{{ beer.style }}</i> ABV: {{ beer.abv }}%
+        </div>
+        <div>
+            <i class="fa fa-beer fa-3 user-glass" ng-class="beerVm.getSrmColor( beer.srm )"></i>
+        </div>
+        <div class="user-beer-stats">
+            OG: {{ beer.originalGravity}} 
+            FG: {{ beer.finalGravity }}
+        </div>
+        <div class="user-beer-notes" ng-if="beer.notes.length > 0">
+            {{ beer.notes }}
+        </div>
     </div>
 </div>
