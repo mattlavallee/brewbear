@@ -1,11 +1,11 @@
-describe('Directive: Header', function () {
+describe('Directive: Header', function() {
     'use strict';
 
     var element, scope;
 
     beforeEach(module('bb-static', 'brewbear-templates'));
 
-    beforeEach(inject(function($rootScope, $compile){
+    beforeEach(inject(function($rootScope, $compile) {
         scope = $rootScope.$new();
 
         element = '<brew-bear-header></brew-bear-header>';
@@ -13,7 +13,7 @@ describe('Directive: Header', function () {
         scope.$digest();
     }));
 
-    it('Verifies the directive is instantiated', function(){
+    it('Verifies the directive is instantiated', function() {
         expect(element).toBeDefined();
         expect(element.find('.navbar').length).toEqual(1);
     });
