@@ -15,7 +15,8 @@
         get: function( userId ){
             return beerCollection
                 .forge()
-                .query( {where: { userId: userId }, orderBy: ['name'] } )
+                .query( {where: { userId: userId, active: true }, 
+                    orderBy: ['name'] } )
                 .fetch();
         }
     };
