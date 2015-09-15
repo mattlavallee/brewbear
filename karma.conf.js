@@ -12,6 +12,7 @@ module.exports = function(config) {
         'bower_components/jquery/dist/jquery.js',
         'bower_components/bootstrap/dist/js/bootstrap.min.js',
         'bower_components/angular/angular.js',
+        'bower_components/lodash/lodash.js',
         // endbower 
         'bower_components/angular-mocks/angular-mocks.js',
         // start js-templates tags
@@ -19,6 +20,7 @@ module.exports = function(config) {
         'public/javascripts/private/beer.service.js',
         'public/javascripts/private/beer/beer.controller.js',
         'public/javascripts/private/beer/beer.directive.js',
+        'public/javascripts/private/common/srm.constant.js',
         'public/javascripts/static/header.directive.js',
         'public/javascripts/templates.js',
         // end js-templates tags

@@ -151,19 +151,27 @@ module.exports = function(grunt) {
         },
         jshint: {
             all: ['Gruntfile.js', 'app.js', 'public/javascripts/**/*.js',
-                'routes/**/*.js', 'views/**/*.js', 'test/**/*.js',
+                'routes/**/*.js', 'views/**/*.js', 'tests/**/*.js',
                 '!public/javascripts/templates.js'],
             options: {
                 // options here to override JSHint defaults
                 globals: {
-                    jQuery: true,
-                    console: true,
-                    module: true,
-                    document: true,
-                    require: true,
-                    __dirname: true,
-                    process: true,
-                    angular: true
+                    jQuery: false,
+                    console: false,
+                    module: false,
+                    document: false,
+                    require: false,
+                    __dirname: false,
+                    process: false,
+                    angular: false,
+                    _: false,
+                    expect: false,
+                    beforeEach: false,
+                    afterEach: false,
+                    describe: false,
+                    it: false,
+                    inject: false,
+                    spyOn: false
                 },
                 camelcase: true, //use camelCase,
                 eqeqeq: true, //prohibit == and != in favor of !== and ===
@@ -179,7 +187,7 @@ module.exports = function(grunt) {
         },
         jscs: {
             all: ['Gruntfile.js', 'app.js', 'public/javascripts/**/*.js',
-                'routes/**/*.js', 'views/**/*.js', 'test/**/*.js',
+                'routes/**/*.js', 'views/**/*.js', 'tests/**/*.js',
                 '!public/javascripts/templates.js'],
             options: {
                 config: '.jscsrc'
