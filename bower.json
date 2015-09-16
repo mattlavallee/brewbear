@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "homepage": "https://github.com/mattlavallee/brewbear",
   "authors": [
-    "Matt Lavallee <matthew.t.lavallee@gmail.com>"
+    "Matt Lavallee <matt.lavallee.dev@gmail.com>"
   ],
   "description": "Homebrew Management System",
   "main": "index.js",
