@@ -15,6 +15,7 @@
         <script src="../../jquery/dist/jquery.js"></script>
         <script src="../../bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="../../angular/angular.js"></script>
+        <script src="../../angular-route/angular-route.js"></script>
         <script src="../../lodash/lodash.js"></script>
         <!-- endbower -->
         <!-- start js-templates tags -->
@@ -25,17 +26,14 @@
         <script src="../../javascripts/private/beer/beer.controller.js"></script>
         <script src="../../javascripts/private/beer/beer.directive.js"></script>
         <script src="../../javascripts/private/common/srm.constant.js"></script>
+        <script src="../../javascripts/private/routes/brew-bear-route.controller.js"></script>
         <!-- end js-templates tags -->
     </head>
     <body ng-app="brewbear">
         <brew-bear-header></brew-bear-header>
         
         <div class="container">
-            <div class="panel">
-                My Bar!
-                <br />
-                <beers></beers>
-            </div>
+            <div ng-view></div>
         </div>
     </body>
 </html>

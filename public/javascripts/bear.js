@@ -8,6 +8,46 @@
     angular.module('brewbear-templates', []);
     angular.module('bb-static', []);
 
-    angular.module('brewbear',
-        ['bb-static', 'brewbear-templates', 'brewbear-component']);
+    var brewApp = angular.module('brewbear',
+        ['bb-static', 'brewbear-templates', 'brewbear-component', 'ngRoute']);
+
+    brewApp.config(['$routeProvider', function($routeProvider) {
+        $routeProvider
+            .when('/', {
+                templateUrl: '/javascripts/private/routes/bar.template.html',
+                controller: 'BrewBearRouteController'
+            })
+            .when('/addBeer', {
+                templateUrl:
+                    '/javascripts/private/routes/add-beer.template.html',
+                controller: 'BrewBearRouteController'
+            })
+            .when('/addTap', {
+                templateUrl:
+                    '/javascripts/private/routes/add-tap.template.html',
+                controller: 'BrewBearRouteController'
+            })
+            .when('/taproom/update', {
+                templateUrl:
+                    '/javascripts/private/routes/update-taproom.template.html',
+                controller: 'BrewBearRouteController'
+            })
+            .when('/taproom', {
+                templateUrl:
+                    '/javascripts/private/routes/taproom.template.html',
+                controller: 'BrewBearRouteController'
+            })
+            .when('/trends', {
+                templateUrl: '/javascripts/private/routes/trends.template.html',
+                controller: 'BrewBearRouteController'
+            })
+            .when('/account', {
+                templateUrl:
+                    '/javascripts/private/routes/account.template.html',
+                controller: 'BrewBearRouteController'
+            })
+            .otherwise({
+                redirectTo: '/'
+            });
+    }]);
 })();
