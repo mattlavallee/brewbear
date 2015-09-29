@@ -17,7 +17,7 @@ describe('Controller: Beer Controller', function() {
         initController = function() {
             return $controller('BeerController', {
                 BeerService: beerService
-            });
+            }, true);
         };
 
         defer = q.defer();
@@ -29,13 +29,17 @@ describe('Controller: Beer Controller', function() {
 
     describe('controller initialization - ', function() {
         it('Tests instantiation', function() {
-            var controller = initController();
+            var controllerFn = initController();
+            controllerFn.instance.isNew = 'false';
+            var controller = controllerFn();
             expect(controller).toBeDefined();
             expect(controller.beers).toBeDefined();
         });
 
         it('Initializes the controller', function() {
-            var controller = initController();
+            var controllerFn = initController();
+            controllerFn.instance.isNew = 'false';
+            var controller = controllerFn();
 
             defer.promise.then(function() {
                 expect(controller.beers).toBeDefined();
@@ -48,12 +52,12 @@ describe('Controller: Beer Controller', function() {
 
     describe('getSrmColor - ', function() {
         it('is defined', function() {
-            var controller = initController();
+            var controller = initController()();
             expect(controller.getSrmColor).toBeDefined();
         });
 
         it('gets a color', function() {
-            var controller = initController();
+            var controller = initController()();
             var result = controller.getSrmColor(3);
             expect(result).toEqual(SRM.Straw.color);
 
