@@ -15,6 +15,7 @@
         var vm = this;
 
         vm.model = _.cloneDeep(beerTemplate);
+        vm.error = false;
         //if we aren't creating a new model
         if (vm.isNew === 'false') {
             vm.beers = [];
@@ -33,13 +34,19 @@
         };
 
         vm.createBeer = function(isValid) {
+            vm.error = false;
             if (isValid) {
-                BeerService.create(vm.model).then(function(result) {
-                    if (result.error) {
-                        //TODO: error handling sucks
+                return BeerService.create(vm.model).then(function(result) {
+                    if (result.data.error) {
+                        vm.error = true;
                     }
-                    $location.path('/');
+                    else {
+                        $location.path('/');
+                    }
                 });
+            }
+            else {
+                vm.error = true;
             }
         };
     }

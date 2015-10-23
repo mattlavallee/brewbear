@@ -1,7 +1,6 @@
 <form class="new-user-beer panel"
       name="newUserBeerForm"
-      novalidate
-      ng-submit="beerVm.createBeer( newUserBeerForm.$valid )">
+      novalidate>
     <div class="form-group form-inline">
         <label for="user-beer-name">Name: </label>
         <input type="text" 
@@ -103,19 +102,28 @@
                required ng-required="true" />
         <br />
         <span class="validation-error" 
-              ng-show="newUserBeerForm.srm.$invalid && !newUserBeerForm.srm.$pristine">
+              ng-if="newUserBeerForm.srm.$invalid && !newUserBeerForm.srm.$pristine">
           You must enter an SRM between 0 and 40
         </span>
     </div>
     <textarea class="form-control"
               id="user-beer-notes"
+              name="notes"
+              ng-model="beerVm.model.notes"
               rows="3"
               cols="20"
               placeholder="Notes..."></textarea>
     <div class="form-group form-inline">
       <button type="button" 
               class="btn btn-success"
-              ng-disabled="!newUserBeerForm.$valid">Create</button>
+              ng-disabled="!newUserBeerForm.$valid"              
+              ng-click="beerVm.createBeer( newUserBeerForm.$valid )">
+              Create
+      </button>
       <a href="/" class="btn btn-warning">Cancel</a
+      <br />
+      <span class="validation-error" ng-if="beerVm.error === true">
+        There was an error saving your beer :(
+      </span>
     </div>
 </div>

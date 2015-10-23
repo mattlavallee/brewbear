@@ -26,6 +26,26 @@
                         defer.reject([]);
                     });
                 return defer.promise;
+            },
+            create: function(newBeer) {
+                var defer = $q.defer();
+                $http.post('/beer/new', { beer: newBeer })
+                    .success(function(response) {
+                        var data = { error: false, id: -1 };
+                        if (!response || (response && response.error)) {
+                            data.error = true;
+                            data.message = response ?
+                                response.msg : 'Error creating beer';
+                        }
+                        else {
+                            data.id = response.id;
+                        }
+                        defer.resolve(data);
+                    })
+                    .error(function() {
+                        defer.resolve({ error: true });
+                    });
+                return defer.promise;
             }
         };
     }

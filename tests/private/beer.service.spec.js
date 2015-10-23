@@ -60,4 +60,53 @@ describe('Service: BeerService', function() {
             httpBackend.flush();
         });
     });
+
+    describe('create function - ', function() {
+        afterEach(function() {
+            httpBackend.verifyNoOutstandingExpectation();
+            httpBackend.verifyNoOutstandingRequest();
+        });
+
+        it('Returns a 500 error', function() {
+            httpBackend.whenPOST('/beer/new').respond(500, '');
+            factory.create().then(function(result) {
+                expect(result).toEqual({error:true});
+            });
+            httpBackend.flush();
+            timeout.flush();
+        });
+
+        it('succeeds but the response is null', function() {
+            httpBackend.whenPOST('/beer/new').respond(200, null);
+            factory.create().then(function(result) {
+                expect(result.error).toEqual(true);
+                expect(result.message).toEqual('Error creating beer');
+                expect(result.id).toEqual(-1);
+            });
+            httpBackend.flush();
+            timeout.flush();
+        });
+
+        it('succeeds and handles an error message from the server', function() {
+            httpBackend.whenPOST('/beer/new')
+                .respond(200, { error: true, msg: 'blah' });
+            factory.create().then(function(result) {
+                expect(result.error).toEqual(true);
+                expect(result.message).toEqual('blah');
+                expect(result.id).toEqual(-1);
+            });
+            httpBackend.flush();
+            timeout.flush();
+        });
+
+        it('succeeds completely', function() {
+            httpBackend.whenPOST('/beer/new').respond(200, {id: 123});
+            factory.create().then(function(result) {
+                expect(result.error).toEqual(false);
+                expect(result.id).toEqual(123);
+            });
+            httpBackend.flush();
+            timeout.flush();
+        });
+    });
 });

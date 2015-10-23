@@ -16,5 +16,22 @@
         }
     });
 
+    router.post('/new', function(req, res) {
+        if (userAuth.userValidated(req, res, true)) {
+            var beerObj = req.body.beer;
+
+            Beer.create(req.user.id, beerObj)
+                .then(function(newBeer) {
+                    res.json({error:false, id: newBeer.get('id') });
+                })
+                .otherwise(function() {
+                    res.status(500).json({
+                        error:true,
+                        msg: 'There was an error saving your beer'
+                    });
+                });
+        }
+    });
+
     module.exports = router;
 })();
