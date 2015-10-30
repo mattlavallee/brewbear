@@ -13,8 +13,8 @@
     var routes = require('./routes/index');
     var users = require('./routes/users');
     var logins = require('./routes/login');
-    var beers = require('./routes/private/beer');
-    var barHome = require('./routes/private/bar');
+    var beers = require('./routes/private/beer-api');
+    var barHome = require('./routes/private/bar-api');
 
     //Load configurations
     var configVals = require('./config/configuration');

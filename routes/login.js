@@ -2,7 +2,7 @@
     'use strict';
 
     var configVals = require('../config/configuration');
-    var User = require('../models/user');
+    var User = require('../models/user-model');
     var express = require('express');
     var router = express.Router();
     //authentication modules
