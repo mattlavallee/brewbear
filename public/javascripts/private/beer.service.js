@@ -46,6 +46,26 @@
                         defer.resolve({ error: true });
                     });
                 return defer.promise;
+            },
+            update: function(beer) {
+                var defer = $q.defer();
+                $http.post('/beer/edit/' + beer.id, { beer: beer })
+                    .success(function(response) {
+                        var data = {error: false, id: -1 };
+                        if (!response || (response && response.error)) {
+                            data.error = true;
+                            data.message = response ?
+                                response.msg : 'Error updating beer';
+                        }
+                        else {
+                            data.id = response.id;
+                        }
+                        defer.resolve(data);
+                    })
+                    .error(function() {
+                        defer.resolve({error: true});
+                    });
+                return defer.promise;
             }
         };
     }

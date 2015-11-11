@@ -16,11 +16,23 @@
 
         vm.model = _.cloneDeep(beerTemplate);
         vm.error = false;
-        //if we aren't creating a new model
-        if (vm.isNew === 'false') {
+        vm.notFoundError = null;
+        //if we aren't creating/updating a model
+        if (!vm.id) {
             vm.beers = [];
             BeerService.getUserBeers().then(function(result) {
                 vm.beers = result;
+            });
+        } else if (parseInt(vm.id, 10) !== -1) {
+            vm.id = parseInt(vm.id, 10);
+            vm.beers = [];
+            BeerService.getUserBeers().then(function(result) {
+                var selectedBeer = _.findWhere(result, {id:vm.id });
+                if (selectedBeer) {
+                    vm.model = selectedBeer;
+                } else {
+                    vm.notFoundError = true;
+                }
             });
         }
 
@@ -33,11 +45,15 @@
             return srm.color;
         };
 
-        vm.createBeer = function(isValid) {
+        vm.saveBeer = function(isValid) {
             vm.error = false;
             if (isValid) {
-                return BeerService.create(vm.model).then(function(result) {
-                    if (result.data.error) {
+                var fn = BeerService.create;
+                if (vm.id !== -1) {
+                    fn = BeerService.update;
+                }
+                return fn(vm.model).then(function(result) {
+                    if (result.error) {
                         vm.error = true;
                     }
                     else {

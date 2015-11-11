@@ -23,7 +23,7 @@ describe('Controller: Beer Controller', function() {
 
         defer = q.defer();
         spyOn(beerService, 'getUserBeers').and.callFake(function() {
-            defer.resolve([{}]);
+            defer.resolve([{ id: 1 }]);
             return defer.promise;
         });
     }));
@@ -31,7 +31,7 @@ describe('Controller: Beer Controller', function() {
     describe('controller initialization - ', function() {
         it('Tests instantiation', function() {
             var controllerFn = initController();
-            controllerFn.instance.isNew = 'false';
+            controllerFn.instance.id = undefined;
             var controller = controllerFn();
             expect(controller).toBeDefined();
             expect(controller.beers).toBeDefined();
@@ -39,7 +39,7 @@ describe('Controller: Beer Controller', function() {
 
         it('Initializes the controller', function() {
             var controllerFn = initController();
-            controllerFn.instance.isNew = 'false';
+            controllerFn.instance.id = undefined;
             var controller = controllerFn();
 
             defer.promise.then(function() {
@@ -47,6 +47,43 @@ describe('Controller: Beer Controller', function() {
             });
             timeout.flush();
 
+            expect(beerService.getUserBeers.calls.count()).toEqual(1);
+        });
+
+        it('Makes no initial service calls for a new beer', function() {
+            var controllerFn = initController();
+            controllerFn.instance.id = -1;
+            var controller = controllerFn();
+            expect(controller).toBeDefined();
+            expect(controller.id).toEqual(-1);
+            expect(beerService.getUserBeers.calls.count()).toEqual(0);
+        });
+
+        it('Makes a service call to get the beer to edit', function() {
+            var controllerFn = initController();
+            controllerFn.instance.id = 1;
+            var controller = controllerFn();
+
+            defer.promise.then(function() {
+                expect(controller.model.id).toEqual(1);
+            });
+            timeout.flush();
+
+            expect(controller.id).toEqual(1);
+            expect(beerService.getUserBeers.calls.count()).toEqual(1);
+        });
+
+        it('Makes service call to edit but does not find the beer', function() {
+            var controllerFn = initController();
+            controllerFn.instance.id = 2;
+            var controller = controllerFn();
+
+            defer.promise.then(function() {
+                expect(controller.notFoundError).toEqual(true);
+            });
+            timeout.flush();
+
+            expect(controller.id).toEqual(2);
             expect(beerService.getUserBeers.calls.count()).toEqual(1);
         });
     });
@@ -70,17 +107,18 @@ describe('Controller: Beer Controller', function() {
         });
     });
 
-    describe('createBeer - ', function() {
+    describe('saveBeer - new beer - ', function() {
         it('is defined', function() {
             var controller = initController()();
-            expect(controller.createBeer).toBeDefined();
+            expect(controller.saveBeer).toBeDefined();
         });
 
         it('returns an error if not valid', function() {
             var controller = initController()();
+            controller.id = -1;
             expect(controller.error).toEqual(false);
 
-            controller.createBeer(false);
+            controller.saveBeer(false);
 
             expect(controller.error).toEqual(true);
         });
@@ -88,13 +126,14 @@ describe('Controller: Beer Controller', function() {
         it('calls the BeerService for a valid model', function() {
             spyOn(beerService, 'create').and.callFake(function() {
                 var defer = q.defer();
-                defer.resolve({data: {} });
+                defer.resolve({});
                 return defer.promise;
             });
             spyOn(location, 'path');
 
             var controller = initController()();
-            var promise = controller.createBeer(true);
+            controller.id = -1;
+            var promise = controller.saveBeer(true);
 
             expect(beerService.create.calls.count()).toEqual(1);
             timeout.flush();
@@ -106,15 +145,57 @@ describe('Controller: Beer Controller', function() {
         it('handles an error when creating a beer', function() {
             spyOn(beerService, 'create').and.callFake(function() {
                 var defer = q.defer();
-                defer.resolve({data:{error: true}});
+                defer.resolve({error: true});
                 return defer.promise;
             });
             spyOn(location, 'path');
 
             var controller = initController()();
-            var promise = controller.createBeer(true);
+            controller.id = -1;
+            var promise = controller.saveBeer(true);
 
             expect(beerService.create.calls.count()).toEqual(1);
+            timeout.flush();
+            promise.then(function() {
+                expect(location.path.calls.count()).toEqual(0);
+                expect(controller.error).toEqual(true);
+            });
+        });
+    });
+
+    describe('save beer - edit - ', function() {
+        it('calls the BeerService for a valid model', function() {
+            spyOn(beerService, 'update').and.callFake(function() {
+                var defer = q.defer();
+                defer.resolve({});
+                return defer.promise;
+            });
+            spyOn(location, 'path');
+
+            var controller = initController()();
+            controller.id = 1;
+            var promise = controller.saveBeer(true);
+
+            expect(beerService.update.calls.count()).toEqual(1);
+            timeout.flush();
+            promise.then(function() {
+                expect(location.path.calls.count()).toEqual(1);
+            });
+        });
+
+        it('handles an error when creating a beer', function() {
+            spyOn(beerService, 'update').and.callFake(function() {
+                var defer = q.defer();
+                defer.resolve({error: true});
+                return defer.promise;
+            });
+            spyOn(location, 'path');
+
+            var controller = initController()();
+            controller.id = 1;
+            var promise = controller.saveBeer(true);
+
+            expect(beerService.update.calls.count()).toEqual(1);
             timeout.flush();
             promise.then(function() {
                 expect(location.path.calls.count()).toEqual(0);

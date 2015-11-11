@@ -31,6 +31,30 @@
                 notes: newBeer.notes
             })
             .save();
+        },
+        update: function( userId, beerId, modifiedBeer ){
+            return beerModel.forge({
+                id: beerId,
+                userId: userId
+            }).fetch().then(function(beerToUpdate){
+                if(!beerToUpdate){
+                    return { error: true };
+                } else{
+                    beerToUpdate.save({
+                        name: modifiedBeer.name,
+                        style: modifiedBeer.style,
+                        abv: modifiedBeer.abv,
+                        originalGravity: modifiedBeer.originalGravity,
+                        finalGravity: modifiedBeer.finalGravity,
+                        srm: modifiedBeer.srm,
+                        notes: modifiedBeer.notes
+                    }).then(function(){
+                        return {error: false };
+                    }).otherwise(function(){
+                        return {error: true };
+                    });
+                }
+            });
         }
     };
 

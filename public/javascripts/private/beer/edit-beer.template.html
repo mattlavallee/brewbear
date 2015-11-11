@@ -1,5 +1,9 @@
-<form class="new-user-beer panel"
-      name="newUserBeerForm"
+<div ng-if="beerVm.notFoundError === true">
+  Sorry! We couldn't find your beer to update :(
+</div>
+<form class="user-beer-form panel"
+      name="userBeerForm"
+      ng-if="beerVm.notFoundError !== true"
       novalidate>
     <div class="form-group form-inline">
         <label for="user-beer-name">Name: </label>
@@ -12,7 +16,7 @@
                ng-minlength="3" />
         <br />
         <span class="validation-error" 
-              ng-if="newUserBeerForm.name.$invalid && !newUserBeerForm.name.$pristine">
+              ng-if="userBeerForm.name.$invalid && !userBeerForm.name.$pristine">
           Your beer name should be at least 3 characters long!
         </span>
     </div>
@@ -27,7 +31,7 @@
                ng-minlength="3" />
         <br />
         <span class="validation-error"
-              ng-if="newUserBeerForm.style.$invalid && !newUserBeerForm.style.$pristine">
+              ng-if="userBeerForm.style.$invalid && !userBeerForm.style.$pristine">
           You must enter a style and it should be at least 3 characters long
         </span>
     </div>
@@ -44,7 +48,7 @@
                max="100" /> %
         <br />
         <span class="validation-error" 
-              ng-if="newUserBeerForm.abv.$invalid && !newUserBeerForm.abv.$pristine">
+              ng-if="userBeerForm.abv.$invalid && !userBeerForm.abv.$pristine">
           You must enter an ABV between 0 and 100%
         </span>
     </div>
@@ -63,7 +67,7 @@
                    max="2" />
             <br />
             <span class="validation-error"
-                  ng-if="newUserBeerForm.originalGravity.$invalid && !newUserBeerForm.originalGravity.$pristine">
+                  ng-if="userBeerForm.originalGravity.$invalid && !userBeerForm.originalGravity.$pristine">
               You must enter an Original Gravity between 0 and 2.000          
             </span>
         </span>
@@ -81,7 +85,7 @@
                    max="2" />
             <br />
             <span class="validation-error"
-                  ng-if="newUserBeerForm.finalGravity.$invalid && !newUserBeerForm.finalGravity.$pristine">
+                  ng-if="userBeerForm.finalGravity.$invalid && !userBeerForm.finalGravity.$pristine">
               You must enter a Final Gravity between 0 and 2.000          
             </span>
         </span>
@@ -102,7 +106,7 @@
                required ng-required="true" />
         <br />
         <span class="validation-error" 
-              ng-if="newUserBeerForm.srm.$invalid && !newUserBeerForm.srm.$pristine">
+              ng-if="userBeerForm.srm.$invalid && !userBeerForm.srm.$pristine">
           You must enter an SRM between 0 and 40
         </span>
     </div>
@@ -116,9 +120,9 @@
     <div class="form-group form-inline">
       <button type="button" 
               class="btn btn-success"
-              ng-disabled="!newUserBeerForm.$valid"              
-              ng-click="beerVm.createBeer( newUserBeerForm.$valid )">
-              Create
+              ng-disabled="!userBeerForm.$valid"              
+              ng-click="beerVm.saveBeer( userBeerForm.$valid )">
+              {{ beerVm.id === -1 ? 'Add' : 'Update' }}
       </button>
       <a href="/" class="btn btn-warning">Cancel</a
       <br />

@@ -22,6 +22,12 @@
                     '/javascripts/private/routes/add-beer.template.html',
                 controller: 'BrewBearRouteController'
             })
+            .when('/editBeer/:beerId', {
+                templateUrl:
+                    '/javascripts/private/routes/edit-beer.template.html',
+                controller: 'BrewBearRouteController',
+                controllerAs: 'routeController'
+            })
             .when('/addTap', {
                 templateUrl:
                     '/javascripts/private/routes/add-tap.template.html',

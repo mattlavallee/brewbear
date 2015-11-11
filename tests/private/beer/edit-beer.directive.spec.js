@@ -1,17 +1,25 @@
-describe('Directive: Create Beer Directive', function() {
+describe('Directive: Edit Beer Directive', function() {
     'use strict';
 
-    var mockScope, element, compile;
+    var mockScope, element, compile, beerService, q;
     beforeEach(module('brewbear-component', 'brewbear-services',
         'brewbear-templates'));
 
-    beforeEach(inject(function($rootScope, $compile) {
+    beforeEach(inject(function($rootScope, $compile, _BeerService_, $q) {
         mockScope = $rootScope.$new();
         compile = $compile;
+        beerService = _BeerService_;
+        q = $q;
+
+        spyOn(beerService, 'getUserBeers').and.callFake(function() {
+            var defer = q.defer();
+            defer.resolve([]);
+            return defer.promise;
+        });
     }));
 
     function initDirective() {
-        var html = '<create-beer is-new="false" class="cb-dir"></create-beer>';
+        var html = '<edit-beer id="20" class="cb-dir"></edit-beer>';
         element = compile(html)(mockScope);
         mockScope.$digest();
     }

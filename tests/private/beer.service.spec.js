@@ -109,4 +109,53 @@ describe('Service: BeerService', function() {
             timeout.flush();
         });
     });
+
+    describe('update function - ', function() {
+        afterEach(function() {
+            httpBackend.verifyNoOutstandingExpectation();
+            httpBackend.verifyNoOutstandingRequest();
+        });
+
+        it('Returns a 500 error', function() {
+            httpBackend.whenPOST('/beer/edit/1').respond(500, '');
+            factory.update({ id: 1 }).then(function(result) {
+                expect(result).toEqual({error:true});
+            });
+            httpBackend.flush();
+            timeout.flush();
+        });
+
+        it('succeeds but the response is null', function() {
+            httpBackend.whenPOST('/beer/edit/1').respond(200, null);
+            factory.update({ id: 1 }).then(function(result) {
+                expect(result.error).toEqual(true);
+                expect(result.message).toEqual('Error updating beer');
+                expect(result.id).toEqual(-1);
+            });
+            httpBackend.flush();
+            timeout.flush();
+        });
+
+        it('succeeds and handles an error message from the server', function() {
+            httpBackend.whenPOST('/beer/edit/1')
+                .respond(200, { error: true, msg: 'blah' });
+            factory.update({ id: 1 }).then(function(result) {
+                expect(result.error).toEqual(true);
+                expect(result.message).toEqual('blah');
+                expect(result.id).toEqual(-1);
+            });
+            httpBackend.flush();
+            timeout.flush();
+        });
+
+        it('succeeds completely', function() {
+            httpBackend.whenPOST('/beer/edit/1').respond(200, {id: 1});
+            factory.update({ id: 1 }).then(function(result) {
+                expect(result.error).toEqual(false);
+                expect(result.id).toEqual(1);
+            });
+            httpBackend.flush();
+            timeout.flush();
+        });
+    });
 });
