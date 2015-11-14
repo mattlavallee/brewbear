@@ -24,6 +24,9 @@ module.exports = function(config) {
         'public/javascripts/private/beer/edit-beer.directive.js',
         'public/javascripts/private/common/srm.constant.js',
         'public/javascripts/private/routes/brew-bear-route.controller.js',
+        'public/javascripts/private/tap.service.js',
+        'public/javascripts/private/tap/tap.controller.js',
+        'public/javascripts/private/tap/tap.directive.js',
         'public/javascripts/static/header.directive.js',
         'public/javascripts/templates.js',
         // end js-templates tags

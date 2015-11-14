@@ -4,7 +4,7 @@
     function BeerCollection() {
         return {
             scope: {
-                isNew: '@'
+                id: '@'
             },
             bindToController: true,
             restrict: 'E',
