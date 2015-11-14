@@ -22,6 +22,7 @@ module.exports = function(config) {
         'public/javascripts/private/beer/beer.controller.js',
         'public/javascripts/private/beer/beer.directive.js',
         'public/javascripts/private/beer/edit-beer.directive.js',
+        'public/javascripts/private/common/bar-type.constant.js',
         'public/javascripts/private/common/srm.constant.js',
         'public/javascripts/private/routes/brew-bear-route.controller.js',
         'public/javascripts/private/tap.service.js',

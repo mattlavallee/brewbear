@@ -209,7 +209,8 @@ module.exports = function(grunt) {
                 files: {
                     'public/stylesheets/private.style.css':
                         ['public/less/shared.less',
-                        'public/less/private.less']
+                        'public/less/private.less',
+                        'public/less/tap.private.less']
                 }
             }
         },

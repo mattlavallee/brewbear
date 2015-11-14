@@ -4,6 +4,8 @@
         <a href="#/addTap" class="btn btn-primary">Add a Tap</a>
     </div>
     <div class="panel user-tap" ng-repeat="tap in tapVm.taps">
-        I'm a <i>real</i> tap
+        <div class="user-tap-name">{{ tap.name }}</div>
+        <div class="user-tap-type">Type: {{ tap.type.type }}</div>
+        <a href="#/editTap/{{ tap.id }}">Edit</a>
     </div>
 </div>
