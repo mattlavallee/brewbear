@@ -16,5 +16,39 @@
         }
     });
 
+    router.post('/new', function(req, res) {
+        if (userAuth.userValidated(req, res, true)) {
+            var tapObj = req.body.tap;
+
+            Tap.create(req.user.id, tapObj)
+                .then(function(newTap) {
+                    res.json({ error:false, id: newTap.get('id') });
+                })
+                .otherwise(function() {
+                    res.status(500).json({
+                        error: true,
+                        msg: 'There was an error saving your tap'
+                    });
+                });
+        }
+    });
+
+    router.post('/edit/:tapId', function(req, res) {
+        if (userAuth.userValidated(req, res, true)) {
+            var tapObj = req.body.tap;
+
+            Tap.update(req.user.id, req.params.tapId, tapObj)
+                .then(function() {
+                    res.json({ error: false, id: req.params.tapId });
+                })
+                .otherwise(function() {
+                    res.status(500).json({
+                        error: true,
+                        msg: 'There was an error editing your beer'
+                    });
+                });
+        }
+    });
+
     module.exports = router;
 })();

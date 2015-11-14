@@ -23,6 +23,33 @@
                 .query( {where: { userId: userId, active: true }, 
                     orderBy: ['name'] } )
                 .fetch({withRelated: ['type']});
+        },
+        create: function( userId, newTap ){
+            return tapModel.forge({
+                userId: userId,
+                name: newTap.name,
+                typeId: newTap.typeId
+            })
+            .save();
+        },
+        update: function( userId, tapId, modifiedTap ){
+            return tapModel.forge({
+                id: tapId,
+                userId: userId
+            }).fetch().then(function(tapToUpdate){
+                if(!tapToUpdate){
+                    return { error: true };
+                } else{
+                    //can only update the name...type will be set in stone
+                    tapToUpdate.save({
+                        name: modifiedTap.name
+                    }).then(function(){
+                        return {error: false };
+                    }).otherwise(function(){
+                        return {error: true };
+                    });
+                }
+            });
         }
     };
 
