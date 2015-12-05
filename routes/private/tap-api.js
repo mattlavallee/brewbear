@@ -24,7 +24,7 @@
                 .then(function(newTap) {
                     res.json({ error:false, id: newTap.get('id') });
                 })
-                .otherwise(function() {
+                .catch(function() {
                     res.status(500).json({
                         error: true,
                         msg: 'There was an error saving your tap'
@@ -41,7 +41,7 @@
                 .then(function() {
                     res.json({ error: false, id: req.params.tapId });
                 })
-                .otherwise(function() {
+                .catch(function() {
                     res.status(500).json({
                         error: true,
                         msg: 'There was an error editing your beer'

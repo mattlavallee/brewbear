@@ -1,0 +1,54 @@
+<div ng-if="tapVm.notFoundError === true">
+  Sorry! We couldn't find your tap to update :(
+</div>
+<form class="user-tap-form panel"
+      name="userTapForm"
+      ng-if="tapVm.notFoundError !== true"
+      novalidate>
+    <div class="form-group form-inline">
+        <label for="user-tap-name">Name: </label>
+        <input type="text" 
+               name="name"
+               class="form-control" 
+               id="user-tap-name" 
+               ng-model="tapVm.model.name"
+               required ng-required="true"
+               ng-minlength="3" />
+        <br />
+        <span class="validation-error" 
+              ng-if="userTapForm.name.$invalid && !userTapForm.name.$pristine">
+          Your tap name should be at least 3 characters long!
+        </span>
+    </div>
+    <div class="form-group form-inline">
+        <label for="user-tap-type">Style: </label>
+        <select name="type"
+                class="form-control"
+                id="user-tap-type"
+                ng-model="tapVm.model.typeId"
+                ng-disabled="tapVm.id !== -1"
+                required ng-required="true">
+                <option />
+                <option ng-repeat="type in tapVm.types | orderBy: 'type.name'"
+                        value="{{type.id}}">{{ type.name }}</option>
+        </select>
+        <br />
+        <span class="validation-error"
+              ng-if="userTapForm.type.$invalid && !userTapForm.style.$pristine">
+          You must select a tap type
+        </span>
+    </div>
+    <div class="form-group form-inline">
+      <button type="button" 
+              class="btn btn-success"
+              ng-disabled="!userTapForm.$valid"              
+              ng-click="tapVm.saveTap( userTapForm.$valid )">
+              {{ tapVm.id === -1 ? 'Add' : 'Update' }}
+      </button>
+      <a href="/" class="btn btn-warning">Cancel</a
+      <br />
+      <span class="validation-error" ng-if="tapVm.error === true">
+        There was an error saving your tap :(
+      </span>
+    </div>
+</div>

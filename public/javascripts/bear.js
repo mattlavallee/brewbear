@@ -33,6 +33,12 @@
                     '/javascripts/private/routes/add-tap.template.html',
                 controller: 'BrewBearRouteController'
             })
+            .when('/editTap/:tapId', {
+                templateUrl:
+                    '/javascripts/private/routes/edit-tap.template.html',
+                controller: 'BrewBearRouteController',
+                controllerAs: 'routeController'
+            })
             .when('/taproom/update', {
                 templateUrl:
                     '/javascripts/private/routes/update-taproom.template.html',

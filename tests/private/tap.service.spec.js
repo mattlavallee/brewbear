@@ -60,4 +60,104 @@ describe('Service: TapService', function() {
             httpBackend.flush();
         });
     });
+
+    describe('create function - ', function() {
+        afterEach(function() {
+            httpBackend.verifyNoOutstandingExpectation();
+            httpBackend.verifyNoOutstandingRequest();
+        });
+
+        it('Returns a 500 error', function() {
+            httpBackend.whenPOST('/tap/new').respond(500, '');
+            factory.create().then(function(result) {
+                expect(result).toEqual({error: true});
+            });
+            httpBackend.flush();
+            timeout.flush();
+        });
+
+        it('Returns null from the api', function() {
+            httpBackend.whenPOST('/tap/new').respond(200, null);
+
+            factory.create().then(function(result) {
+                expect(result).toEqual(
+                    {error: true, id: -1, message: 'Error creating tap'}
+                );
+            });
+            httpBackend.flush();
+            timeout.flush();
+        });
+
+        it('Returns an invalid response from the api', function() {
+            httpBackend.whenPOST('/tap/new').respond(200,
+                {error: true, message: ''});
+
+            factory.create().then(function(result) {
+                expect(result).toEqual(
+                    {error: true, id: -1, message: 'Error creating tap'}
+                );
+            });
+            httpBackend.flush();
+            timeout.flush();
+        });
+
+        it('Returns a succesful response', function() {
+            httpBackend.whenPOST('/tap/new').respond(200, {id: 1});
+            factory.create().then(function(result) {
+                expect(result).toBeDefined();
+                expect(result).toEqual({error: false, id: 1});
+            });
+            httpBackend.flush();
+        });
+    });
+
+    describe('update function - ', function() {
+        afterEach(function() {
+            httpBackend.verifyNoOutstandingExpectation();
+            httpBackend.verifyNoOutstandingRequest();
+        });
+
+        it('Returns a 500 error', function() {
+            httpBackend.whenPOST('/tap/edit/1').respond(500, '');
+            factory.update({id: 1}).then(function(result) {
+                expect(result).toEqual({error: true});
+            });
+            httpBackend.flush();
+            timeout.flush();
+        });
+
+        it('Returns null from the api', function() {
+            httpBackend.whenPOST('/tap/edit/1').respond(200, null);
+
+            factory.update({id: 1}).then(function(result) {
+                expect(result).toEqual(
+                    {error: true, id: -1, message: 'Error updating tap'}
+                );
+            });
+            httpBackend.flush();
+            timeout.flush();
+        });
+
+        it('Returns an invalid response from the api', function() {
+            httpBackend.whenPOST('/tap/edit/1').respond(200,
+                {error: true, message: ''});
+
+            factory.update({id: 1}).then(function(result) {
+                expect(result).toEqual(
+                    {error: true, id: -1, message: 'Error updating tap'}
+                );
+            });
+            httpBackend.flush();
+            timeout.flush();
+        });
+
+        it('Returns a succesful response', function() {
+            httpBackend.whenPOST('/tap/edit/1').respond(200, {id: 1});
+            factory.update({id: 1}).then(function(result) {
+                expect(result).toBeDefined();
+                expect(result).toEqual({error: false, id: 1});
+            });
+            httpBackend.flush();
+        });
+    });
 });
