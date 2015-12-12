@@ -3,7 +3,7 @@
         <h3>Taps & Bottles</h3> 
         <a href="#/addTap" class="btn btn-primary">Add a Tap</a>
     </div>
-    <div class="panel user-tap" ng-repeat="tap in tapVm.taps">
+    <div class="panel user-tap" ng-repeat="tap in tapVm.taps | orderBy:'name'">
         <div class="user-tap-name">{{ tap.name }}</div>
         <div class="user-tap-type">Type: {{ tap.type.type }}</div>
         <a href="#/editTap/{{ tap.id }}">Edit</a>

@@ -1,0 +1,43 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+    <form class="user-edit-taproom-form"
+          name="userTapRoomForm"
+          novalidate>
+        Free Taps: <select name="taps" ng-model="model.tap" required ng-required="true">
+            <option />
+            <option ng-repeat="tap in availableTaps | orderBy:'name'" value="{{tap.id}}">
+                {{tap.name}}
+            </option>
+        </select>
+
+        Beers: <select name="beers" ng-model="model.beer" required ng-required="true">
+            <option/>
+            <option ng-repeat="beer in availableBeers | orderBy:'name'" value="{{beer.id}}">
+                {{beer.name}}
+            </option>
+        </select>
+
+        Volume: <input 
+                    type="number" 
+                    name="volume"
+                    ng-model="model.volume"
+                    min="0"
+                    max="10000"
+                    step="1"
+                    required ng-required="true" />
+        Units: <select name="units" 
+                       ng-model="model.units"
+                       required ng-required="true">
+            <option />
+            <option ng-repeat="unit in units" value="{{unit.id}}">
+                {{unit.name}} ({{unit.abbreviation}})
+            </option>
+        </select>
+        <button type="button" 
+                class="btn btn-success"
+                ng-disabled="!userTapRoomForm.$valid">Add to Taproom</button>
+    </form>
+  </div>
+
+  <strong>Model: </strong> {{ model | json }}
+</div>
