@@ -21,7 +21,9 @@ describe('Service: TapRoomService', function() {
         it('Returns a 500 error', function() {
             httpBackend.whenPOST('/taproom/new').respond(500, '');
             factory.create().then(function(result) {
-                expect(result).toEqual({error: true});
+                expect(result).toEqual({
+                    error: true
+                });
             });
             httpBackend.flush();
             timeout.flush();
@@ -31,32 +33,43 @@ describe('Service: TapRoomService', function() {
             httpBackend.whenPOST('/taproom/new').respond(200, null);
 
             factory.create().then(function(result) {
-                expect(result).toEqual(
-                    {error: true, id: -1, message: 'Error creating taproom entry'}
-                );
+                expect(result).toEqual({
+                    error: true,
+                    id: -1,
+                    message: 'Error creating taproom entry'
+                });
             });
             httpBackend.flush();
             timeout.flush();
         });
 
         it('Returns an invalid response from the api', function() {
-            httpBackend.whenPOST('/taproom/new').respond(200,
-                {error: true, message: ''});
+            httpBackend.whenPOST('/taproom/new').respond(200, {
+                error: true,
+                message: ''
+            });
 
             factory.create().then(function(result) {
-                expect(result).toEqual(
-                    {error: true, id: -1, message: 'Error creating taproom entry'}
-                );
+                expect(result).toEqual({
+                    error: true,
+                    id: -1,
+                    message: 'Error creating taproom entry'
+                });
             });
             httpBackend.flush();
             timeout.flush();
         });
 
         it('Returns a succesful response', function() {
-            httpBackend.whenPOST('/taproom/new').respond(200, {id: 1});
+            httpBackend.whenPOST('/taproom/new').respond(200, {
+                id: 1
+            });
             factory.create().then(function(result) {
                 expect(result).toBeDefined();
-                expect(result).toEqual({error: false, id: 1});
+                expect(result).toEqual({
+                    error: false,
+                    id: 1
+                });
             });
             httpBackend.flush();
         });
