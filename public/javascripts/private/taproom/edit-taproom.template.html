@@ -35,7 +35,10 @@
         </select>
         <button type="button" 
                 class="btn btn-success"
-                ng-disabled="!userTapRoomForm.$valid">Add to Taproom</button>
+                ng-disabled="!userTapRoomForm.$valid"
+                ng-click="addToTaproom( userTapRoomForm.$valid )">
+                Add to Taproom
+        </button>
     </form>
   </div>
 

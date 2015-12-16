@@ -16,6 +16,7 @@
     var beers = require('./routes/private/beer-api');
     var barHome = require('./routes/private/bar-api');
     var taps = require('./routes/private/tap-api');
+    var tapRoomApi = require('./routes/private/taproom-api');
 
     //Load configurations
     var configVals = require('./config/configuration');
@@ -53,6 +54,7 @@
     app.use('/my', barHome);
     app.use('/beer', beers);
     app.use('/tap', taps);
+    app.use('/taproom', tapRoomApi);
 
     // catch 404 and forward to error handler
     app.use(function(req, res, next) {
