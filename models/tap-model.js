@@ -17,6 +17,7 @@
     });
 
     var Tap = {
+        instance: tapModel,
         get: function( userId ){
             return tapCollection
                 .forge()

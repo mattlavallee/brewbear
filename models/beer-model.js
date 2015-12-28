@@ -12,6 +12,7 @@
     });
 
     var Beer = {
+        instance: beerModel,
         get: function( userId ){
             return beerCollection
                 .forge()

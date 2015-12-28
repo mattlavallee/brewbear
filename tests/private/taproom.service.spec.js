@@ -12,6 +12,58 @@ describe('Service: TapRoomService', function() {
         timeout = $timeout;
     }));
 
+    describe('getUserEntries function - ', function() {
+        afterEach(function() {
+            httpBackend.verifyNoOutstandingExpectation();
+            httpBackend.verifyNoOutstandingRequest();
+        });
+
+        it('Returns a 500 error', function() {
+            httpBackend.whenGET('/taproom/user').respond(500, '');
+            factory.getUserEntries().then(function(result) {
+                expect(result).toEqual([]);
+            });
+            httpBackend.flush();
+            timeout.flush();
+        });
+
+        it('Returns null from the api', function() {
+            httpBackend.whenGET('/taproom/user').respond(200, null);
+
+            factory.getUserEntries().then(function(result) {
+                expect(result).toEqual([]);
+            });
+            httpBackend.flush();
+            timeout.flush();
+        });
+
+        it('Returns an invalid response from the api', function() {
+            httpBackend.whenGET('/taproom/user').respond(200, {
+                error: true,
+                message: ''
+            });
+
+            factory.getUserEntries().then(function(result) {
+                expect(result).toEqual([]);
+            });
+            httpBackend.flush();
+            timeout.flush();
+        });
+
+        it('returns a successful response', function() {
+            httpBackend.whenGET('/taproom/user').respond(200, {
+                data: [{}, {}]
+            });
+
+            factory.getUserEntries().then(function(result) {
+                expect(result).toBeDefined();
+                expect(result.length).toEqual(2);
+            });
+            httpBackend.flush();
+            timeout.flush();
+        });
+    });
+
     describe('create function - ', function() {
         afterEach(function() {
             httpBackend.verifyNoOutstandingExpectation();

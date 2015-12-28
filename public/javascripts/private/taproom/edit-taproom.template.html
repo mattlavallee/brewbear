@@ -41,6 +41,18 @@
         </button>
     </form>
   </div>
+</div>
 
-  <strong>Model: </strong> {{ model | json }}
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div ng-repeat="entry in activeEntries | orderBy:'tap.name'" style="border: 1px solid #9d9d9d">
+        <div>{{ entry.tap.name }}</div>
+        <div>{{ entry.beer.name }}</div>
+        <div>{{ entry.volume }} {{ entry.unit.unit }}</div>
+        <div style="cursor: pointer; text-decoration: underline">
+            <span href="#" ng-click="kickTap( entry.id )">Kicked</span> | 
+            <span href="#" ng-click="deleteTap( entry.id )">Delete</span>
+        </div>
+    </div>
+  </div>
 </div>

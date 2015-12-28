@@ -2,19 +2,46 @@
     'use strict';
 
     function EditTaproomDirective(TaproomUnits, BeerService, TapService,
-        TapRoomService) {
+        TapRoomService, $q, $timeout, $window) {
+        //Gets taps and taproom entries and then filters the collection of taps
+        //based on what is active in the taproom
+        function getActiveTapsInTaproom(scope) {
+            var tapPromise = TapService.getUserTaps().then(function(userTaps) {
+                scope.availableTaps = userTaps;
+            });
+
+            var entryPromise = TapRoomService.getUserEntries()
+                .then(function(entries) {
+                    scope.activeEntries = entries;
+                });
+
+            $q.all([tapPromise, entryPromise]).then(function() {
+                scope.availableTaps = _.reduce(scope.availableTaps,
+                    function(result, tap) {
+                        var entry = _.findWhere(scope.activeEntries, {
+                            tap: {
+                                id: tap.id
+                            }
+                        });
+                        if (!_.isPlainObject(entry)) {
+                            result.push(tap);
+                        }
+                        return result;
+                    }, []);
+            });
+        }
+
         //Gets the user's collection of available beers and taps
         function initializeCollections(scope) {
             scope.availableBeers = [];
             scope.availableTaps = [];
+            scope.activeEntries = [];
 
             BeerService.getUserBeers().then(function(userBeers) {
                 scope.availableBeers = userBeers;
             });
 
-            TapService.getUserTaps().then(function(userTaps) {
-                scope.availableTaps = userTaps;
-            });
+            getActiveTapsInTaproom(scope);
         }
 
         return {
@@ -30,9 +57,53 @@
                     scope.formError = false;
                     if (isValidForm) {
                         TapRoomService.create(scope.model)
-                            .then(function() {});
+                            .then(function(result) {
+                                if (result.error === true) {
+                                    scope.formError = true;
+                                } else {
+                                    scope.formError = false;
+                                    scope.model = {};
+                                    getActiveTapsInTaproom(scope);
+                                }
+                            });
                     } else {
                         scope.formError = true;
+                    }
+                };
+
+                scope.kickTap = function(tapId) {
+                    var continueKick = $window
+                        .confirm('Proceed with kicking the tap?');
+                    if (continueKick) {
+                        TapRoomService.kickTap(tapId)
+                            .then(function(result) {
+                                if (result.error === true) {
+                                    $window.alert('Error kicking the tap');
+                                } else {
+                                    scope.formError = false;
+                                    scope.model = {};
+                                    getActiveTapsInTaproom(scope);
+                                }
+                            });
+                    }
+                };
+
+                scope.deleteTap = function(tapId) {
+                    var continueDelete = $window
+                        .confirm('Proceed with deleting the tap?');
+                    if (continueDelete) {
+                        TapRoomService.deleteTap(tapId)
+                            .then(function(result) {
+                                if (result.error === true) {
+                                    $window.alert('Error deleting the tap');
+                                } else {
+                                    $timeout(function() {
+                                        scope.formError = false;
+                                        scope.model = {};
+                                        getActiveTapsInTaproom(scope);
+                                    }, 100);
+                                }
+                            });
                     }
                 };
             }
