@@ -49,6 +49,12 @@
             templateUrl:
                 '/javascripts/private/taproom/edit-taproom.template.html',
             link: function(scope) {
+                function reprocessTaproom() {
+                    scope.formError = false;
+                    scope.model = {};
+                    getActiveTapsInTaproom(scope);
+                }
+
                 scope.units = _.values(TaproomUnits);
                 initializeCollections(scope);
 
@@ -61,9 +67,7 @@
                                 if (result.error === true) {
                                     scope.formError = true;
                                 } else {
-                                    scope.formError = false;
-                                    scope.model = {};
-                                    getActiveTapsInTaproom(scope);
+                                    reprocessTaproom();
                                 }
                             });
                     } else {
@@ -80,9 +84,7 @@
                                 if (result.error === true) {
                                     $window.alert('Error kicking the tap');
                                 } else {
-                                    scope.formError = false;
-                                    scope.model = {};
-                                    getActiveTapsInTaproom(scope);
+                                    reprocessTaproom();
                                 }
                             });
                     }
@@ -98,9 +100,7 @@
                                     $window.alert('Error deleting the tap');
                                 } else {
                                     $timeout(function() {
-                                        scope.formError = false;
-                                        scope.model = {};
-                                        getActiveTapsInTaproom(scope);
+                                        reprocessTaproom();
                                     }, 100);
                                 }
                             });

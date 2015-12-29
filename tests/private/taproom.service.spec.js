@@ -124,6 +124,135 @@ describe('Service: TapRoomService', function() {
                 });
             });
             httpBackend.flush();
+            timeout.flush();
+        });
+    });
+
+    describe('kicked tap function - ', function() {
+        afterEach(function() {
+            httpBackend.verifyNoOutstandingExpectation();
+            httpBackend.verifyNoOutstandingRequest();
+        });
+
+        it('Returns a 500 error', function() {
+            httpBackend.whenPOST('/taproom/kickTap').respond(500, '');
+            factory.kickTap(1).then(function(result) {
+                expect(result).toEqual({
+                    error: true
+                });
+            });
+            httpBackend.flush();
+            timeout.flush();
+        });
+
+        it('Returns null from the api', function() {
+            httpBackend.whenPOST('/taproom/kickTap').respond(200, null);
+
+            factory.kickTap(1).then(function(result) {
+                expect(result).toEqual({
+                    error: true,
+                    id: -1,
+                    message: 'Error kicking taproom entry'
+                });
+            });
+            httpBackend.flush();
+            timeout.flush();
+        });
+
+        it('Returns an invalid response from the api', function() {
+            httpBackend.whenPOST('/taproom/kickTap').respond(200, {
+                error: true,
+                message: ''
+            });
+
+            factory.kickTap(1).then(function(result) {
+                expect(result).toEqual({
+                    error: true,
+                    id: -1,
+                    message: 'Error kicking taproom entry'
+                });
+            });
+            httpBackend.flush();
+            timeout.flush();
+        });
+
+        it('Returns a succesful response', function() {
+            httpBackend.whenPOST('/taproom/kickTap').respond(200, {
+                id: 1
+            });
+            factory.kickTap(1).then(function(result) {
+                expect(result).toBeDefined();
+                expect(result).toEqual({
+                    error: false,
+                    id: 1
+                });
+            });
+            httpBackend.flush();
+            timeout.flush();
+        });
+    });
+
+    describe('delete tap function - ', function() {
+        afterEach(function() {
+            httpBackend.verifyNoOutstandingExpectation();
+            httpBackend.verifyNoOutstandingRequest();
+        });
+
+        it('Returns a 500 error', function() {
+            httpBackend.whenPOST('/taproom/deleteTap').respond(500, '');
+            factory.deleteTap(1).then(function(result) {
+                expect(result).toEqual({
+                    error: true
+                });
+            });
+            httpBackend.flush();
+            timeout.flush();
+        });
+
+        it('Returns null from the api', function() {
+            httpBackend.whenPOST('/taproom/deleteTap').respond(200, null);
+
+            factory.deleteTap(1).then(function(result) {
+                expect(result).toEqual({
+                    error: true,
+                    id: -1,
+                    message: 'Error deleting taproom entry'
+                });
+            });
+            httpBackend.flush();
+            timeout.flush();
+        });
+
+        it('Returns an invalid response from the api', function() {
+            httpBackend.whenPOST('/taproom/deleteTap').respond(200, {
+                error: true,
+                message: ''
+            });
+
+            factory.deleteTap(1).then(function(result) {
+                expect(result).toEqual({
+                    error: true,
+                    id: -1,
+                    message: 'Error deleting taproom entry'
+                });
+            });
+            httpBackend.flush();
+            timeout.flush();
+        });
+
+        it('Returns a succesful response', function() {
+            httpBackend.whenPOST('/taproom/deleteTap').respond(200, {
+                id: 1
+            });
+            factory.deleteTap(1).then(function(result) {
+                expect(result).toBeDefined();
+                expect(result).toEqual({
+                    error: false,
+                    id: 1
+                });
+            });
+            httpBackend.flush();
+            timeout.flush();
         });
     });
 });
