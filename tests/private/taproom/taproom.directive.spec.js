@@ -19,9 +19,11 @@ describe('Directive: Taproom', function() {
 
         spyOn(tapRoomService, 'getUserEntries').and.callFake(function() {
             return q.resolve([{
+                barId: 1,
+                volume: 5,
+                drinks: [],
                 tap: {
-                    id: 1,
-                    drinks: []
+                    id: 1
                 }
             }]);
         });
