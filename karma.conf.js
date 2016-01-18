@@ -32,6 +32,8 @@ module.exports = function(config) {
         'public/javascripts/private/tap/tap.directive.js',
         'public/javascripts/private/taproom.service.js',
         'public/javascripts/private/taproom/edit-taproom.directive.js',
+        'public/javascripts/private/taproom/taproom.directive.js',
+        'public/javascripts/private/unit-math.service.js',
         'public/javascripts/static/header.directive.js',
         'public/javascripts/templates.js',
         // end js-templates tags

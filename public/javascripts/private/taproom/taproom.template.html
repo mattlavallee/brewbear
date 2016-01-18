@@ -1,0 +1,46 @@
+<div class="well">
+    <div class="panel user-tap" 
+         ng-repeat="entry in taproomEntries | orderBy: 'tap.name'">
+         <div class="user-tap-name">{{ entry.tap.name }}</div>
+         <div>{{ entry.beer.name }} (SRM: {{ entry.beer.srm }})</div>
+         <div>{{ entry.beer.abv }}%</div>
+         <div>{{ entry.beer.style }}</div>
+         <div>OG: {{ entry.beer.originalGravity }} FG: {{ entry.beer.finalGravity }}</div>
+         <div>Total Volume: {{ entry.volume }} {{ entry.unit.unit }}</div>
+         <input type="button" 
+                class="btn btn-primary" 
+                ng-click="setTap( entry.id, entry.unit.id, entry.volume )"
+                value="I'll have one!" />
+    </div>
+</div>
+
+<div class="well" ng-if="activeTaproomEntry.taproomId >= 0">
+    <div class="form-group form-inline">
+    I'm having <input type="number"
+                      class="form-control"
+                      size="4"
+                      ng-model="activeTaproomEntry.currentVolume"
+                      required ng-required="true"
+                      min="0"
+                      max="{{activeTaproomEntry.maxVolume}}"
+                      step="0.1" />
+                <select name="type"
+                        class="form-control"
+                        ng-model="activeTaproomEntry.currentUnits"
+                        ng-change="zeroOutVolume()"
+                        required ng-required="true">
+                    <option ng-repeat="unit in activeTaproomEntry.validUnits | orderBy: 'name'"
+                        value="{{unit.id}}">{{ unit.name }}</option>
+                </select>
+    </div>
+    <div>
+        <input type="button"
+               class="btn btn-success"
+               ng-click="pourMyDrink()"
+               value="Pour My Drink!" />
+        <input type="button"
+               class="btn btn-warning"
+               ng-click="cancelPour()"
+               value="Cancel" />
+    </div>
+</div>

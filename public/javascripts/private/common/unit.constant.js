@@ -5,32 +5,45 @@
         Count: {
             id: 1,
             name: 'Count',
-            abbreviation: 'ct'
+            abbreviation: 'ct',
+            conversions: []
         },
         Ounces: {
             id: 2,
             name: 'Ounces',
-            abbreviation: 'oz'
+            abbreviation: 'oz',
+            conversions: []
         },
         Pints: {
             id: 3,
             name: 'Pints',
-            abbreviation: 'pt'
+            abbreviation: 'pt',
+            conversions: [
+                { id: 2, equivalent: 16 }
+            ]
         },
         Gallons: {
             id: 4,
             name: 'Gallons',
-            abbreviation: 'gal'
+            abbreviation: 'gal',
+            conversions: [
+                { id: 2, equivalent: 128 },
+                { id: 3, equivalent: 8 }
+            ]
         },
         Milliliters: {
             id: 5,
             name: 'Milliliters',
-            abbreviation: 'ml'
+            abbreviation: 'ml',
+            conversions: []
         },
         Liters: {
             id: 6,
             name: 'Liters',
-            abbreviation: 'l'
+            abbreviation: 'l',
+            conversions: [
+                { id: 5, equivalent: 1000 }
+            ]
         }
     });
 })();

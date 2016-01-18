@@ -84,7 +84,8 @@
                         });
                     });
                 return defer.promise;
-            }
+            },
+            pourDrink: function(){}
         };
     }
 
