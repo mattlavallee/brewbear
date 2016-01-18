@@ -5,6 +5,7 @@
     var beerModel = require('./beer-model');
     var unitModel = require('./unit-model');
     var tapModel = require('./tap-model');
+    var taproomHistory = require('./taproom-history-model');
 
     var taproomModel = bookshelf.Model.extend({
         tableName: 'barHistory',
@@ -16,6 +17,9 @@
         },
         tap: function() {
             return this.belongsTo(tapModel.instance, 'barId');
+        },
+        drinks: function(){
+            return this.hasMany(taproomHistory.instance, 'barId');
         }
     });
 
@@ -34,7 +38,7 @@
                     }
                 })
                 .fetch({
-                    withRelated: ['beer', 'unit', 'tap']
+                    withRelated: ['beer', 'unit', 'tap', 'drinks']
                 });
         },
         create: function(userId, newEntry) {

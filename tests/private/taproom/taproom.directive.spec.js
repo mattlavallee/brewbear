@@ -3,7 +3,6 @@ describe('Directive: Taproom', function() {
 
     var mockScope, element, compile, tapRoomService, unitMathService,
         q, timeout, $window;
-    var createSpy;
     beforeEach(module('brewbear-component', 'brewbear-services',
         'brewbear-templates'));
 
@@ -21,7 +20,8 @@ describe('Directive: Taproom', function() {
         spyOn(tapRoomService, 'getUserEntries').and.callFake(function() {
             return q.resolve([{
                 tap: {
-                    id: 1
+                    id: 1,
+                    drinks: []
                 }
             }]);
         });

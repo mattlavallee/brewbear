@@ -6,7 +6,7 @@
          <div>{{ entry.beer.abv }}%</div>
          <div>{{ entry.beer.style }}</div>
          <div>OG: {{ entry.beer.originalGravity }} FG: {{ entry.beer.finalGravity }}</div>
-         <div>Total Volume: {{ entry.volume }} {{ entry.unit.unit }}</div>
+         <div>Volume: {{ calculateRemainingVolume(entry.id) }} / {{ entry.volume }} {{ entry.unit.unit }}</div>
          <input type="button" 
                 class="btn btn-primary" 
                 ng-click="setTap( entry.id, entry.unit.id, entry.volume )"

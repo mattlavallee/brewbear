@@ -54,11 +54,37 @@
 
                         TapRoomService.pourDrink(
                             scope.activeTaproomEntry.taproomId,
-                            volumeInOriginalUnits).then(function() {
-                            //TODO: subtract volume from entry in array
+                            volumeInOriginalUnits
+                        ).then(function() {
+                            var taproomEntry =
+                                _.findWhere(scope.taproomEntries, {
+                                    barId: scope.activeTaproomEntry.taproomId
+                                });
+                            taproomEntry.drinks.push({
+                                id: (new Date()).getTime(),
+                                date: new Date(),
+                                numUnits: volumeInOriginalUnits,
+                                varId: taproomEntry.barId
+                            });
+
+                            scope.cancelPour(); //close pour dialog
                         });
                     }
 
+                };
+
+                scope.calculateRemainingVolume = function(taproomEntryId) {
+                    var entry = _.findWhere(scope.taproomEntries, {
+                        id: taproomEntryId
+                    });
+                    if (entry) {
+                        var volume = 0;
+                        _.each(entry.drinks, function(drink) {
+                            volume += drink.numUnits;
+                        });
+                        return entry.volume - volume;
+                    }
+                    return '-';
                 };
             }
         };

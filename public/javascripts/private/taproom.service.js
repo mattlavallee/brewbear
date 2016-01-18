@@ -85,7 +85,24 @@
                     });
                 return defer.promise;
             },
-            pourDrink: function(){}
+            pourDrink: function(taproomId, volume) {
+                var defer = $q.defer();
+                $http.post('/taproom/pourDrink', {
+                        taproomId: taproomId,
+                        volume: volume
+                    })
+                    .success(function(response) {
+                        defer.resolve(
+                            validatePostResponse(response, 'pouring')
+                        );
+                    })
+                    .error(function() {
+                        defer.resolve({
+                            error: true
+                        });
+                    });
+                return defer.promise;
+            }
         };
     }
 

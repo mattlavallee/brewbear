@@ -5,6 +5,7 @@
     var router = express.Router();
     var userAuth = require('../helpers/authentication');
     var TapRoom = require('../../models/taproom-model');
+    var TaproomHistory = require('../../models/taproom-history-model');
 
     router.get('/user', function(req, res) {
         if (userAuth.userValidated(req, res, true)) {
@@ -79,6 +80,50 @@
                         msg: 'There was an error deleting the tap'
                     });
                 });
+        }
+    });
+
+    router.post('/pourDrink', function(req, res) {
+        if (userAuth.userValidated(req, res, true)) {
+            var taproomId = req.body.taproomId;
+            var volume = req.body.volume;
+
+            //verify that the taproom we are pouring for is owned
+            //by the authenticated user!
+            TapRoom.get(req.user.id).then(function(taproomEntries) {
+                taproomEntries.mapThen(function(entry) {
+                    return entry.get('barId') === taproomId;
+                }).then(function(taprooms) {
+                    //at least 1 entry from the collection matches our taproom
+                    if (taprooms.indexOf(true) !== -1) {
+                        TaproomHistory.logDrink(taproomId, volume)
+                            .then(function() {
+                                res.json({
+                                    error: false,
+                                    id: taproomId
+                                });
+                            })
+                            .catch(function(err) {
+                                res.json({
+                                    error: true,
+                                    message: err
+                                });
+                            });
+                    } else {
+                        res.json({
+                            error: true,
+                            message:
+                                'Taproom Entry is not owned by the active user'
+                        });
+                    }
+                });
+            }).catch(function(err) {
+                res.json({
+                    error: true,
+                    message: err
+                });
+            });
+
         }
     });
     module.exports = router;
