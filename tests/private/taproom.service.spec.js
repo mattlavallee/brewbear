@@ -255,4 +255,68 @@ describe('Service: TapRoomService', function() {
             timeout.flush();
         });
     });
+
+    describe('pour drink function - ', function() {
+        afterEach(function() {
+            httpBackend.verifyNoOutstandingExpectation();
+            httpBackend.verifyNoOutstandingRequest();
+        });
+
+        it('Returns a 500 error', function() {
+            httpBackend.whenPOST('/taproom/pourDrink').respond(500, '');
+            factory.pourDrink(1, 2).then(function(result) {
+                expect(result).toEqual({
+                    error: true
+                });
+            });
+            httpBackend.flush();
+            timeout.flush();
+        });
+
+        it('Returns null from the api', function() {
+            httpBackend.whenPOST('/taproom/pourDrink').respond(200, null);
+
+            factory.pourDrink(1, 2).then(function(result) {
+                expect(result).toEqual({
+                    error: true,
+                    id: -1,
+                    message: 'Error pouring taproom entry'
+                });
+            });
+            httpBackend.flush();
+            timeout.flush();
+        });
+
+        it('Returns an invalid response from the api', function() {
+            httpBackend.whenPOST('/taproom/pourDrink').respond(200, {
+                error: true,
+                message: ''
+            });
+
+            factory.pourDrink(1, 2).then(function(result) {
+                expect(result).toEqual({
+                    error: true,
+                    id: -1,
+                    message: 'Error pouring taproom entry'
+                });
+            });
+            httpBackend.flush();
+            timeout.flush();
+        });
+
+        it('Returns a succesful response', function() {
+            httpBackend.whenPOST('/taproom/pourDrink').respond(200, {
+                id: 1
+            });
+            factory.pourDrink(1, 2).then(function(result) {
+                expect(result).toBeDefined();
+                expect(result).toEqual({
+                    error: false,
+                    id: 1
+                });
+            });
+            httpBackend.flush();
+            timeout.flush();
+        });
+    });
 });

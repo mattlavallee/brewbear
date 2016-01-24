@@ -19,6 +19,7 @@ describe('Directive: Taproom', function() {
 
         spyOn(tapRoomService, 'getUserEntries').and.callFake(function() {
             return q.resolve([{
+                id: 1,
                 barId: 1,
                 volume: 5,
                 drinks: [],
@@ -152,6 +153,32 @@ describe('Directive: Taproom', function() {
                 .toHaveBeenCalledWith(5, 2, 10);
             expect(tapRoomService.pourDrink.calls.count()).toEqual(1);
             expect(tapRoomService.pourDrink).toHaveBeenCalledWith(1, 5);
+        });
+    });
+
+    describe('calculateRemainingVolume - ', function() {
+        it('returns default value if entry cannot be found', function() {
+            initDirective();
+            timeout.flush();
+            var result = mockScope.calculateRemainingVolume(100);
+            expect(result).toEqual('-');
+        });
+
+        it('returns the original volume if there are no drinks', function() {
+            initDirective();
+            timeout.flush();
+            var result = mockScope.calculateRemainingVolume(1);
+            expect(result).toEqual(mockScope.taproomEntries[0].volume);
+        });
+
+        it('properly calculates remaining volume', function() {
+            initDirective();
+            timeout.flush();
+            mockScope.taproomEntries[0].drinks.push({
+                numUnits: 2
+            });
+            var result = mockScope.calculateRemainingVolume(1);
+            expect(result).toEqual(3);
         });
     });
 });
