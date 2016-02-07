@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    function TaproomDirective(TapRoomService, UnitMathService) {
+    function TaproomDirective(TapRoomService, UnitMathService, SRM) {
         return {
             restrict: 'E',
             templateUrl: '/javascripts/private/taproom/taproom.template.html',
@@ -25,6 +25,16 @@
                         maxVolume: UnitMathService.getMaxVolume(
                             unitId, volume, unitId)
                     };
+                };
+
+                scope.getSrmColor = function(srmAsNumber) {
+                    srmAsNumber = Number(srmAsNumber);
+
+                    var srm = _.find(SRM, function(curSrm) {
+                        return srmAsNumber > curSrm.low && 
+                            srmAsNumber <= curSrm.high;
+                    });
+                    return srm.color;
                 };
 
                 scope.zeroOutVolume = function() {

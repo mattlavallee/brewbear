@@ -2,7 +2,9 @@
     <div class="panel user-tap" 
          ng-repeat="entry in taproomEntries | orderBy: 'tap.name'">
          <div class="user-tap-name">{{ entry.tap.name }}</div>
-         <div>{{ entry.beer.name }} (SRM: {{ entry.beer.srm }})</div>
+         <div class="tap-icon {{ getSrmColor( entry.beer.srm ) }}" 
+             ng-class="entry.tap.typeId === 1 ? 'icon-beer-keg fa-rotate-270' : 'icon-beer-bottles'"></div>
+         <div>{{ entry.beer.name }}</div>
          <div>{{ entry.beer.abv }}%</div>
          <div>{{ entry.beer.style }}</div>
          <div>OG: {{ entry.beer.originalGravity }} FG: {{ entry.beer.finalGravity }}</div>
