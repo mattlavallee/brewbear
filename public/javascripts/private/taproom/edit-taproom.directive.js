@@ -111,7 +111,7 @@
                     srmAsNumber = Number(srmAsNumber);
 
                     var srm = _.find(SRM, function(curSrm) {
-                        return srmAsNumber > curSrm.low && 
+                        return srmAsNumber > curSrm.low &&
                             srmAsNumber <= curSrm.high;
                     });
                     return srm.color;

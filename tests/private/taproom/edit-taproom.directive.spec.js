@@ -29,7 +29,7 @@ describe('Directive: EditTaproom', function() {
             return q.resolve({});
         });
         spyOn(tapRoomService, 'getUserEntries').and.callFake(function() {
-            return q.resolve([{ tap: { id: 1 } }]);
+            return q.resolve([{ tap: { id: 1 }, beer: { srm: 5 } }]);
         });
     }));
 

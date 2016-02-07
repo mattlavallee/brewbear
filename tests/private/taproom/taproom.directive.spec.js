@@ -25,6 +25,9 @@ describe('Directive: Taproom', function() {
                 drinks: [],
                 tap: {
                     id: 1
+                },
+                beer: {
+                    srm: 5
                 }
             }]);
         });
