@@ -6,6 +6,17 @@ describe('Directive: Taproom', function() {
     beforeEach(module('brewbear-component', 'brewbear-services',
         'brewbear-templates'));
 
+    beforeEach(module('brewbear-common', function($compileProvider) {
+        $compileProvider.directive('gaugeChart', function() {
+            return {
+                priority: 999,
+                terminal: true,
+                restrict: 'E',
+                template: '<div class="gauge"></div>'
+            };
+        });
+    }));
+
     beforeEach(inject(function($rootScope, $compile, $q, $timeout,
         _TapRoomService_, _$window_, _UnitMathService_) {
         mockScope = $rootScope.$new();
@@ -182,6 +193,19 @@ describe('Directive: Taproom', function() {
             });
             var result = mockScope.calculateRemainingVolume(1);
             expect(result).toEqual(3);
+        });
+    });
+
+    describe('volumeAsPercentage - ', function() {
+        it('calculates the volume as a percentage', function() {
+            initDirective();
+            timeout.flush();
+            mockScope.taproomEntries[0].drinks.push({
+                numUnits: 2
+            });
+            var result =
+                mockScope.volumeAsPercentage(mockScope.taproomEntries[0]);
+            expect(result).toEqual(60);
         });
     });
 });

@@ -30,6 +30,7 @@ module.exports = function(grunt) {
                 options: jsTagConfig,
                 src: ['public/javascripts/*.js',
                       'public/javascripts/static/**/*.js',
+                      'public/javascripts/charts/**/*.js',
                       'public/javascripts/private/**/*.js'],
                 dest: 'views/private/index.html'
             },
@@ -150,7 +151,8 @@ module.exports = function(grunt) {
             }
         },
         jshint: {
-            all: ['Gruntfile.js', 'app.js', 'public/javascripts/**/*.js',
+            all: ['Gruntfile.js', 'app.js',
+                'public/javascripts/!(charts)/**/*.js',
                 'routes/**/*.js', 'views/**/*.js', 'tests/**/*.js',
                 '!public/javascripts/templates.js'],
             options: {
@@ -186,7 +188,8 @@ module.exports = function(grunt) {
             }
         },
         jscs: {
-            all: ['Gruntfile.js', 'app.js', 'public/javascripts/**/*.js',
+            all: ['Gruntfile.js', 'app.js',
+                'public/javascripts/!(charts)/**/*.js',
                 'routes/**/*.js', 'views/**/*.js', 'tests/**/*.js',
                 '!public/javascripts/templates.js'],
             options: {

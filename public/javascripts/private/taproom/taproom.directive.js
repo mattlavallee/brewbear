@@ -30,11 +30,10 @@
                 scope.getSrmColor = function(srmAsNumber) {
                     srmAsNumber = Number(srmAsNumber);
 
-                    var srm = _.find(SRM, function(curSrm) {
+                    return _.find(SRM, function(curSrm) {
                         return srmAsNumber > curSrm.low &&
                             srmAsNumber <= curSrm.high;
                     });
-                    return srm.color;
                 };
 
                 scope.zeroOutVolume = function() {
@@ -95,6 +94,12 @@
                         return entry.volume - volume;
                     }
                     return '-';
+                };
+
+                scope.volumeAsPercentage = function(taproomEntry) {
+                    var remainingVolume =
+                        scope.calculateRemainingVolume(taproomEntry.id);
+                    return (remainingVolume / taproomEntry.volume) * 100;
                 };
             }
         };

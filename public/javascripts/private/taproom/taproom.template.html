@@ -2,12 +2,18 @@
     <div class="panel user-tap" 
          ng-repeat="entry in taproomEntries | orderBy: 'tap.name'">
          <div class="user-tap-name">{{ entry.tap.name }}</div>
-         <div class="tap-icon {{ getSrmColor( entry.beer.srm ) }}" 
+         <div class="tap-icon {{ getSrmColor( entry.beer.srm ).color }}" 
              ng-class="entry.tap.typeId === 1 ? 'icon-beer-keg fa-rotate-270' : 'icon-beer-bottles'"></div>
          <div>{{ entry.beer.name }}</div>
          <div>{{ entry.beer.abv }}%</div>
          <div>{{ entry.beer.style }}</div>
          <div>OG: {{ entry.beer.originalGravity }} FG: {{ entry.beer.finalGravity }}</div>
+         <div>
+            <gauge-chart chart-id="{{ 'meter' + entry.id }}"
+                         color="{{ getSrmColor( entry.beer.srm ).hex }}"
+                         percentage="{{ volumeAsPercentage( entry ) }}">
+            </gauge-chart>
+         </div>
          <div>Volume: {{ calculateRemainingVolume(entry.id) }} / {{ entry.volume }} {{ entry.unit.unit }}</div>
          <input type="button" 
                 class="btn btn-primary" 

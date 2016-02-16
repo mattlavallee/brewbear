@@ -14,17 +14,20 @@ module.exports = function(config) {
         'bower_components/angular/angular.js',
         'bower_components/angular-route/angular-route.js',
         'bower_components/lodash/lodash.js',
+        'bower_components/d3/d3.js',
         // endbower 
         'bower_components/angular-mocks/angular-mocks.js',
         // start js-templates tags
         'public/javascripts/bear.js',
+        'public/javascripts/charts/liquid-fill-gauge.js',
         'public/javascripts/private/beer.service.js',
         'public/javascripts/private/beer/beer.controller.js',
         'public/javascripts/private/beer/beer.directive.js',
         'public/javascripts/private/beer/edit-beer.directive.js',
-        'public/javascripts/private/common/bar-type.constant.js',
-        'public/javascripts/private/common/srm.constant.js',
-        'public/javascripts/private/common/unit.constant.js',
+        'public/javascripts/private/common/constants/bar-type.constant.js',
+        'public/javascripts/private/common/constants/srm.constant.js',
+        'public/javascripts/private/common/constants/unit.constant.js',
+        'public/javascripts/private/common/gauge-chart.directive.js',
         'public/javascripts/private/routes/brew-bear-route.controller.js',
         'public/javascripts/private/tap.service.js',
         'public/javascripts/private/tap/edit-tap.directive.js',
@@ -45,7 +48,7 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-        'public/javascripts/**/*.js': ['coverage']
+        'public/javascripts/!(charts)/**/*.js': ['coverage']
     },
     plugins: ['karma-threshold-reporter', 'karma-coverage', 'karma-jasmine',
         'karma-phantomjs-launcher'],
