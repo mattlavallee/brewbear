@@ -92,7 +92,7 @@
             //by the authenticated user!
             TapRoom.get(req.user.id).then(function(taproomEntries) {
                 taproomEntries.mapThen(function(entry) {
-                    return entry.get('barId') === taproomId;
+                    return entry.get('id') === taproomId;
                 }).then(function(taprooms) {
                     //at least 1 entry from the collection matches our taproom
                     if (taprooms.indexOf(true) !== -1) {
