@@ -67,7 +67,7 @@
                         ).then(function() {
                             var taproomEntry =
                                 _.findWhere(scope.taproomEntries, {
-                                    barId: scope.activeTaproomEntry.taproomId
+                                    id: scope.activeTaproomEntry.taproomId
                                 });
                             taproomEntry.drinks.push({
                                 id: (new Date()).getTime(),

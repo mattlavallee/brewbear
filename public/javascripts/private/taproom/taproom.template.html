@@ -18,37 +18,49 @@
          <input type="button" 
                 class="btn btn-primary" 
                 ng-click="setTap( entry.id, entry.unit.id, entry.volume )"
+                data-toggle="modal" data-target=".pour-drink-modal"
                 value="I'll have one!" />
     </div>
 </div>
 
-<div class="well" ng-if="activeTaproomEntry.taproomId >= 0">
-    <div class="form-group form-inline">
-    I'm having <input type="number"
-                      class="form-control"
-                      size="4"
-                      ng-model="activeTaproomEntry.currentVolume"
-                      required ng-required="true"
-                      min="0"
-                      max="{{activeTaproomEntry.maxVolume}}"
-                      step="0.1" />
-                <select name="type"
-                        class="form-control"
-                        ng-model="activeTaproomEntry.currentUnits"
-                        ng-change="zeroOutVolume()"
-                        required ng-required="true">
-                    <option ng-repeat="unit in activeTaproomEntry.validUnits | orderBy: 'name'"
-                        value="{{unit.id}}">{{ unit.name }}</option>
-                </select>
+<div class="modal fade pour-drink-modal" tabindex="-1" role="dialog" 
+     aria-labelledby="Pour a Drink">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">Pour Me a Drink!</div>
+      <div class="modal-body">
+        <div class="form-group form-inline">
+          I'm having <input type="number"
+                            class="form-control"
+                            size="4"
+                            ng-model="activeTaproomEntry.currentVolume"
+                            required ng-required="true"
+                            min="0"
+                            max="{{activeTaproomEntry.maxVolume}}"
+                            step="0.1"
+                            style="max-width: 75px;" />
+                      <select name="type"
+                              class="form-control"
+                              ng-model="activeTaproomEntry.currentUnits"
+                              ng-change="zeroOutVolume()"
+                              required ng-required="true">
+                          <option ng-repeat="unit in activeTaproomEntry.validUnits | orderBy: 'name'"
+                              value="{{unit.id}}">{{ unit.name }}</option>
+                      </select>
+          </div>
+          <div>
+              <input type="button"
+                     class="btn btn-success"
+                     ng-click="pourMyDrink()"
+                     data-toggle="modal" data-target=".pour-drink-modal"
+                     value="Pour My Drink!" />
+              <input type="button"
+                     class="btn btn-warning"
+                     ng-click="cancelPour()"
+                     data-toggle="modal" data-target=".pour-drink-modal"
+                     value="Cancel" />
+          </div>    
+      </div>
     </div>
-    <div>
-        <input type="button"
-               class="btn btn-success"
-               ng-click="pourMyDrink()"
-               value="Pour My Drink!" />
-        <input type="button"
-               class="btn btn-warning"
-               ng-click="cancelPour()"
-               value="Cancel" />
-    </div>
+  </div>
 </div>
