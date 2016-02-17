@@ -5,7 +5,7 @@
         return {
             restrict: 'E',
             templateUrl: '/javascripts/private/taproom/taproom.template.html',
-            link: function(scope) {
+            link: function(scope, element) {
                 scope.taproomEntries = [];
                 scope.activeTaproomEntry = {};
 
@@ -42,6 +42,7 @@
 
                 scope.cancelPour = function() {
                     scope.activeTaproomEntry = {};
+                    element.find('.pour-drink-modal').modal('hide');
                 };
 
                 scope.pourMyDrink = function() {
@@ -74,7 +75,6 @@
                             scope.cancelPour(); //close pour dialog
                         });
                     }
-
                 };
 
                 scope.calculateRemainingVolume = function(taproomEntryId) {
