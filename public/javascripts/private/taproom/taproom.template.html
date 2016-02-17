@@ -45,7 +45,9 @@
                               ng-change="zeroOutVolume()"
                               required ng-required="true">
                           <option ng-repeat="unit in activeTaproomEntry.validUnits | orderBy: 'name'"
-                              value="{{unit.id}}">{{ unit.name }}</option>
+                              value="{{unit.id}}" 
+                              ng-selected="{{ activeTaproomEntry.currentUnits.toString() === unit.id.toString()}}">
+                              {{ unit.name }}</option>
                       </select>
           </div>
           <div>
