@@ -11,7 +11,7 @@
         srm: 0.0
     };
 
-    function BeerCtrl(BeerService, SRM, $location) {
+    function BeerCtrl(BeerService, SrmService, $location) {
         var vm = this;
 
         vm.model = _.cloneDeep(beerTemplate);
@@ -27,7 +27,9 @@
             vm.id = parseInt(vm.id, 10);
             vm.beers = [];
             BeerService.getUserBeers().then(function(result) {
-                var selectedBeer = _.findWhere(result, {id:vm.id });
+                var selectedBeer = _.findWhere(result, {
+                    id: vm.id
+                });
                 if (selectedBeer) {
                     vm.model = selectedBeer;
                 } else {
@@ -37,12 +39,7 @@
         }
 
         vm.getSrmColor = function(srmAsNumber) {
-            srmAsNumber = Number(srmAsNumber);
-
-            var srm = _.find(SRM, function(curSrm) {
-                return srmAsNumber > curSrm.low && srmAsNumber <= curSrm.high;
-            });
-            return srm.color;
+            return SrmService.getColor(srmAsNumber).color;
         };
 
         vm.saveBeer = function(isValid) {
@@ -55,13 +52,11 @@
                 return fn(vm.model).then(function(result) {
                     if (result.error) {
                         vm.error = true;
-                    }
-                    else {
+                    } else {
                         $location.path('/');
                     }
                 });
-            }
-            else {
+            } else {
                 vm.error = true;
             }
         };

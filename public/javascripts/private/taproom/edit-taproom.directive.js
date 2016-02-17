@@ -2,7 +2,7 @@
     'use strict';
 
     function EditTaproomDirective(TaproomUnits, BeerService, TapService,
-        TapRoomService, SRM, $q, $timeout, $window) {
+        TapRoomService, SrmService, $q, $timeout, $window) {
         //Gets taps and taproom entries and then filters the collection of taps
         //based on what is active in the taproom
         function getActiveTapsInTaproom(scope) {
@@ -108,13 +108,7 @@
                 };
 
                 scope.getSrmColor = function(srmAsNumber) {
-                    srmAsNumber = Number(srmAsNumber);
-
-                    var srm = _.find(SRM, function(curSrm) {
-                        return srmAsNumber > curSrm.low &&
-                            srmAsNumber <= curSrm.high;
-                    });
-                    return srm.color;
+                    return SrmService.getColor(srmAsNumber).color;
                 };
             }
         };

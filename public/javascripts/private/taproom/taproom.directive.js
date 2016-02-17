@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    function TaproomDirective(TapRoomService, UnitMathService, SRM) {
+    function TaproomDirective(TapRoomService, UnitMathService, SrmService) {
         return {
             restrict: 'E',
             templateUrl: '/javascripts/private/taproom/taproom.template.html',
@@ -28,12 +28,7 @@
                 };
 
                 scope.getSrmColor = function(srmAsNumber) {
-                    srmAsNumber = Number(srmAsNumber);
-
-                    return _.find(SRM, function(curSrm) {
-                        return srmAsNumber > curSrm.low &&
-                            srmAsNumber <= curSrm.high;
-                    });
+                    return SrmService.getColor(srmAsNumber);
                 };
 
                 scope.zeroOutVolume = function() {

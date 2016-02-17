@@ -28,6 +28,7 @@ module.exports = function(config) {
         'public/javascripts/private/common/constants/srm.constant.js',
         'public/javascripts/private/common/constants/unit.constant.js',
         'public/javascripts/private/common/gauge-chart.directive.js',
+        'public/javascripts/private/common/srm.service.js',
         'public/javascripts/private/routes/brew-bear-route.controller.js',
         'public/javascripts/private/tap.service.js',
         'public/javascripts/private/tap/edit-tap.directive.js',
