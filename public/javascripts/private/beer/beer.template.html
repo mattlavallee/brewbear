@@ -4,7 +4,12 @@
         <a href="#/addBeer" class="btn btn-primary">Add a Beer</a>
     </div>
     <div class="panel user-beer" ng-repeat="beer in beerVm.beers">
-        <div class="user-beer-name">{{ beer.name }}</div>
+        <div class="user-beer-name">
+            <span class="fa fa-star active-beer" 
+                  ng-if="beer.hasActiveTap"
+                  title="Available in the TapRoom"></span>
+            {{ beer.name }}
+        </div>
         <div class="user-beer-secondary">
             <i>{{ beer.style }}</i> ABV: {{ beer.abv }}%
         </div>
