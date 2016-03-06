@@ -23,7 +23,9 @@ describe('Controller: Beer Controller', function() {
 
         defer = q.defer();
         spyOn(beerService, 'getUserBeers').and.callFake(function() {
-            defer.resolve([{ id: 1 }]);
+            defer.resolve([{
+                id: 1
+            }]);
             return defer.promise;
         });
     }));
@@ -145,7 +147,9 @@ describe('Controller: Beer Controller', function() {
         it('handles an error when creating a beer', function() {
             spyOn(beerService, 'create').and.callFake(function() {
                 var defer = q.defer();
-                defer.resolve({error: true});
+                defer.resolve({
+                    error: true
+                });
                 return defer.promise;
             });
             spyOn(location, 'path');
@@ -186,7 +190,9 @@ describe('Controller: Beer Controller', function() {
         it('handles an error when creating a beer', function() {
             spyOn(beerService, 'update').and.callFake(function() {
                 var defer = q.defer();
-                defer.resolve({error: true});
+                defer.resolve({
+                    error: true
+                });
                 return defer.promise;
             });
             spyOn(location, 'path');
@@ -204,10 +210,12 @@ describe('Controller: Beer Controller', function() {
         });
     });
 
-    describe('remove beer - ', function(){
-        it('does nothing if the beer cannot be found', function(){
-            spyOn(beerService, 'remove').and.callFake(function(){
-                return q.resolve({error: true});
+    describe('remove beer - ', function() {
+        it('does nothing if the beer cannot be found', function() {
+            spyOn(beerService, 'remove').and.callFake(function() {
+                return q.resolve({
+                    error: true
+                });
             });
 
             var controller = initController()();
@@ -219,9 +227,11 @@ describe('Controller: Beer Controller', function() {
             expect(controller.beers.length).toEqual(1);
         });
 
-        it('removes the beer if the service call succeeds', function(){
-            spyOn(beerService, 'remove').and.callFake(function(){
-                return q.resolve({error: false});
+        it('removes the beer if the service call succeeds', function() {
+            spyOn(beerService, 'remove').and.callFake(function() {
+                return q.resolve({
+                    error: false
+                });
             });
 
             var controller = initController()();

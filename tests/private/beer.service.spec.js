@@ -38,8 +38,10 @@ describe('Service: BeerService', function() {
         });
 
         it('Returns an invalid response from the api', function() {
-            httpBackend.whenGET('/beer/user').respond(200,
-                {error: true, message: ''});
+            httpBackend.whenGET('/beer/user').respond(200, {
+                error: true,
+                message: ''
+            });
 
             factory.getUserBeers().then(function(result) {
                 expect(result).toEqual([]);
@@ -49,9 +51,13 @@ describe('Service: BeerService', function() {
         });
 
         it('Returns a succesful response', function() {
-            httpBackend.whenGET('/beer/user').respond(200, {data: [
-                {name: 'Fizz'},
-                {name: 'Fuzz'}]});
+            httpBackend.whenGET('/beer/user').respond(200, {
+                data: [{
+                    name: 'Fizz'
+                }, {
+                    name: 'Fuzz'
+                }]
+            });
             factory.getUserBeers().then(function(result) {
                 expect(result.length).toEqual(2);
                 expect(result[0].name).toEqual('Fizz');
@@ -70,7 +76,9 @@ describe('Service: BeerService', function() {
         it('Returns a 500 error', function() {
             httpBackend.whenPOST('/beer/new').respond(500, '');
             factory.create().then(function(result) {
-                expect(result).toEqual({error:true});
+                expect(result).toEqual({
+                    error: true
+                });
             });
             httpBackend.flush();
             timeout.flush();
@@ -89,7 +97,10 @@ describe('Service: BeerService', function() {
 
         it('succeeds and handles an error message from the server', function() {
             httpBackend.whenPOST('/beer/new')
-                .respond(200, { error: true, msg: 'blah' });
+                .respond(200, {
+                    error: true,
+                    msg: 'blah'
+                });
             factory.create().then(function(result) {
                 expect(result.error).toEqual(true);
                 expect(result.message).toEqual('blah');
@@ -100,7 +111,9 @@ describe('Service: BeerService', function() {
         });
 
         it('succeeds completely', function() {
-            httpBackend.whenPOST('/beer/new').respond(200, {id: 123});
+            httpBackend.whenPOST('/beer/new').respond(200, {
+                id: 123
+            });
             factory.create().then(function(result) {
                 expect(result.error).toEqual(false);
                 expect(result.id).toEqual(123);
@@ -118,8 +131,12 @@ describe('Service: BeerService', function() {
 
         it('Returns a 500 error', function() {
             httpBackend.whenPOST('/beer/edit/1').respond(500, '');
-            factory.update({ id: 1 }).then(function(result) {
-                expect(result).toEqual({error:true});
+            factory.update({
+                id: 1
+            }).then(function(result) {
+                expect(result).toEqual({
+                    error: true
+                });
             });
             httpBackend.flush();
             timeout.flush();
@@ -127,7 +144,9 @@ describe('Service: BeerService', function() {
 
         it('succeeds but the response is null', function() {
             httpBackend.whenPOST('/beer/edit/1').respond(200, null);
-            factory.update({ id: 1 }).then(function(result) {
+            factory.update({
+                id: 1
+            }).then(function(result) {
                 expect(result.error).toEqual(true);
                 expect(result.message).toEqual('Error updating beer');
                 expect(result.id).toEqual(-1);
@@ -138,8 +157,13 @@ describe('Service: BeerService', function() {
 
         it('succeeds and handles an error message from the server', function() {
             httpBackend.whenPOST('/beer/edit/1')
-                .respond(200, { error: true, msg: 'blah' });
-            factory.update({ id: 1 }).then(function(result) {
+                .respond(200, {
+                    error: true,
+                    msg: 'blah'
+                });
+            factory.update({
+                id: 1
+            }).then(function(result) {
                 expect(result.error).toEqual(true);
                 expect(result.message).toEqual('blah');
                 expect(result.id).toEqual(-1);
@@ -149,8 +173,12 @@ describe('Service: BeerService', function() {
         });
 
         it('succeeds completely', function() {
-            httpBackend.whenPOST('/beer/edit/1').respond(200, {id: 1});
-            factory.update({ id: 1 }).then(function(result) {
+            httpBackend.whenPOST('/beer/edit/1').respond(200, {
+                id: 1
+            });
+            factory.update({
+                id: 1
+            }).then(function(result) {
                 expect(result.error).toEqual(false);
                 expect(result.id).toEqual(1);
             });
@@ -168,7 +196,9 @@ describe('Service: BeerService', function() {
         it('Returns a 500 error', function() {
             httpBackend.whenPOST('/beer/remove').respond(500, '');
             factory.remove(1).then(function(result) {
-                expect(result).toEqual({error:true});
+                expect(result).toEqual({
+                    error: true
+                });
             });
             httpBackend.flush();
             timeout.flush();
@@ -185,7 +215,10 @@ describe('Service: BeerService', function() {
 
         it('succeeds and handles an error message from the server', function() {
             httpBackend.whenPOST('/beer/remove')
-                .respond(200, { error: true, msg: 'blah' });
+                .respond(200, {
+                    error: true,
+                    msg: 'blah'
+                });
             factory.remove(1).then(function(result) {
                 expect(result.error).toEqual(true);
             });
@@ -194,7 +227,9 @@ describe('Service: BeerService', function() {
         });
 
         it('succeeds completely', function() {
-            httpBackend.whenPOST('/beer/remove').respond(200, {id: 1});
+            httpBackend.whenPOST('/beer/remove').respond(200, {
+                id: 1
+            });
             factory.remove(1).then(function(result) {
                 expect(result.error).toEqual(false);
             });
