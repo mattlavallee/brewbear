@@ -23,6 +23,10 @@
         <div class="user-beer-notes" ng-if="beer.notes.length > 0">
             {{ beer.notes }}
         </div>
-        <a href="#/editBeer/{{ beer.id }}">Edit</a>
+        <div class="beer-links-container">
+            <a href="#/editBeer/{{ beer.id }}">Edit</a>
+            &nbsp;|&nbsp;
+            <span ng-click="beerVm.deleteBeer( beer.id )">Delete</span>
+        </div>
     </div>
 </div>

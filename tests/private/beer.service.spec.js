@@ -158,4 +158,48 @@ describe('Service: BeerService', function() {
             timeout.flush();
         });
     });
+
+    describe('remove function - ', function() {
+        afterEach(function() {
+            httpBackend.verifyNoOutstandingExpectation();
+            httpBackend.verifyNoOutstandingRequest();
+        });
+
+        it('Returns a 500 error', function() {
+            httpBackend.whenPOST('/beer/remove').respond(500, '');
+            factory.remove(1).then(function(result) {
+                expect(result).toEqual({error:true});
+            });
+            httpBackend.flush();
+            timeout.flush();
+        });
+
+        it('succeeds but the response is null', function() {
+            httpBackend.whenPOST('/beer/remove').respond(200, null);
+            factory.remove(1).then(function(result) {
+                expect(result.error).toEqual(false);
+            });
+            httpBackend.flush();
+            timeout.flush();
+        });
+
+        it('succeeds and handles an error message from the server', function() {
+            httpBackend.whenPOST('/beer/remove')
+                .respond(200, { error: true, msg: 'blah' });
+            factory.remove(1).then(function(result) {
+                expect(result.error).toEqual(true);
+            });
+            httpBackend.flush();
+            timeout.flush();
+        });
+
+        it('succeeds completely', function() {
+            httpBackend.whenPOST('/beer/remove').respond(200, {id: 1});
+            factory.remove(1).then(function(result) {
+                expect(result.error).toEqual(false);
+            });
+            httpBackend.flush();
+            timeout.flush();
+        });
+    });
 });

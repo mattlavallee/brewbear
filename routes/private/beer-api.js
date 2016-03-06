@@ -97,5 +97,23 @@
         }
     });
 
+    router.post('/remove', function(req, res) {
+        if (userAuth.userValidated(req, res, true)) {
+            var beerId = req.body.id;
+            Beer.remove(req.user.id, beerId).then(function() {
+                    res.json({
+                        error: false,
+                        id: beerId
+                    });
+                })
+                .otherwise(function() {
+                    res.status(500).json({
+                        error: true,
+                        msg: 'There was an error removing your beer'
+                    });
+                });
+        }
+    });
+
     module.exports = router;
 })();

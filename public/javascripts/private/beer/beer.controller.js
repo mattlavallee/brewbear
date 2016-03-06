@@ -60,6 +60,16 @@
                 vm.error = true;
             }
         };
+
+        vm.deleteBeer = function(beerId) {
+            BeerService.remove(beerId).then(function(result) {
+                if (result.error === false) {
+                    _.remove(vm.beers, function(beer) {
+                        return beer.id === beerId;
+                    });
+                }
+            });
+        };
     }
 
     angular.module('brewbear-component').controller('BeerController', BeerCtrl);

@@ -10,13 +10,11 @@
                         //verify response object from the API
                         if (!response) {
                             defer.resolve([]);
-                        }
-                        else {
+                        } else {
                             //verify error status from the API
                             if (response.error) {
                                 defer.resolve([]);
-                            }
-                            else {
+                            } else {
                                 defer.resolve(response.data);
                             }
                         }
@@ -29,41 +27,68 @@
             },
             create: function(newBeer) {
                 var defer = $q.defer();
-                $http.post('/beer/new', { beer: newBeer })
+                $http.post('/beer/new', {
+                        beer: newBeer
+                    })
                     .success(function(response) {
-                        var data = { error: false, id: -1 };
+                        var data = {
+                            error: false,
+                            id: -1
+                        };
                         if (!response || (response && response.error)) {
                             data.error = true;
                             data.message = response ?
                                 response.msg : 'Error creating beer';
-                        }
-                        else {
+                        } else {
                             data.id = response.id;
                         }
                         defer.resolve(data);
                     })
                     .error(function() {
-                        defer.resolve({ error: true });
+                        defer.resolve({
+                            error: true
+                        });
                     });
                 return defer.promise;
             },
             update: function(beer) {
                 var defer = $q.defer();
-                $http.post('/beer/edit/' + beer.id, { beer: beer })
+                $http.post('/beer/edit/' + beer.id, {
+                        beer: beer
+                    })
                     .success(function(response) {
-                        var data = {error: false, id: -1 };
+                        var data = {
+                            error: false,
+                            id: -1
+                        };
                         if (!response || (response && response.error)) {
                             data.error = true;
                             data.message = response ?
                                 response.msg : 'Error updating beer';
-                        }
-                        else {
+                        } else {
                             data.id = response.id;
                         }
                         defer.resolve(data);
                     })
                     .error(function() {
-                        defer.resolve({error: true});
+                        defer.resolve({
+                            error: true
+                        });
+                    });
+                return defer.promise;
+            },
+            remove: function(beerId) {
+                var defer = $q.defer();
+                $http.post('/beer/remove', {
+                        id: beerId
+                    }).success(function(result) {
+                        defer.resolve({
+                            error: result && result.error ? result.error : false
+                        });
+                    }).error(function() {
+                        defer.resolve({
+                            error: true
+                        });
                     });
                 return defer.promise;
             }

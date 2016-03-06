@@ -203,4 +203,34 @@ describe('Controller: Beer Controller', function() {
             });
         });
     });
+
+    describe('remove beer - ', function(){
+        it('does nothing if the beer cannot be found', function(){
+            spyOn(beerService, 'remove').and.callFake(function(){
+                return q.resolve({error: true});
+            });
+
+            var controller = initController()();
+            timeout.flush();
+
+            expect(controller.beers.length).toEqual(1);
+            controller.deleteBeer(-1);
+            timeout.flush();
+            expect(controller.beers.length).toEqual(1);
+        });
+
+        it('removes the beer if the service call succeeds', function(){
+            spyOn(beerService, 'remove').and.callFake(function(){
+                return q.resolve({error: false});
+            });
+
+            var controller = initController()();
+            timeout.flush();
+
+            expect(controller.beers.length).toEqual(1);
+            controller.deleteBeer(1);
+            timeout.flush();
+            expect(controller.beers.length).toEqual(0);
+        });
+    });
 });
