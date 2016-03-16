@@ -13,6 +13,8 @@
     passport.serializeUser(function(user, done) {
         User.insert(user).then(function() {
             done(null, user);
+        }, function(){
+            done('There was a problem authenticating your account :(', user);
         });
     });
 
@@ -27,10 +29,6 @@
         },
         function(token, tokenSecret, profile, done) {
             process.nextTick(function() {
-                /*console.log(profile.id);
-                console.log(profile.displayName);
-                console.log(profile.emails[0].value);
-                console.log(profile.photos[0].value);*/
                 return done(null, profile);
             });
         }
