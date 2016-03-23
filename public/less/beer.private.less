@@ -1,3 +1,35 @@
+.user-beer-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .user-beer{
+        flex: 1 1 auto;
+        padding: 5px;
+        margin: 5px;
+        min-width: 150px;
+        max-width: 250px;
+        text-align: center;
+
+        .user-beer-name{
+            font-weight: bold;
+        }
+
+        .user-beer-secondary, .user-beer-stats{
+            font-weight: smaller;
+        }
+
+        .user-beer-notes{
+            text-align: left;
+            font-weight: smaller;
+        }
+
+        .user-glass{
+            font-size: 5em;
+        }
+    }
+}
+
 .active-beer{
     color: #e0f915;
     font-size: 12px;
