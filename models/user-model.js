@@ -40,6 +40,40 @@
             });
 
             return deferred.promise;
+        },
+        get: function( userId ){
+            return userModel
+                .forge()
+                .query({
+                    where: {
+                        id: userId
+                    }
+                })
+                .fetch();
+        },
+        update: function( userId, userObj ){
+            return userModel.forge({
+                id: userId,
+            }).fetch().then(function(userToUpdate) {
+                if (!userToUpdate) {
+                    return {
+                        error: true
+                    };
+                } else {
+                    userToUpdate.save({
+                        name: userObj.name,
+                        email: userObj.email
+                    }).then(function() {
+                        return {
+                            error: false
+                        };
+                    }).otherwise(function() {
+                        return {
+                            error: true
+                        };
+                    });
+                }
+            });
         }
     };
 

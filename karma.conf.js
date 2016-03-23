@@ -20,6 +20,7 @@ module.exports = function(config) {
         // start js-templates tags
         'public/javascripts/bear.js',
         'public/javascripts/charts/liquid-fill-gauge.js',
+        'public/javascripts/private/account/user-account.directive.js',
         'public/javascripts/private/beer.service.js',
         'public/javascripts/private/beer/beer.controller.js',
         'public/javascripts/private/beer/beer.directive.js',
@@ -38,6 +39,7 @@ module.exports = function(config) {
         'public/javascripts/private/taproom/edit-taproom.directive.js',
         'public/javascripts/private/taproom/taproom.directive.js',
         'public/javascripts/private/unit-math.service.js',
+        'public/javascripts/private/user.service.js',
         'public/javascripts/static/header.directive.js',
         'public/javascripts/templates.js',
         // end js-templates tags

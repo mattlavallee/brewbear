@@ -31,7 +31,9 @@
     app.use(favicon(__dirname + '/public/favicon.ico'));
     app.use(logger('dev'));
     app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(bodyParser.urlencoded({
+        extended: false
+    }));
     app.use(cookieParser());
     app.use(express.static(__dirname + '/public'));
     app.use(express.static(__dirname + '/bower_components'));
@@ -57,9 +59,9 @@
     app.use('/taproom', tapRoomApi);
 
     // catch 404 and forward to error handler
-    app.use(function(req, res ) {
+    app.use(function(req, res) {
         res.status = 404;
-        res.render( path.join(__dirname, 'views', '404.jade'));
+        res.render(path.join(__dirname, 'views', '404.jade'));
     });
 
     // error handlers

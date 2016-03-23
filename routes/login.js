@@ -13,7 +13,7 @@
     passport.serializeUser(function(user, done) {
         User.insert(user).then(function() {
             done(null, user);
-        }, function(){
+        }, function() {
             done('There was a problem authenticating your account :(', user);
         });
     });
@@ -48,21 +48,25 @@
     ));
 
     //GET Google login entry point
-    router.get('/google', passport.authenticate('google',
-        { scope: ['https://www.googleapis.com/auth/plus.profile.emails.read'] }
-    ));
+    router.get('/google', passport.authenticate('google', {
+        scope: ['https://www.googleapis.com/auth/plus.profile.emails.read']
+    }));
 
     router.get('/google/return',
-        passport.authenticate('google', { failureRedirect: '/' }),
-            function(req, res) {
-                // Successful authentication, redirect to auth home.
-                res.redirect('/my/bar');
-            });
+        passport.authenticate('google', {
+            failureRedirect: '/'
+        }),
+        function(req, res) {
+            // Successful authentication, redirect to auth home.
+            res.redirect('/my/bar');
+        });
 
     router.get('/facebook', passport.authenticate('facebook'));
 
     router.get('/facebook/return',
-        passport.authenticate('facebook', {failureRedirect: '/'}),
+        passport.authenticate('facebook', {
+            failureRedirect: '/'
+        }),
         function(req, res) {
             //Successful authentication, redirect to auth home
             res.redirect('/my/bar');
