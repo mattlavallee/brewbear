@@ -45,16 +45,18 @@
 
 <div class="panel panel-default">
   <div class="panel-body">
-    <div ng-repeat="entry in activeEntries | orderBy:'tap.name'" 
-         class="user-tap user-tap-border">
-        <div class="user-tap-name">{{ entry.tap.name }}</div>
-        <div>{{ entry.beer.name }}</div>
-        <div class="tap-icon {{ getSrmColor( entry.beer.srm ) }}" 
-             ng-class="entry.tap.typeId === 1 ? 'icon-beer-keg fa-rotate-270' : 'icon-beer-bottles'"></div>
-        <div>{{ entry.volume }} {{ entry.unit.unit }}</div>
-        <div class="user-tap-links-container">
-            <span ng-click="kickTap( entry.id )">Kicked</span> | 
-            <span ng-click="deleteTap( entry.id )">Delete</span>
+    <div class="user-tap-container">
+        <div ng-repeat="entry in activeEntries | orderBy:'tap.name'" 
+             class="user-tap user-tap-border">
+            <div class="user-tap-name">{{ entry.tap.name }}</div>
+            <div>{{ entry.beer.name }}</div>
+            <div class="tap-icon {{ getSrmColor( entry.beer.srm ) }}" 
+                 ng-class="entry.tap.typeId === 1 ? 'icon-beer-keg fa-rotate-270' : 'icon-beer-bottles'"></div>
+            <div>{{ entry.volume }} {{ entry.unit.unit }}</div>
+            <div class="user-tap-links-container">
+                <span ng-click="kickTap( entry.id )">Kicked</span> | 
+                <span ng-click="deleteTap( entry.id )">Delete</span>
+            </div>
         </div>
     </div>
   </div>
