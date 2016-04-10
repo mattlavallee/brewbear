@@ -51,11 +51,11 @@
             }
         };
 
-        vm.editTap = function( tapId ){
+        vm.editTap = function(tapId) {
             $location.path('/editTap/' + tapId);
         };
 
-        vm.cancelTap = function(){
+        vm.cancelTap = function() {
             $location.path('/');
         };
     }

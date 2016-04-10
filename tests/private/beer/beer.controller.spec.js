@@ -243,4 +243,24 @@ describe('Controller: Beer Controller', function() {
             expect(controller.beers.length).toEqual(0);
         });
     });
+
+    describe('edit beer - ', function() {
+        it('goes to the correct url', function() {
+            spyOn(location, 'path');
+            var controller = initController()();
+            controller.editBeer(1);
+
+            expect(location.path).toHaveBeenCalledWith('/editBeer/1');
+        });
+    });
+
+    describe('cancel beer - ', function() {
+        it('goes to the correct url', function() {
+            spyOn(location, 'path');
+            var controller = initController()();
+            controller.cancelBeer();
+
+            expect(location.path).toHaveBeenCalledWith('/');
+        });
+    });
 });

@@ -195,4 +195,24 @@ describe('Controller: Tap Controller', function() {
             expect(controller.error).toEqual(true);
         });
     });
+
+    describe('edit tap - ', function() {
+        it('goes to the correct url', function() {
+            spyOn(location, 'path');
+            var controller = initController()();
+            controller.editTap(1);
+
+            expect(location.path).toHaveBeenCalledWith('/editTap/1');
+        });
+    });
+
+    describe('cancel tap - ', function() {
+        it('goes to the correct url', function() {
+            spyOn(location, 'path');
+            var controller = initController()();
+            controller.cancelTap();
+
+            expect(location.path).toHaveBeenCalledWith('/');
+        });
+    });
 });

@@ -71,11 +71,11 @@
             });
         };
 
-        vm.editBeer = function(beerId){
+        vm.editBeer = function(beerId) {
             $location.path('/editBeer/' + beerId);
         };
 
-        vm.cancelBeer = function(){
+        vm.cancelBeer = function() {
             $location.path('/');
         };
     }
