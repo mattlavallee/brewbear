@@ -117,17 +117,18 @@
               rows="3"
               cols="20"
               placeholder="Notes..."></textarea>
-    <div class="form-group form-inline">
+    <div class="btn-group" role="group" style="margin-top: 10px;">
       <button type="button" 
               class="btn btn-success"
-              ng-disabled="!userBeerForm.$valid"              
+              ng-disabled="!userBeerForm.$valid"
               ng-click="beerVm.saveBeer( userBeerForm.$valid )">
-              {{ beerVm.id === -1 ? 'Add' : 'Update' }}
+        {{ beerVm.id === -1 ? 'Add' : 'Update' }}
       </button>
-      <a href="/" class="btn btn-warning">Cancel</a
-      <br />
-      <span class="validation-error" ng-if="beerVm.error === true">
-        There was an error saving your beer :(
-      </span>
+      <button type="button" 
+              class="btn btn-warning"
+              ng-click="beerVm.cancelBeer()">Cancel</button>
+    </div>
+    <div class="validation-error" ng-if="beerVm.error === true">
+      There was an error saving your beer :(
     </div>
 </div>

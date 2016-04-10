@@ -38,17 +38,18 @@
           You must select a tap type
         </span>
     </div>
-    <div class="form-group form-inline">
+    <div class="btn-group" role="group" style="margin-top: 10px;">
       <button type="button" 
               class="btn btn-success"
-              ng-disabled="!userTapForm.$valid"              
+              ng-disabled="!userTapForm.$valid"
               ng-click="tapVm.saveTap( userTapForm.$valid )">
-              {{ tapVm.id === -1 ? 'Add' : 'Update' }}
+        {{ tapVm.id === -1 ? 'Add' : 'Update' }}
       </button>
-      <a href="/" class="btn btn-warning">Cancel</a
-      <br />
-      <span class="validation-error" ng-if="tapVm.error === true">
-        There was an error saving your tap :(
-      </span>
+      <button type="button" 
+              class="btn btn-warning"
+              ng-click="tapVm.cancelTap()">Cancel</button>
+    </div>
+    <div class="validation-error" ng-if="tapVm.error === true">
+      There was an error saving your tap :(
     </div>
 </div>

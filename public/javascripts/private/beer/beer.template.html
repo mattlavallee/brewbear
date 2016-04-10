@@ -24,10 +24,13 @@
             <div class="user-beer-notes" ng-if="beer.notes.length > 0">
                 {{ beer.notes }}
             </div>
-            <div class="beer-links-container">
-                <a href="#/editBeer/{{ beer.id }}">Edit</a>
-                &nbsp;|&nbsp;
-                <span ng-click="beerVm.deleteBeer( beer.id )">Delete</span>
+            <div class="btn-group btn-group-xs" role="group">
+                <button type="button" 
+                        class="btn btn-info"
+                        ng-click="beerVm.editBeer( beer.id )">Edit</button>
+                <button type="button" 
+                        class="btn btn-danger"
+                        ng-click="beerVm.deleteBeer( beer.id )">Delete</button>
             </div>
         </div>
     </div>

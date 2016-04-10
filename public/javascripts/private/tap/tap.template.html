@@ -10,7 +10,11 @@
                  class="icon-beer-keg tap-icon fa-rotate-270"></div>
             <div ng-if="tap.type.id === 2" 
                  class="icon-beer-bottles tap-icon"></div>
-            <a href="#/editTap/{{ tap.id }}">Edit</a>
+            <div class="btn-group btn-group-xs">
+                <button type="button"
+                        class="btn btn-info"
+                        ng-click="tapVm.editTap( tap.id )">Edit</button>
+            </div>
         </div>
     </div>
 </div>

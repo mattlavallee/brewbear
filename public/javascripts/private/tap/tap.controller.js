@@ -50,6 +50,14 @@
                 vm.error = true;
             }
         };
+
+        vm.editTap = function( tapId ){
+            $location.path('/editTap/' + tapId);
+        };
+
+        vm.cancelTap = function(){
+            $location.path('/');
+        };
     }
 
     angular.module('brewbear-component').controller('TapController', TapCtrl);

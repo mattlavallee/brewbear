@@ -16,11 +16,14 @@
             </gauge-chart>
          </div>
          <div>Volume: {{ calculateRemainingVolume(entry.id) }} / {{ entry.volume }} {{ entry.unit.unit }}</div>
-         <input type="button" 
-                class="btn btn-primary" 
-                ng-click="setTap( entry.id, entry.unit.id, entry.volume )"
-                data-toggle="modal" data-target=".pour-drink-modal"
-                value="I'll have one!" />
+         <div class="btn-group" role="group">
+                <button type="button" 
+                        class="btn btn-info"
+                        ng-click="setTap( entry.id, entry.unit.id, entry.volume )"
+                        data-toggle="modal" data-target=".pour-drink-modal">
+                  I'll have one!
+                </button>
+            </div>
     </div>
   </div>
 </div>
@@ -52,16 +55,14 @@
                               {{ unit.name }}</option>
                       </select>
           </div>
-          <div>
-              <input type="button"
-                     class="btn btn-success"
-                     ng-click="pourMyDrink()"
-                     value="Pour My Drink!" />
-              <input type="button"
-                     class="btn btn-warning"
-                     ng-click="cancelPour()"
-                     value="Cancel" />
-          </div>    
+          <div class="btn-group btn-group-sm" role="group">
+                <button type="button" 
+                        class="btn btn-success"
+                        ng-click="pourMyDrink()">Pour My Drink!</button>
+                <button type="button" 
+                        class="btn btn-warning"
+                        ng-click="cancelPour()">Cancel</button>
+          </div>
       </div>
     </div>
   </div>

@@ -70,6 +70,14 @@
                 }
             });
         };
+
+        vm.editBeer = function(beerId){
+            $location.path('/editBeer/' + beerId);
+        };
+
+        vm.cancelBeer = function(){
+            $location.path('/');
+        };
     }
 
     angular.module('brewbear-component').controller('BeerController', BeerCtrl);
