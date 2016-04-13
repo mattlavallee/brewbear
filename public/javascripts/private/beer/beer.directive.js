@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    function BeerCollection() {
+    function BeerCollection($rootScope) {
         return {
             scope: {
                 id: '@'
@@ -10,7 +10,12 @@
             restrict: 'E',
             templateUrl: '/javascripts/private/beer/beer.template.html',
             controller: 'BeerController',
-            controllerAs: 'beerVm'
+            controllerAs: 'beerVm',
+            link: function(scope, element, attrs, ctrl) {
+                $rootScope.$on('refetch-beers', function() {
+                    ctrl.updateBeers();
+                });
+            }
         };
     }
 

@@ -32,4 +32,32 @@ describe('Directive: Edit Beer Directive', function() {
             expect(element.hasClass('cb-dir')).toEqual(true);
         });
     });
+
+    describe('updates the controller based on id updates', function() {
+        it('resets the model only when id is -1', function() {
+            initDirective();
+            var controller = element.controller('editBeer');
+            spyOn(controller, 'resetActiveBeerModel');
+            spyOn(controller, 'updateBeerModel');
+
+            controller.id = -1;
+            mockScope.$apply();
+
+            expect(controller.resetActiveBeerModel.calls.count()).toEqual(1);
+            expect(controller.updateBeerModel.calls.count()).toEqual(0);
+        });
+
+        it('resets and updates the model', function() {
+            initDirective();
+            var controller = element.controller('editBeer');
+            spyOn(controller, 'resetActiveBeerModel');
+            spyOn(controller, 'updateBeerModel');
+
+            controller.id = 10;
+            mockScope.$apply();
+
+            expect(controller.resetActiveBeerModel.calls.count()).toEqual(1);
+            expect(controller.updateBeerModel.calls.count()).toEqual(1);
+        });
+    });
 });

@@ -5,38 +5,41 @@
       name="userBeerForm"
       ng-if="beerVm.notFoundError !== true"
       novalidate>
-    <div class="form-group form-inline">
-        <label for="user-beer-name">Name: </label>
-        <input type="text" 
-               name="name"
-               class="form-control" 
-               id="user-beer-name" 
-               ng-model="beerVm.model.name"
-               required ng-required="true"
-               ng-minlength="3" />
-        <br />
-        <span class="validation-error" 
+    <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-addon">Name</span>
+          <input type="text" 
+                 name="name"
+                 class="form-control" 
+                 id="user-beer-name" 
+                 ng-model="beerVm.model.name"
+                 required ng-required="true"
+                 ng-minlength="3" />
+        </div>
+        <div class="validation-error" 
               ng-if="userBeerForm.name.$invalid && !userBeerForm.name.$pristine">
           Your beer name should be at least 3 characters long!
-        </span>
+        </div>
     </div>
-    <div class="form-group form-inline">
-        <label for="user-beer-style">Style: </label>
-        <input type="text"
+    <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-addon">Style</span>
+          <input type="text"
                name="style"
                class="form-control"
                id="user-beer-style"
                ng-model="beerVm.model.style"
                required ng-required="true"
                ng-minlength="3" />
-        <br />
-        <span class="validation-error"
+        </div>
+        <div class="validation-error"
               ng-if="userBeerForm.style.$invalid && !userBeerForm.style.$pristine">
           You must enter a style and it should be at least 3 characters long
-        </span>
+        </div>
     </div>
-    <div class="form-group form-inline">
-        <label for="user-beer-abv">ABV: </label>
+    <div class="form-group">
+      <div class="input-group">
+        <span class="input-group-addon">ABV (%)</span>
         <input type="number"
                name="abv"
                step="0.1"
@@ -45,35 +48,20 @@
                ng-model="beerVm.model.abv"
                required ng-required="true"
                min="0"
-               max="100" /> %
-        <br />
-        <span class="validation-error" 
-              ng-if="userBeerForm.abv.$invalid && !userBeerForm.abv.$pristine">
-          You must enter an ABV between 0 and 100%
-        </span>
-    </div>
-    <div class="form-group form-inline">
-        <span class="gravity-section">
-            <label for="user-beer-og">OG: </label>
-            <input type="number"
-                   name="originalGravity"
-                   step="0.001"
-                   class="form-control"
-                   id="user-beer-og"
-                   ng-model="beerVm.model.originalGravity"
-                   size="2"
-                   required ng-required="true"
-                   min="0"
-                   max="2" />
-            <br />
-            <span class="validation-error"
-                  ng-if="userBeerForm.originalGravity.$invalid && !userBeerForm.originalGravity.$pristine">
-              You must enter an Original Gravity between 0 and 2.000          
-            </span>
-        </span>
-        <span class="gravity-section">
-            <label for="user-beer-fg">FG: </label>
-            <input type="number"
+               max="100" />
+        <span class="input-group-addon">OG</span>
+        <input type="number"
+              name="originalGravity"
+              step="0.001"
+              class="form-control"
+              id="user-beer-og"
+              ng-model="beerVm.model.originalGravity"
+              size="2"
+              required ng-required="true"
+              min="0"
+              max="2" />
+        <span class="input-group-addon">FG</span>
+        <input type="number"
                    name="finalGravity"
                    step="0.001"
                    class="form-control"
@@ -83,32 +71,41 @@
                    required ng-required="true"
                    min="0"
                    max="2" />
-            <br />
-            <span class="validation-error"
-                  ng-if="userBeerForm.finalGravity.$invalid && !userBeerForm.finalGravity.$pristine">
-              You must enter a Final Gravity between 0 and 2.000          
-            </span>
-        </span>
+      </div>
+      <div class="validation-error" 
+           ng-if="userBeerForm.abv.$invalid && !userBeerForm.abv.$pristine">
+          You must enter an ABV between 0 and 100%
+      </div>
+      <div class="validation-error"
+           ng-if="userBeerForm.originalGravity.$invalid && !userBeerForm.originalGravity.$pristine">
+          You must enter an Original Gravity between 0 and 2.000          
+      </div>
+      <div class="validation-error"
+            ng-if="userBeerForm.finalGravity.$invalid && !userBeerForm.finalGravity.$pristine">
+            You must enter a Final Gravity between 0 and 2.000          
+      </div>
     </div>
-    <div>
+    <div class="beer-glass-indicator">
         <i class="fa fa-beer fa-3 user-glass" 
            ng-class="beerVm.getSrmColor( beerVm.model.srm )"></i>
     </div>
-    <div class="form-group form-inline">
-        SRM ({{beerVm.model.srm}}): <input type="range" 
+    <div class="form-group slider">
+        <div>
+          SRM ({{beerVm.model.srm}})&nbsp;
+          <input type="range" 
                id="user-beer-srm" 
                name="srm"
                min="0" 
                max="40" 
                step="0.1"
                ng-model="beerVm.model.srm"
-               size="20"
+               size="10"
                required ng-required="true" />
-        <br />
-        <span class="validation-error" 
+        </div>
+        <div class="validation-error" 
               ng-if="userBeerForm.srm.$invalid && !userBeerForm.srm.$pristine">
           You must enter an SRM between 0 and 40
-        </span>
+        </div>
     </div>
     <textarea class="form-control"
               id="user-beer-notes"
@@ -126,7 +123,7 @@
       </button>
       <button type="button" 
               class="btn btn-warning"
-              ng-click="beerVm.cancelBeer()">Cancel</button>
+              ng-click="beerVm.closeBeerDialog()">Cancel</button>
     </div>
     <div class="validation-error" ng-if="beerVm.error === true">
       There was an error saving your beer :(

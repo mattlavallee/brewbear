@@ -1,19 +1,19 @@
 describe('Controller: Beer Controller', function() {
     'use strict';
 
-    var beerService, q, timeout, defer, location;
+    var beerService, q, timeout, defer, rootScope;
     var initController, SRM;
 
     beforeEach(module('brewbear-component', 'brewbear-services',
         'brewbear-templates', 'brewbear-common'));
 
     beforeEach(inject(function(_BeerService_, _SRM_, $controller, $q,
-        $timeout, $location) {
+        $timeout, $rootScope) {
         beerService = _BeerService_;
         SRM = _SRM_;
         q = $q;
         timeout = $timeout;
-        location = $location;
+        rootScope = $rootScope;
 
         initController = function() {
             return $controller('BeerController', {
@@ -131,16 +131,22 @@ describe('Controller: Beer Controller', function() {
                 defer.resolve({});
                 return defer.promise;
             });
-            spyOn(location, 'path');
+            spyOn(rootScope, '$emit');
 
             var controller = initController()();
+            spyOn(controller, 'resetActiveBeerModel').and.callThrough();
+            spyOn(controller, 'closeBeerDialog').and.callThrough();
+
             controller.id = -1;
             var promise = controller.saveBeer(true);
 
             expect(beerService.create.calls.count()).toEqual(1);
             timeout.flush();
             promise.then(function() {
-                expect(location.path.calls.count()).toEqual(1);
+                expect(controller.resetActiveBeerModel.calls.count())
+                    .toEqual(1);
+                expect(controller.closeBeerDialog.calls.count()).toEqual(1);
+                expect(rootScope.$emit).toHaveBeenCalledWith('refetch-beers');
             });
         });
 
@@ -152,7 +158,7 @@ describe('Controller: Beer Controller', function() {
                 });
                 return defer.promise;
             });
-            spyOn(location, 'path');
+            spyOn(rootScope, '$emit');
 
             var controller = initController()();
             controller.id = -1;
@@ -161,7 +167,7 @@ describe('Controller: Beer Controller', function() {
             expect(beerService.create.calls.count()).toEqual(1);
             timeout.flush();
             promise.then(function() {
-                expect(location.path.calls.count()).toEqual(0);
+                expect(rootScope.$emit).not.toHaveBeenCalled();
                 expect(controller.error).toEqual(true);
             });
         });
@@ -174,16 +180,21 @@ describe('Controller: Beer Controller', function() {
                 defer.resolve({});
                 return defer.promise;
             });
-            spyOn(location, 'path');
+            spyOn(rootScope, '$emit');
 
             var controller = initController()();
+            spyOn(controller, 'resetActiveBeerModel').and.callThrough();
+            spyOn(controller, 'closeBeerDialog').and.callThrough();
             controller.id = 1;
             var promise = controller.saveBeer(true);
 
             expect(beerService.update.calls.count()).toEqual(1);
             timeout.flush();
             promise.then(function() {
-                expect(location.path.calls.count()).toEqual(1);
+                expect(controller.resetActiveBeerModel.calls.count())
+                    .toEqual(1);
+                expect(controller.closeBeerDialog.calls.count()).toEqual(1);
+                expect(rootScope.$emit).toHaveBeenCalledWith('refetch-beers');
             });
         });
 
@@ -195,7 +206,7 @@ describe('Controller: Beer Controller', function() {
                 });
                 return defer.promise;
             });
-            spyOn(location, 'path');
+            spyOn(rootScope, '$emit');
 
             var controller = initController()();
             controller.id = 1;
@@ -204,7 +215,7 @@ describe('Controller: Beer Controller', function() {
             expect(beerService.update.calls.count()).toEqual(1);
             timeout.flush();
             promise.then(function() {
-                expect(location.path.calls.count()).toEqual(0);
+                expect(rootScope.$emit).not.toHaveBeenCalled();
                 expect(controller.error).toEqual(true);
             });
         });
@@ -244,23 +255,12 @@ describe('Controller: Beer Controller', function() {
         });
     });
 
-    describe('edit beer - ', function() {
-        it('goes to the correct url', function() {
-            spyOn(location, 'path');
+    describe('update active beer id', function() {
+        it('updates properly', function() {
             var controller = initController()();
-            controller.editBeer(1);
-
-            expect(location.path).toHaveBeenCalledWith('/editBeer/1');
-        });
-    });
-
-    describe('cancel beer - ', function() {
-        it('goes to the correct url', function() {
-            spyOn(location, 'path');
-            var controller = initController()();
-            controller.cancelBeer();
-
-            expect(location.path).toHaveBeenCalledWith('/');
+            expect(controller.activeBeerId).toEqual(-1);
+            controller.updateActiveBeerId(22);
+            expect(controller.activeBeerId).toEqual(22);
         });
     });
 });

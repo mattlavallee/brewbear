@@ -11,21 +11,21 @@
         srm: 0.0
     };
 
-    function BeerCtrl(BeerService, SrmService, $location) {
+    function BeerCtrl(BeerService, SrmService, $rootScope) {
         var vm = this;
 
         vm.model = _.cloneDeep(beerTemplate);
         vm.error = false;
         vm.notFoundError = null;
-        //if we aren't creating/updating a model
-        if (!vm.id) {
-            vm.beers = [];
+        vm.activeBeerId = -1;
+
+        vm.updateBeers = function() {
             BeerService.getUserBeers().then(function(result) {
                 vm.beers = result;
             });
-        } else if (parseInt(vm.id, 10) !== -1) {
-            vm.id = parseInt(vm.id, 10);
-            vm.beers = [];
+        };
+
+        vm.updateBeerModel = function() {
             BeerService.getUserBeers().then(function(result) {
                 var selectedBeer = _.findWhere(result, {
                     id: vm.id
@@ -36,6 +36,20 @@
                     vm.notFoundError = true;
                 }
             });
+        };
+
+        vm.resetActiveBeerModel = function() {
+            vm.model = _.cloneDeep(beerTemplate);
+        };
+
+        //if we aren't creating/updating a model
+        if (!vm.id) {
+            vm.beers = [];
+            vm.updateBeers();
+        } else if (parseInt(vm.id, 10) !== -1) {
+            vm.id = parseInt(vm.id, 10);
+            vm.beers = [];
+            vm.updateBeerModel();
         }
 
         vm.getSrmColor = function(srmAsNumber) {
@@ -53,7 +67,9 @@
                     if (result.error) {
                         vm.error = true;
                     } else {
-                        $location.path('/');
+                        vm.resetActiveBeerModel();
+                        vm.closeBeerDialog();
+                        $rootScope.$emit('refetch-beers');
                     }
                 });
             } else {
@@ -71,12 +87,12 @@
             });
         };
 
-        vm.editBeer = function(beerId) {
-            $location.path('/editBeer/' + beerId);
+        vm.updateActiveBeerId = function(id) {
+            vm.activeBeerId = id;
         };
 
-        vm.cancelBeer = function() {
-            $location.path('/');
+        vm.closeBeerDialog = function() {
+            angular.element('.add-edit-beer-modal').modal('hide');
         };
     }
 

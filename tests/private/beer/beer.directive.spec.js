@@ -25,5 +25,18 @@ describe('Directive: Beer Directive', function() {
             expect(element).toBeDefined();
             expect(element.hasClass('beer-dir')).toEqual(true);
         });
+
+        it('updates the beer model on the event', function() {
+            httpBackend.whenGET('/beer/user').respond(200, {});
+
+            initDirective();
+            var controller = element.controller('beers');
+            spyOn(controller, 'updateBeers');
+
+            mockScope.$emit('refetch-beers');
+            mockScope.$apply();
+
+            expect(controller.updateBeers).toHaveBeenCalled();
+        });
     });
 });
