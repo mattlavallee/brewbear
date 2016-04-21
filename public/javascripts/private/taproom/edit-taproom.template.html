@@ -3,42 +3,57 @@
     <form class="user-edit-taproom-form"
           name="userTapRoomForm"
           novalidate>
-        Free Taps: <select name="taps" ng-model="model.tap" required ng-required="true">
-            <option />
-            <option ng-repeat="tap in availableTaps | orderBy:'name'" value="{{tap.id}}">
-                {{tap.name}}
-            </option>
-        </select>
+        
+        <div class="input-group">
+            <span class="input-group-addon">Free Taps</span>
+            <select class="form-control" 
+                    name="taps" 
+                    ng-model="model.tap" 
+                    required ng-required="true"
+                    ng-disabled="availableTaps.length === 0">
+                <option />
+                <option ng-repeat="tap in availableTaps | orderBy:'name'" value="{{tap.id}}">
+                    {{tap.name}}
+                </option>
+            </select>
 
-        Beers: <select name="beers" ng-model="model.beer" required ng-required="true">
-            <option/>
-            <option ng-repeat="beer in availableBeers | orderBy:'name'" value="{{beer.id}}">
-                {{beer.name}}
-            </option>
-        </select>
+            <span class="input-group-addon">Beers</span>
+                <select class="form-control" name="beers" ng-model="model.beer" required ng-required="true">
+                <option/>
+                <option ng-repeat="beer in availableBeers | orderBy:'name'" value="{{beer.id}}">
+                    {{beer.name}}
+                </option>
+            </select>
 
-        Volume: <input 
-                    type="number" 
-                    name="volume"
-                    ng-model="model.volume"
-                    min="0"
-                    max="10000"
-                    step="1"
-                    required ng-required="true" />
-        Units: <select name="units" 
+            <span class="input-group-addon">Volume</span>
+            <input class="form-control"
+                   type="number" 
+                   name="volume"
+                   ng-model="model.volume"
+                   min="0"
+                   max="10000"
+                   step="1"
+                   required ng-required="true" />
+
+            <span class="input-group-addon">Units</span>
+            <select class="form-control" name="units" 
                        ng-model="model.units"
                        required ng-required="true">
-            <option />
-            <option ng-repeat="unit in units" value="{{unit.id}}">
-                {{unit.name}} ({{unit.abbreviation}})
-            </option>
-        </select>
-        <button type="button" 
-                class="btn btn-success"
-                ng-disabled="!userTapRoomForm.$valid"
-                ng-click="addToTaproom( userTapRoomForm.$valid )">
-                Add to Taproom
-        </button>
+                <option />
+                <option ng-repeat="unit in units" value="{{unit.id}}">
+                    {{unit.name}} ({{unit.abbreviation}})
+                </option>
+            </select>
+
+            <span class="input-group-btn">
+                <button type="button" 
+                        class="btn btn-success"
+                        ng-disabled="!userTapRoomForm.$valid"
+                        ng-click="addToTaproom( userTapRoomForm.$valid )">
+                    Add to Taproom
+                </button>
+            </span>
+        </div>
     </form>
   </div>
 </div>
