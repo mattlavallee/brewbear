@@ -17,28 +17,6 @@
                 templateUrl: '/javascripts/private/routes/bar.template.html',
                 controller: 'BrewBearRouteController'
             })
-            .when('/addBeer', {
-                templateUrl:
-                    '/javascripts/private/routes/add-beer.template.html',
-                controller: 'BrewBearRouteController'
-            })
-            .when('/editBeer/:beerId', {
-                templateUrl:
-                    '/javascripts/private/routes/edit-beer.template.html',
-                controller: 'BrewBearRouteController',
-                controllerAs: 'routeController'
-            })
-            .when('/addTap', {
-                templateUrl:
-                    '/javascripts/private/routes/add-tap.template.html',
-                controller: 'BrewBearRouteController'
-            })
-            .when('/editTap/:tapId', {
-                templateUrl:
-                    '/javascripts/private/routes/edit-tap.template.html',
-                controller: 'BrewBearRouteController',
-                controllerAs: 'routeController'
-            })
             .when('/taproom/update', {
                 templateUrl:
                     '/javascripts/private/routes/update-taproom.template.html',
