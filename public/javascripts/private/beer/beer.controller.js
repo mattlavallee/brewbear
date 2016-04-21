@@ -67,7 +67,6 @@
                     if (result.error) {
                         vm.error = true;
                     } else {
-                        vm.resetActiveBeerModel();
                         vm.closeBeerDialog();
                         $rootScope.$emit('refetch-beers');
                     }

@@ -24,5 +24,24 @@ describe('Directive: Edit Tap Directive', function() {
             expect(element).toBeDefined();
             expect(element.hasClass('edit-tap')).toEqual(true);
         });
+
+        it('updates when the id changes', function() {
+            initDirective();
+            var ctrl = element.controller('editTap');
+            spyOn(ctrl, 'resetActiveTapModel');
+            spyOn(ctrl, 'updateTapModel');
+
+            ctrl.id = 0;
+            mockScope.$apply();
+
+            expect(ctrl.resetActiveTapModel.calls.count()).toEqual(1);
+            expect(ctrl.updateTapModel.calls.count()).toEqual(0);
+
+            ctrl.id = 22;
+            mockScope.$apply();
+
+            expect(ctrl.resetActiveTapModel.calls.count()).toEqual(2);
+            expect(ctrl.updateTapModel.calls.count()).toEqual(1);
+        });
     });
 });

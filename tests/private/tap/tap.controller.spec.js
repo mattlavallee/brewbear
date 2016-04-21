@@ -1,18 +1,18 @@
 describe('Controller: Tap Controller', function() {
     'use strict';
 
-    var tapService, q, timeout, defer, location;
+    var tapService, q, timeout, defer, rootScope;
     var initController;
 
     beforeEach(module('brewbear-component', 'brewbear-services',
         'brewbear-templates', 'brewbear-common'));
 
     beforeEach(inject(function(_TapService_, $controller, $q, $timeout,
-        $location) {
+        $rootScope) {
         tapService = _TapService_;
         q = $q;
         timeout = $timeout;
-        location = $location;
+        rootScope = $rootScope;
 
         initController = function() {
             return $controller('TapController', {
@@ -88,7 +88,7 @@ describe('Controller: Tap Controller', function() {
 
             defer.promise.then(function() {
                 expect(controller.model.name).toEqual('');
-                expect(controller.model.typeId).toEqual('');
+                expect(controller.model.tapId).toEqual('');
                 expect(tapService.getUserTaps.calls.count()).toEqual(1);
                 expect(controller.notFoundError).toEqual(true);
             });
@@ -100,7 +100,7 @@ describe('Controller: Tap Controller', function() {
 
     describe('saving a tap - ', function() {
         beforeEach(function() {
-            spyOn(location, 'path');
+            spyOn(rootScope, '$emit');
         });
 
         it('errors out - ', function() {
@@ -129,8 +129,8 @@ describe('Controller: Tap Controller', function() {
             timeout.flush();
 
             expect(tapService.create.calls.count()).toEqual(1);
-            expect(location.path.calls.count()).toEqual(1);
-            expect(location.path).toHaveBeenCalledWith('/');
+            expect(rootScope.$emit.calls.count()).toEqual(1);
+            expect(rootScope.$emit).toHaveBeenCalledWith('refetch-taps');
             expect(controller.error).toEqual(false);
         });
 
@@ -150,7 +150,7 @@ describe('Controller: Tap Controller', function() {
             timeout.flush();
 
             expect(tapService.create.calls.count()).toEqual(1);
-            expect(location.path.calls.count()).toEqual(0);
+            expect(rootScope.$emit.calls.count()).toEqual(0);
             expect(controller.error).toEqual(true);
         });
 
@@ -170,8 +170,8 @@ describe('Controller: Tap Controller', function() {
             timeout.flush();
 
             expect(tapService.update.calls.count()).toEqual(1);
-            expect(location.path.calls.count()).toEqual(1);
-            expect(location.path).toHaveBeenCalledWith('/');
+            expect(rootScope.$emit.calls.count()).toEqual(1);
+            expect(rootScope.$emit).toHaveBeenCalledWith('refetch-taps');
             expect(controller.error).toEqual(false);
         });
 
@@ -191,28 +191,17 @@ describe('Controller: Tap Controller', function() {
             timeout.flush();
 
             expect(tapService.update.calls.count()).toEqual(1);
-            expect(location.path.calls.count()).toEqual(0);
+            expect(rootScope.$emit.calls.count()).toEqual(0);
             expect(controller.error).toEqual(true);
         });
     });
 
-    describe('edit tap - ', function() {
-        it('goes to the correct url', function() {
-            spyOn(location, 'path');
+    describe('active tap id', function() {
+        it('sets the active tap id', function() {
             var controller = initController()();
-            controller.editTap(1);
-
-            expect(location.path).toHaveBeenCalledWith('/editTap/1');
-        });
-    });
-
-    describe('cancel tap - ', function() {
-        it('goes to the correct url', function() {
-            spyOn(location, 'path');
-            var controller = initController()();
-            controller.cancelTap();
-
-            expect(location.path).toHaveBeenCalledWith('/');
+            expect(controller.activeTapId).toEqual(-1);
+            controller.updateActiveTapId(10);
+            expect(controller.activeTapId).toEqual(10);
         });
     });
 });

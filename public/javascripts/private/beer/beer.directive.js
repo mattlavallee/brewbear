@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    function BeerCollection($rootScope) {
+    function BeerCollection($rootScope, $timeout) {
         return {
             scope: {
                 id: '@'
@@ -13,7 +13,10 @@
             controllerAs: 'beerVm',
             link: function(scope, element, attrs, ctrl) {
                 $rootScope.$on('refetch-beers', function() {
-                    ctrl.updateBeers();
+                    //some latency to let the database update
+                    $timeout(function() {
+                        ctrl.updateBeers();
+                    }, 100);
                 });
             }
         };

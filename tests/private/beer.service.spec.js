@@ -10,6 +10,8 @@ describe('Service: BeerService', function() {
         http = $http;
         httpBackend = $httpBackend;
         timeout = $timeout;
+
+        spyOn(Date, 'now').and.returnValue('1');
     }));
 
     describe('getUserBeers function - ', function() {
@@ -19,7 +21,7 @@ describe('Service: BeerService', function() {
         });
 
         it('Returns a 500 error', function() {
-            httpBackend.whenGET('/beer/user').respond(500, '');
+            httpBackend.whenGET('/beer/user?1').respond(500, '');
             factory.getUserBeers().then(function(result) {
                 expect(result).toEqual([]);
             });
@@ -28,7 +30,7 @@ describe('Service: BeerService', function() {
         });
 
         it('Returns null from the api', function() {
-            httpBackend.whenGET('/beer/user').respond(200, null);
+            httpBackend.whenGET('/beer/user?1').respond(200, null);
 
             factory.getUserBeers().then(function(result) {
                 expect(result).toEqual([]);
@@ -38,7 +40,7 @@ describe('Service: BeerService', function() {
         });
 
         it('Returns an invalid response from the api', function() {
-            httpBackend.whenGET('/beer/user').respond(200, {
+            httpBackend.whenGET('/beer/user?1').respond(200, {
                 error: true,
                 message: ''
             });
@@ -51,7 +53,7 @@ describe('Service: BeerService', function() {
         });
 
         it('Returns a succesful response', function() {
-            httpBackend.whenGET('/beer/user').respond(200, {
+            httpBackend.whenGET('/beer/user?1').respond(200, {
                 data: [{
                     name: 'Fizz'
                 }, {

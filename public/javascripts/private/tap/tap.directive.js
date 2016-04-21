@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    function TapDirective() {
+    function TapDirective($rootScope, $timeout) {
         return {
             scope: {
                 id: '@'
@@ -10,7 +10,15 @@
             restrict: 'E',
             templateUrl: '/javascripts/private/tap/tap.template.html',
             controller: 'TapController',
-            controllerAs: 'tapVm'
+            controllerAs: 'tapVm',
+            link: function(scope, element, attrs, ctrl) {
+                $rootScope.$on('refetch-taps', function() {
+                    //some latency to let the database update
+                    $timeout(function() {
+                        ctrl.updateTaps();
+                    }, 100);
+                });
+            }
         };
     }
 

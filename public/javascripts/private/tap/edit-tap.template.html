@@ -5,24 +5,26 @@
       name="userTapForm"
       ng-if="tapVm.notFoundError !== true"
       novalidate>
-    <div class="form-group form-inline">
-        <label for="user-tap-name">Name: </label>
-        <input type="text" 
+    <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-addon">Name</span>
+          <input type="text" 
                name="name"
                class="form-control" 
                id="user-tap-name" 
                ng-model="tapVm.model.name"
                required ng-required="true"
                ng-minlength="3" />
-        <br />
-        <span class="validation-error" 
+        </div>
+        <div class="validation-error" 
               ng-if="userTapForm.name.$invalid && !userTapForm.name.$pristine">
           Your tap name should be at least 3 characters long!
-        </span>
+        </div>
     </div>
-    <div class="form-group form-inline">
-        <label for="user-tap-type">Style: </label>
-        <select name="type"
+    <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-addon">Style</span>
+          <select name="type"
                 class="form-control"
                 id="user-tap-type"
                 ng-model="tapVm.model.typeId"
@@ -31,12 +33,12 @@
                 <option />
                 <option ng-repeat="type in tapVm.types | orderBy: 'type.name'"
                         value="{{type.id}}">{{ type.name }}</option>
-        </select>
-        <br />
-        <span class="validation-error"
+          </select>
+        </div>
+        <div class="validation-error"
               ng-if="userTapForm.type.$invalid && !userTapForm.style.$pristine">
           You must select a tap type
-        </span>
+        </div>
     </div>
     <div class="btn-group" role="group" style="margin-top: 10px;">
       <button type="button" 
@@ -47,7 +49,7 @@
       </button>
       <button type="button" 
               class="btn btn-warning"
-              ng-click="tapVm.cancelTap()">Cancel</button>
+              ng-click="tapVm.closeTapDialog()">Cancel</button>
     </div>
     <div class="validation-error" ng-if="tapVm.error === true">
       There was an error saving your tap :(

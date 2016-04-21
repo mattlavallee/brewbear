@@ -3,7 +3,10 @@
 
     function TapService($http, $q) {
         function validatePostResponse(response, state) {
-            var data = { error: false, id: -1 };
+            var data = {
+                error: false,
+                id: -1
+            };
             if (!_.isPlainObject(response) || response.error) {
                 data.error = true;
                 data.message = 'Error ' + state + ' tap';
@@ -16,13 +19,12 @@
         return {
             getUserTaps: function() {
                 var defer = $q.defer();
-                $http.get('/tap/user')
+                $http.get('/tap/user?' + Date.now())
                     .success(function(response) {
                         //validate response object
                         if (!_.isPlainObject(response) || response.error) {
                             defer.resolve([]);
-                        }
-                        else {
+                        } else {
                             //return data from the service
                             defer.resolve(response.data);
                         }
@@ -35,27 +37,35 @@
             },
             create: function(newTap) {
                 var defer = $q.defer();
-                $http.post('/tap/new', { tap: newTap })
+                $http.post('/tap/new', {
+                        tap: newTap
+                    })
                     .success(function(response) {
                         defer.resolve(
                             validatePostResponse(response, 'creating')
                         );
                     })
                     .error(function() {
-                        defer.resolve({ error: true });
+                        defer.resolve({
+                            error: true
+                        });
                     });
                 return defer.promise;
             },
             update: function(tap) {
                 var defer = $q.defer();
-                $http.post('/tap/edit/' + tap.id, { tap: tap })
+                $http.post('/tap/edit/' + tap.id, {
+                        tap: tap
+                    })
                     .success(function(response) {
                         defer.resolve(
                             validatePostResponse(response, 'updating')
                         );
                     })
                     .error(function() {
-                        defer.resolve({ error: true });
+                        defer.resolve({
+                            error: true
+                        });
                     });
                 return defer.promise;
             }

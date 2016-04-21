@@ -1,24 +1,28 @@
 (function() {
     'use strict';
 
-    function TapCtrl(TapService, BarType, $location) {
+    function TapCtrl(TapService, BarType, $rootScope) {
         var vm = this;
 
-        vm.taps = [];
-        vm.notFoundError = false;
-        vm.model = {
-            name: '',
-            typeId: ''
+        vm.resetActiveTapModel = function() {
+            vm.model = {
+                name: '',
+                tapId: ''
+            };
         };
-        vm.types = _.values(BarType);
 
-        if (!vm.id) {
+        vm.notFoundError = false;
+        vm.types = _.values(BarType);
+        vm.activeTapId = -1;
+        vm.resetActiveTapModel();
+
+        vm.updateTaps = function() {
             TapService.getUserTaps().then(function(userTaps) {
                 vm.taps = userTaps;
             });
-        } else if (parseInt(vm.id, 10) !== -1) {
-            //fetch the model to edit
-            vm.id = parseInt(vm.id, 10);
+        };
+
+        vm.updateTapModel = function() {
             TapService.getUserTaps().then(function(userTaps) {
                 var selectedTap = _.findWhere(userTaps, {
                     id: vm.id
@@ -30,6 +34,16 @@
                     vm.notFoundError = true;
                 }
             });
+        };
+
+        if (!vm.id) {
+            vm.taps = [];
+            vm.updateTaps();
+        } else if (parseInt(vm.id, 10) !== -1) {
+            //fetch the model to edit
+            vm.id = parseInt(vm.id, 10);
+            vm.taps = [];
+            vm.updateTapModel();
         }
 
         vm.saveTap = function(isValid) {
@@ -43,7 +57,8 @@
                     if (result.error) {
                         vm.error = true;
                     } else {
-                        $location.path('/');
+                        vm.closeTapDialog();
+                        $rootScope.$emit('refetch-taps');
                     }
                 });
             } else {
@@ -51,12 +66,12 @@
             }
         };
 
-        vm.editTap = function(tapId) {
-            $location.path('/editTap/' + tapId);
+        vm.updateActiveTapId = function(id) {
+            vm.activeTapId = id;
         };
 
-        vm.cancelTap = function() {
-            $location.path('/');
+        vm.closeTapDialog = function() {
+            angular.element('.add-edit-tap-modal').modal('hide');
         };
     }
 

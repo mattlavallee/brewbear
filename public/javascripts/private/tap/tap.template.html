@@ -1,10 +1,17 @@
 <div class="well">
     <div>
         <h3>Taps & Bottles</h3> 
-        <a href="#/addTap" class="btn btn-primary">Add a Tap</a>
+        <button
+            type="button"
+            class="btn btn-primary"
+            ng-click="tapVm.updateActiveTapId( -1 )"
+            data-toggle="modal" data-target=".add-edit-tap-modal">
+            Add a Tap
+        </button>
     </div>
     <div class="user-tap-container">
-        <div class="panel user-tap" ng-repeat="tap in tapVm.taps | orderBy:'name'">
+        <div class="panel user-tap" 
+             ng-repeat="tap in tapVm.taps | orderBy:'name'">
             <div class="user-tap-name">{{ tap.name }}</div>
             <div ng-if="tap.type.id === 1" 
                  class="icon-beer-keg tap-icon fa-rotate-270"></div>
@@ -13,8 +20,22 @@
             <div class="btn-group btn-group-xs">
                 <button type="button"
                         class="btn btn-info"
-                        ng-click="tapVm.editTap( tap.id )">Edit</button>
+                        data-toggle="modal" data-target=".add-edit-tap-modal"
+                        ng-click="tapVm.updateActiveTapId( tap.id )">Edit</button>
             </div>
         </div>
     </div>
+</div>
+
+<div class="modal fade add-edit-tap-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <strong>{{ tapVm.activeTapId === -1 ? 'Adding a New Tap!' : 'Updating Your Tap!' }}</strong>
+      </div>
+      <div class="modal-body">
+        <edit-tap id="tapVm.activeTapId"></edit-tap>
+      </div>
+    </div>
+  </div>
 </div>

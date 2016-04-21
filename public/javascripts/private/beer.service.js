@@ -5,7 +5,7 @@
         return {
             getUserBeers: function() {
                 var defer = $q.defer();
-                $http.get('/beer/user')
+                $http.get('/beer/user?' + Date.now())
                     .success(function(response) {
                         //verify response object from the API
                         if (!response) {
@@ -80,16 +80,16 @@
             remove: function(beerId) {
                 var defer = $q.defer();
                 $http.post('/beer/remove', {
-                        id: beerId
-                    }).success(function(result) {
-                        defer.resolve({
-                            error: result && result.error ? result.error : false
-                        });
-                    }).error(function() {
-                        defer.resolve({
-                            error: true
-                        });
+                    id: beerId
+                }).success(function(result) {
+                    defer.resolve({
+                        error: result && result.error ? result.error : false
                     });
+                }).error(function() {
+                    defer.resolve({
+                        error: true
+                    });
+                });
                 return defer.promise;
             }
         };
