@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "description": "Homebrew Management System",
   "main": "index.js",
+  "engines": {
+    "node": "4.x"
+  },
   "scripts": {
     "test": "grunt karma",
     "start": "node ./bin/www",
