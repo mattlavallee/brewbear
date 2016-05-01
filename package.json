@@ -4,7 +4,8 @@
   "description": "Homebrew Management System",
   "main": "index.js",
   "engines": {
-    "node": "6.x"
+    "node": "6.x",
+    "npm": "~3.8.6"
   },
   "scripts": {
     "test": "grunt karma",
