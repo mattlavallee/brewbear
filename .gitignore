@@ -2,7 +2,7 @@ node_modules/
 bower_components/
 dist/
 .settings/
-config/configuration.js
+config/private.js
 public/js/
 public/javascripts/templates.js
 public/stylesheets
