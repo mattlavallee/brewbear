@@ -239,7 +239,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-regex-replace');
 
     grunt.registerTask('test', ['jshint', 'jscs', 'karma']);
-    grunt.registerTask('build', ['jshint', 'jscs', 'less', 'ngtemplates', 
+    grunt.registerTask('build', ['jshint', 'jscs', 'less', 'ngtemplates',
         'tags', 'wiredep', 'regex-replace', 'bowercopy']);
 
     grunt.registerTask('default',
