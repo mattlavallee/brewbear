@@ -24,7 +24,7 @@
     };
 
     if(process.env.NODE_ENV === 'production'){
-        module.exports = productionConfigVals;
+        module.exports = configVals;
     } else{
         var privateConfig = require('./private');
         module.exports = privateConfig;
