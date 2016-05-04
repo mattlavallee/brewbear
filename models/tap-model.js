@@ -23,7 +23,7 @@
                 .forge()
                 .query( {where: { userId: userId, active: true }, 
                     orderBy: ['name'] } )
-                .fetch({withRelated: ['type', 'drinks']});
+                .fetch({withRelated: ['type']});
         },
         create: function( userId, newTap ){
             return tapModel.forge({

@@ -24,7 +24,8 @@
                 .then(function(newTap) {
                     res.json({ error:false, id: newTap.get('id') });
                 })
-                .catch(function() {
+                .catch(function(err) {
+                    console.log(err);
                     res.status(500).json({
                         error: true,
                         msg: 'There was an error saving your tap'
