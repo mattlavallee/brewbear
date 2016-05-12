@@ -6,12 +6,12 @@
         google: {
             clientId: process.env.GOOG_CLIENTID,
             clientSecret: process.env.GOOG_CLIENTSECRET,
-            callback: 'http://brewbear.herokuapp.com/login/google/return'
+            callback: 'http://www.brewbear.net/login/google/return'
         },
         facebook: {
             clientId: process.env.FB_CLIENTID,
             clientSecret: process.env.FB_CLIENTSECRET,
-            callback: 'http://brewbear.herokuapp.com/login/facebook/return'
+            callback: 'http://www.brewbear.net/login/facebook/return'
         },
         database: {
             connString: process.env.DATABASE_URL,
