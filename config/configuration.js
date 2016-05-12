@@ -6,12 +6,12 @@
         google: {
             clientId: process.env.GOOG_CLIENTID,
             clientSecret: process.env.GOOG_CLIENTSECRET,
-            callback: 'http://guarded-crag-16230.herokuapp.com/login/google/return'
+            callback: 'http://brewbear.herokuapp.com/login/google/return'
         },
         facebook: {
             clientId: process.env.FB_CLIENTID,
             clientSecret: process.env.FB_CLIENTSECRET,
-            callback: 'http://guarded-crag-16230.herokuapp.com/login/facebook/return'
+            callback: 'http://brewbear.herokuapp.com/login/facebook/return'
         },
         database: {
             connString: process.env.DATABASE_URL,
