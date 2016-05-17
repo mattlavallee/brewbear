@@ -1,3 +1,4 @@
+/*globals $:false */
 (function() {
     'use strict';
 
@@ -33,6 +34,12 @@
                 }, function(newPath) {
                     handlePathUpdate(newPath, element);
                 });
+
+                /* istanbul ignore next */
+                $(document).on('click', element.find('#bb-navbar-collapse ul'),
+                    function() {
+                        element.find('#bb-navbar-collapse').collapse('hide');
+                    });
             }
         };
     }
