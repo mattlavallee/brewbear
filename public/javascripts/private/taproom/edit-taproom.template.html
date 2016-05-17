@@ -4,7 +4,7 @@
           name="userTapRoomForm"
           novalidate>
         
-        <div class="input-group">
+        <div class="col-sm-3"><div class="input-group">
             <span class="input-group-addon">Free Taps</span>
             <select class="form-control" 
                     name="taps" 
@@ -16,7 +16,8 @@
                     {{tap.name}}
                 </option>
             </select>
-
+        </div></div>
+        <div class="col-sm-3"><div class="input-group">
             <span class="input-group-addon">Beers</span>
                 <select class="form-control" name="beers" ng-model="model.beer" required ng-required="true">
                 <option/>
@@ -24,7 +25,8 @@
                     {{beer.name}}
                 </option>
             </select>
-
+        </div></div>
+        <div class="col-sm-2"><div class="input-group">
             <span class="input-group-addon">Volume</span>
             <input class="form-control"
                    type="number" 
@@ -34,7 +36,8 @@
                    max="10000"
                    step="1"
                    required ng-required="true" />
-
+        </div></div>
+        <div class="col-sm-2"><div class="input-group">
             <span class="input-group-addon">Units</span>
             <select class="form-control" name="units" 
                        ng-model="model.units"
@@ -44,7 +47,8 @@
                     {{unit.name}} ({{unit.abbreviation}})
                 </option>
             </select>
-
+        </div></div>
+        <div class="col-sm-2"><div class="input-group">
             <span class="input-group-btn">
                 <button type="button" 
                         class="btn btn-success"
@@ -53,7 +57,7 @@
                     Add to Taproom
                 </button>
             </span>
-        </div>
+        </div></div>
     </form>
   </div>
 </div>
