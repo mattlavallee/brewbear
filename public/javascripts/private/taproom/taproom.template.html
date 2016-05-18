@@ -42,7 +42,7 @@
                             required ng-required="true"
                             min="0"
                             max="{{activeTaproomEntry.maxVolume}}"
-                            step="0.1"
+                            step="{{getCurrentStepValue()}}"
                             style="max-width: 75px;" />
                       <select name="type"
                               class="form-control"

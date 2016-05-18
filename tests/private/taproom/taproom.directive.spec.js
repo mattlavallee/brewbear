@@ -208,4 +208,24 @@ describe('Directive: Taproom', function() {
             expect(result).toEqual(60);
         });
     });
+
+    describe('getCurrentStepValue - ', function() {
+        it('gets the step from the unit constant', function() {
+            initDirective();
+            timeout.flush();
+            mockScope.activeTaproomEntry.currentUnits = '4';
+
+            var result = mockScope.getCurrentStepValue();
+            expect(result).toEqual(0.1);
+        });
+
+        it('defaults to 1 if the unit is not found', function() {
+            initDirective();
+            timeout.flush();
+            mockScope.activeTaproomEntry.currentUnits = '40';
+
+            var result = mockScope.getCurrentStepValue();
+            expect(result).toEqual(1);
+        });
+    });
 });
