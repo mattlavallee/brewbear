@@ -74,6 +74,7 @@
                 <li data-target="#bb-carousel" data-slide-to="1"></li>
                 <li data-target="#bb-carousel" data-slide-to="2"></li>
                 <li data-target="#bb-carousel" data-slide-to="3"></li>
+                <li data-target="#bb-carousel" data-slide-to="4"></li>
             </ol>
 
             <div class="carousel-inner" role="listbox">
@@ -110,6 +111,23 @@
                         </h3>
                     </div>
                 </div>
+                <div class="item">
+                    <h1>Get Started!</h1>
+                    <div class="carousel-caption">
+                        <h3>Getting started is simple!  Log in with your Google 
+                            or Facebook account!
+                            <div class="bb-carousel-login">
+                                <a href="/login/google" class="btn btn-default">
+                                        <i class="fa fa-google google-link"></i> Google
+                                </a>
+                                &nbsp;
+                                <a href="/login/facebook" class="btn btn-default">
+                                    <i class="fa fa-facebook fb-link"></i> Facebook
+                                </a>
+                            </div>
+                        </h3>
+                    </div>
+                </div>
             </div>
 
             <a class="left carousel-control" href="#bb-carousel"
@@ -122,19 +140,6 @@
             </a>
         </div>
         <div class="bb-container container">
-            <div class="col-sm-6 col-md-6 col-lg-6">
-                <p>I develop this application in my free time.  Maintenance 
-                costs are pretty much zero at the moment, but the caffeine and 
-                beer that powers me through the development is not.</p>  
-                <p>If you like what you see and would like to support me, buy 
-                me a coffee or a beer!</p>
-                <p class="text-center">
-                    <button class="btn btn-default">
-                        <a href="https://venmo.com/?txn=pay&recipients=Matt-Lava&note=Keep%20up%20the%20good%20 work%20with%20BrewBear&audience=private&amount=5.00" 
-                        target="_blank">Buy me a beer or coffee!</a>
-                    </button>
-                </p>
-            </div>
             <div class="col-sm-6 col-md-6 col-lg-6 ">
                 <p>BrewBear is open source.  What am I doing with the 
                 information you share by logging in?  Nothing, it's just to 
@@ -158,9 +163,28 @@
                     </button>
                 </p>
             </div>
+            <div class="col-sm-6 col-md-6 col-lg-6">
+                <p>I develop this application in my free time.  Maintenance 
+                costs are pretty much zero at the moment, but the caffeine and 
+                beer that powers me through the development is not.</p>  
+                <p>If you like what you see and would like to support me, buy 
+                me a coffee or a beer!</p>
+                <p class="text-center">
+                    <button class="btn btn-default">
+                        <a href="https://venmo.com/?txn=pay&recipients=Matt-Lava&note=Keep%20up%20the%20good%20 work%20with%20BrewBear&audience=private&amount=5.00" 
+                        target="_blank">Buy me a beer or coffee!</a>
+                    </button>
+                </p>
+            </div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-                <cite>&copy; 2015 - Matt Lavallee</cite>
+                <cite></cite>
             </div>
         </div>
+        
+        <script type="text/javascript">
+            var currentYear = (new Date()).getFullYear();
+            document.getElementsByTagName('cite')[0].innerHTML = 
+                '&copy; ' + currentYear + ' - Matt Lavallee';
+        </script>
     </body>
 </html> 
