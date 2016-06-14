@@ -50,7 +50,7 @@
             TapRoom.kick(req.user.id, tapId)
                 .then(function(response) {
                     res.json({
-                        error: response.error,
+                        error: response ? response.error : false,
                         id: tapId
                     });
                 })
