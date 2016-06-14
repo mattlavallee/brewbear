@@ -93,9 +93,41 @@ describe('Directive: Taproom', function() {
                 taproomId: 42,
                 originalUnits: 24,
                 originalVolume: 5,
-                currentVolume: 0,
+                currentVolume: 1,
                 currentUnits: '24',
                 validUnits: [1, 2, 3],
+                maxVolume: 100
+            });
+
+            expect(unitMathService.getValidUnits.calls.count()).toEqual(1);
+            expect(unitMathService.getValidUnits).toHaveBeenCalledWith(24);
+
+            expect(unitMathService.getMaxVolume.calls.count()).toEqual(1);
+            expect(unitMathService.getMaxVolume)
+                .toHaveBeenCalledWith(24, 5, 24);
+        });
+
+        it('Chooses the correct default units to use', function() {
+            spyOn(unitMathService, 'getValidUnits').and.returnValue([
+                { id: 1, isDefault: false },
+                { id: 2, isDefault: true },
+                { id: 3, isDefault: false }
+            ]);
+            spyOn(unitMathService, 'getMaxVolume').and.returnValue(100);
+
+            initDirective();
+            timeout.flush();
+            mockScope.setTap(42, 24, 5);
+
+            expect(mockScope.activeTaproomEntry).toEqual({
+                taproomId: 42,
+                originalUnits: 24,
+                originalVolume: 5,
+                currentVolume: 1,
+                currentUnits: '2',
+                validUnits: [{ id: 1, isDefault: false },
+                    { id: 2, isDefault: true },
+                    { id: 3, isDefault: false }],
                 maxVolume: 100
             });
 
@@ -120,7 +152,7 @@ describe('Directive: Taproom', function() {
 
             mockScope.zeroOutVolume();
 
-            expect(mockScope.activeTaproomEntry.currentVolume).toEqual(0);
+            expect(mockScope.activeTaproomEntry.currentVolume).toEqual(1);
             expect(mockScope.activeTaproomEntry.maxVolume).toEqual(42);
 
             expect(unitMathService.getMaxVolume.calls.count()).toEqual(1);

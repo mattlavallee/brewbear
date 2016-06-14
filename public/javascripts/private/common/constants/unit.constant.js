@@ -7,6 +7,7 @@
             name: 'Count',
             abbreviation: 'ct',
             step: 1,
+            isDefault: true,
             conversions: []
         },
         Ounces: {
@@ -14,6 +15,7 @@
             name: 'Ounces',
             abbreviation: 'oz',
             step: 1,
+            isDefault: false,
             conversions: []
         },
         Pints: {
@@ -21,6 +23,7 @@
             name: 'Pints',
             abbreviation: 'pt',
             step: 1,
+            isDefault: true,
             conversions: [
                 { id: 2, equivalent: 16 }
             ]
@@ -30,6 +33,7 @@
             name: 'Gallons',
             abbreviation: 'gal',
             step: 0.1,
+            isDefault: false,
             conversions: [
                 { id: 2, equivalent: 128 },
                 { id: 3, equivalent: 8 }
@@ -40,6 +44,7 @@
             name: 'Milliliters',
             abbreviation: 'ml',
             step: 1,
+            isDefault: true,
             conversions: []
         },
         Liters: {
@@ -47,6 +52,7 @@
             name: 'Liters',
             abbreviation: 'l',
             step: 0.1,
+            isDefault: false,
             conversions: [
                 { id: 5, equivalent: 1000 }
             ]

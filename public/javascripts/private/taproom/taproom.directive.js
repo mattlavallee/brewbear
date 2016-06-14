@@ -16,13 +16,19 @@
                 });
 
                 scope.setTap = function(taproomId, unitId, volume) {
+                    var validUnits = UnitMathService.getValidUnits(unitId);
+                    var defaultUnit = _.find(validUnits, function(unit) {
+                        return unit.isDefault === true;
+                    });
+
                     scope.activeTaproomEntry = {
                         taproomId: taproomId,
                         originalUnits: unitId,
                         originalVolume: volume,
-                        currentVolume: 0,
-                        currentUnits: unitId.toString(),
-                        validUnits: UnitMathService.getValidUnits(unitId),
+                        currentVolume: 1,
+                        currentUnits: _.isPlainObject(defaultUnit) ?
+                            defaultUnit.id.toString() : unitId.toString(),
+                        validUnits: validUnits,
                         maxVolume: UnitMathService.getMaxVolume(
                             unitId, volume, unitId)
                     };
@@ -44,7 +50,7 @@
                 };
 
                 scope.zeroOutVolume = function() {
-                    scope.activeTaproomEntry.currentVolume = 0;
+                    scope.activeTaproomEntry.currentVolume = 1;
                     scope.activeTaproomEntry.maxVolume =
                         UnitMathService.getMaxVolume(
                             scope.activeTaproomEntry.originalUnits,
