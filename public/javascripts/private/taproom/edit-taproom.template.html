@@ -78,6 +78,7 @@
                         ng-click="kickTap( entry.id )">Kicked</button>
                 <button type="button" 
                         class="btn btn-danger"
+                        ng-if="entry.drinks.length === 0"
                         ng-click="deleteTap( entry.id )">Delete</button>
             </div>
         </div>
